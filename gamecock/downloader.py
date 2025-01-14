@@ -32,8 +32,7 @@ class SECDownloader:
         # Set headers with SEC_USER_AGENT from .env
         self.headers = {
             'User-Agent': os.getenv('SEC_USER_AGENT'),
-            'Accept-Encoding': 'gzip, deflate',
-            'Host': 'www.sec.gov'
+            'Accept-Encoding': 'gzip, deflate'
         }
         
         if not self.headers['User-Agent']:
@@ -78,11 +77,11 @@ class SECDownloader:
             
         try:
             # Normalize CIK by removing leading zeros and then padding to 10 digits
-            cik_clean = str(int(''.join(filter(str.isdigit, cik)))).zfill(10)
-            logger.info(f"Fetching filings for CIK: {cik_clean}")
+            cik = cik.lstrip('0').zfill(10)
+            logger.info(f"Fetching filings for CIK: {cik}")
             
             # Use the modern EDGAR submissions feed API
-            submissions_url = f"https://data.sec.gov/submissions/CIK{cik_clean.zfill(10)}.json"
+            submissions_url = f"https://data.sec.gov/submissions/CIK{cik}.json"
             logger.info(f"Fetching from submissions API: {submissions_url}")
             
             submissions_response = self._make_request(submissions_url)
@@ -120,8 +119,8 @@ class SECDownloader:
                                 # Clean accession number for URL
                                 accession_clean = accession.replace("-", "")
                                 
-                                # Get the filing directory listing
-                                filing_url = f"https://www.sec.gov/Archives/edgar/data/{cik_clean}/{accession_clean}/index.json"
+                                # Get the filing directory listing using EDGAR API endpoint
+                                filing_url = f"https://www.sec.gov/Archives/edgar/data/{cik.lstrip('0')}/{accession_clean}/index.json"
                                 filing_response = self._make_request(filing_url)
                                 
                                 if not filing_response:
@@ -177,6 +176,27 @@ class SECDownloader:
             logger.error(f"Error fetching filings for CIK {cik}: {str(e)}")
             return
             
+    def get_filing_files(self, cik: str, accession_number: str) -> List[Dict]:
+        """Get list of files for a filing."""
+        try:
+            # Clean CIK and accession number
+            cik = str(int(cik.lstrip('0')))  # Remove leading zeros
+            accession_clean = accession_number.replace('-', '')
+            
+            # Get filing index
+            index_url = f"https://www.sec.gov/Archives/edgar/data/{cik}/{accession_clean}/index.json"
+            response = self._make_request(index_url)
+            
+            if response and response.status_code == 200:
+                filing_data = response.json()
+                return filing_data.get('directory', {}).get('item', [])
+            
+            return []
+            
+        except Exception as e:
+            logger.error(f"Error getting filing files: {str(e)}")
+            return []
+            
     def download_filing(
         self,
         cik: str,
@@ -193,33 +213,35 @@ class SECDownloader:
         downloaded_files = []
         
         try:
+            # Clean CIK and accession number
+            cik = str(int(cik.lstrip('0')))  # Remove leading zeros
+            accession_clean = accession_number.replace('-', '')
+            
             # Get filing index
-            base_url = f"https://www.sec.gov/Archives/edgar/data/{int(cik)}/{accession_number}"
-            index_url = f"{base_url}/index.json"
+            base_url = f"https://www.sec.gov/Archives/edgar/data/{cik}/{accession_clean}"
             
-            response = self._make_request(index_url)
-            filing_data = response.json()
-            
-            # Download each file in the filing
-            for file_entry in filing_data.get("directory", {}).get("item", []):
-                if file_entry["type"] != "dir":  # Skip directories
-                    file_url = f"{base_url}/{file_entry['name']}"
-                    output_file = output_dir / file_entry["name"]
-                    
-                    # Download file with streaming to handle large files
-                    response = self._make_request(file_url)
-                    with open(output_file, 'wb') as f:
-                        for chunk in response.iter_content(chunk_size=8192):
-                            if chunk:
-                                f.write(chunk)
-                                
-                    downloaded_files.append(output_file)
+            # Download each file
+            for file_info in self.get_filing_files(cik, accession_number):
+                file_name = file_info['name']
+                file_url = f"{base_url}/{file_name}"
+                
+                # Create output path
+                output_path = output_dir / file_name
+                
+                # Download file
+                response = self._make_request(file_url)
+                if response and response.status_code == 200:
+                    output_path.parent.mkdir(parents=True, exist_ok=True)
+                    output_path.write_bytes(response.content)
+                    downloaded_files.append(output_path)
+                else:
+                    logger.warning(f"Failed to download {file_name}")
                     
             return downloaded_files
             
         except Exception as e:
-            logger.error(f"Error downloading filing {accession_number} for CIK {cik}: {str(e)}")
-            raise
+            logger.error(f"Error downloading filing {accession_number}: {str(e)}")
+            return []
             
     def download_company_filings(
         self,
