@@ -82,7 +82,7 @@ class SECDownloader:
             logger.info(f"Fetching filings for CIK: {cik_clean}")
             
             # Use the modern EDGAR submissions feed API
-            submissions_url = f"https://data.sec.gov/submissions/CIK{cik_clean}.json"
+            submissions_url = f"https://data.sec.gov/submissions/CIK{cik_clean.zfill(10)}.json"
             logger.info(f"Fetching from submissions API: {submissions_url}")
             
             submissions_response = self._make_request(submissions_url)
