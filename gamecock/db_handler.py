@@ -20,13 +20,7 @@ class DatabaseHandler:
         self._init_db()
         
     def _init_db(self):
-        """Initialize database tables."""
-        # Drop existing tables if they exist
-        self.cursor.execute("DROP TABLE IF EXISTS filing_ids")
-        self.cursor.execute("DROP TABLE IF EXISTS alt_tickers")
-        self.cursor.execute("DROP TABLE IF EXISTS related_entities")
-        self.cursor.execute("DROP TABLE IF EXISTS companies")
-        
+        """Initialize database tables."""        
         # Companies table
         self.cursor.execute("""
             CREATE TABLE IF NOT EXISTS companies (
@@ -50,6 +44,22 @@ class DatabaseHandler:
                 created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
                 updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
                 FOREIGN KEY (company_cik) REFERENCES companies (cik)
+            )
+        """)
+        
+        # Filing details table
+        self.cursor.execute("""
+            CREATE TABLE IF NOT EXISTS filings (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                company_cik TEXT NOT NULL,
+                accession_number TEXT NOT NULL,
+                form_type TEXT NOT NULL,
+                filing_date DATE NOT NULL,
+                file_path TEXT,
+                created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+                updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+                FOREIGN KEY (company_cik) REFERENCES companies (cik),
+                UNIQUE(company_cik, accession_number)
             )
         """)
         
@@ -85,10 +95,23 @@ class DatabaseHandler:
         try:
             # Save primary company info
             primary = company.primary_identifiers
+            
+            # Try to update existing company first
             self.cursor.execute("""
-                INSERT INTO companies (name, cik, description, created_at, updated_at)
-                VALUES (?, ?, ?, datetime('now'), datetime('now'))
-            """, (primary.name, primary.cik, primary.description))
+                UPDATE companies 
+                SET name = ?, description = ?, updated_at = datetime('now')
+                WHERE cik = ?
+            """, (primary.name, primary.description, primary.cik))
+            
+            # If no rows were updated, insert new company
+            if self.cursor.rowcount == 0:
+                self.cursor.execute("""
+                    INSERT INTO companies (name, cik, description, created_at, updated_at)
+                    VALUES (?, ?, ?, datetime('now'), datetime('now'))
+                """, (primary.name, primary.cik, primary.description))
+            
+            # Delete existing tickers for this company
+            self.cursor.execute("DELETE FROM alt_tickers WHERE company_cik = ?", (primary.cik,))
             
             # Save tickers
             if hasattr(primary, 'tickers') and primary.tickers:
@@ -97,6 +120,9 @@ class DatabaseHandler:
                         INSERT INTO alt_tickers (company_cik, symbol, exchange, security_type, created_at, updated_at)
                         VALUES (?, ?, ?, ?, datetime('now'), datetime('now'))
                     """, (primary.cik, ticker['symbol'], ticker.get('exchange'), ticker.get('security_type')))
+            
+            # Delete existing related entities for this company
+            self.cursor.execute("DELETE FROM related_entities WHERE company_cik = ?", (primary.cik,))
             
             # Save related entities
             for entity in company.related_entities:

@@ -1,33 +1,63 @@
 """SEC EDGAR filing downloader with rate limiting and progress tracking."""
-import os
-from pathlib import Path
-import requests
-from datetime import datetime, timedelta
-import time
-from typing import List, Dict, Optional, Generator
 import json
-from bs4 import BeautifulSoup
-import re
-from rich.progress import Progress, SpinnerColumn, TextColumn, BarColumn, TaskProgressColumn
-from loguru import logger
+import os
+import sqlite3
+import sys
+import time
+from datetime import datetime, timedelta
+from pathlib import Path
+from typing import Dict, List, Optional, Union
+
+import requests
 from dotenv import load_dotenv
+from loguru import logger
+from rich.console import Console
+from rich.progress import Progress, BarColumn, TaskProgressColumn, TextColumn
+
+logger.remove()  # Remove default handler
+logger.add(sys.stderr, level="DEBUG")  # Add handler with DEBUG level
+
+class DatabaseHandler:
+    def __init__(self, db_path: Optional[Union[str, Path]] = None):
+        if db_path:
+            self.db_path = Path(db_path)
+        else:
+            self.db_path = Path(__file__).parent.parent / 'data' / 'sec_data.db'
+            
+        # Ensure parent directory exists
+        self.db_path.parent.mkdir(parents=True, exist_ok=True)
+        
+        self.conn = sqlite3.connect(self.db_path)
+        self.cursor = self.conn.cursor()
+        self._create_tables()
+
+    def _create_tables(self):
+        """Create necessary database tables if they don't exist."""
+        try:
+            # Create filings table with metadata and file paths
+            self.cursor.execute("""
+                CREATE TABLE IF NOT EXISTS filings (
+                    id INTEGER PRIMARY KEY,
+                    company_cik TEXT,
+                    accession_number TEXT,
+                    form_type TEXT,
+                    filing_date TEXT,
+                    file_path TEXT,
+                    updated_at TEXT,
+                    UNIQUE(company_cik, accession_number)
+                )
+            """)
+            self.conn.commit()
+        except sqlite3.Error as e:
+            logger.error(f"Failed to create filings table: {str(e)}")
 
 class SECDownloader:
     """Downloads SEC filings from EDGAR."""
     
-    def __init__(self, output_dir: str = None):
-        """Initialize the downloader with output directory."""
-        if output_dir is None:
-            output_dir = str(Path(__file__).parent.parent / "data" / "filings")
-        self.output_dir = Path(output_dir)
-        self.output_dir.mkdir(parents=True, exist_ok=True)
-        
+    def __init__(self, output_dir: Union[str, Path] = None, db_path: Union[str, Path] = None):
+        """Initialize the downloader."""
         # Load environment variables
         load_dotenv()
-        
-        # SEC rate limiting: 10 requests per second
-        self.min_request_interval = 0.1  # seconds
-        self.last_request_time = 0
         
         # Set headers with SEC_USER_AGENT from .env
         self.headers = {
@@ -36,8 +66,22 @@ class SECDownloader:
         }
         
         if not self.headers['User-Agent']:
-            raise ValueError("SEC_USER_AGENT must be set in .env file")
-            
+            raise ValueError("SEC_USER_AGENT not set in .env file")
+        
+        # Set output directory
+        self.output_dir = Path(output_dir) if output_dir else Path.cwd() / 'downloads'
+        self.output_dir.mkdir(parents=True, exist_ok=True)
+        
+        # Initialize database
+        self.db = DatabaseHandler(db_path)
+        
+        # Rate limiting
+        self.min_request_interval = 0.1  # seconds between requests
+        self.last_request_time = 0
+        
+        # Initialize session
+        self.session = requests.Session()
+        
     def _wait_for_rate_limit(self):
         """Ensure we don't exceed SEC's rate limit."""
         current_time = time.time()
@@ -47,20 +91,26 @@ class SECDownloader:
         self.last_request_time = time.time()
         
     def _make_request(self, url: str) -> Optional[requests.Response]:
-        """Make a request to the SEC API with proper headers and rate limiting."""
+        """Make a request to SEC with proper headers and rate limiting."""
         try:
+            logger.debug(f"Making request to: {url}")
+            logger.debug(f"Using headers: {self.headers}")
+            
+            # Wait for rate limit
             self._wait_for_rate_limit()
-            response = requests.get(url, headers=self.headers, timeout=10)
+            
+            # Make the request
+            response = self.session.get(url, headers=self.headers)
+            logger.debug(f"Response status code: {response.status_code}")
             
             if response.status_code == 200:
                 return response
             else:
-                logger.warning(f"Request failed with status {response.status_code} for URL: {url}")
-                logger.debug(f"Response content: {response.text[:500]}")  # Log first 500 chars of response
+                logger.error(f"Request failed with status {response.status_code}: {response.text}")
                 return None
                 
-        except requests.RequestException as e:
-            logger.error(f"Error making request to {url}: {str(e)}")
+        except Exception as e:
+            logger.error(f"Request error: {str(e)}")
             return None
             
     def get_company_filings(
@@ -69,305 +119,397 @@ class SECDownloader:
         start_date: datetime,
         end_date: datetime,
         filing_types: List[str] = None
-    ) -> Generator[Dict, None, None]:
+    ) -> List[Dict]:
         """Get list of filings for a company within date range."""
-        if not cik:
-            logger.error("No CIK provided")
-            return
-            
         try:
-            # Normalize CIK by removing leading zeros and then padding to 10 digits
-            cik = cik.lstrip('0').zfill(10)
-            logger.info(f"Fetching filings for CIK: {cik}")
+            # Format CIK to 10 digits with leading zeros
+            cik_formatted = str(cik).zfill(10)
+            logger.info(f"Getting filings for CIK: {cik_formatted}")
+            logger.info(f"Date range: {start_date.date()} to {end_date.date()}")
+            if filing_types:
+                logger.info(f"Filtering for form types: {filing_types}")
             
-            # Use the modern EDGAR submissions feed API
-            submissions_url = f"https://data.sec.gov/submissions/CIK{cik}.json"
-            logger.info(f"Fetching from submissions API: {submissions_url}")
+            # Build URL for company submissions
+            url = f"https://data.sec.gov/submissions/CIK{cik_formatted}.json"
+            logger.info(f"Fetching submissions from: {url}")
             
-            submissions_response = self._make_request(submissions_url)
-            if not submissions_response:
-                logger.error("Failed to get submissions data")
-                return
+            # Get company submissions
+            response = self._make_request(url)
+            if not response:
+                logger.error("Failed to get response from SEC API")
+                return []
                 
-            try:
-                submissions_data = submissions_response.json()
-                recent_filings = submissions_data.get("filings", {}).get("recent", {})
+            data = response.json()
+            logger.debug(f"Received company data: {json.dumps(data.get('name', ''), indent=2)}")
+            
+            # Get recent filings
+            filings = data.get('filings', {}).get('recent', {})
+            if not filings:
+                logger.warning("No recent filings found in response")
+                return []
                 
-                if not recent_filings:
-                    logger.error("No filings data found in submissions response")
-                    return
-                    
-                # Get all the filing metadata arrays
-                filing_dates = recent_filings.get("filingDate", [])
-                form_types = recent_filings.get("form", [])
-                accession_numbers = recent_filings.get("accessionNumber", [])
-                file_numbers = recent_filings.get("fileNumber", [])
-                primary_docs = recent_filings.get("primaryDocument", [])
-                primary_doc_descs = recent_filings.get("primaryDocDescription", [])
+            # Get the indices of filings within our date range
+            dates = filings.get('filingDate', [])
+            if not dates:
+                logger.warning("No filing dates found in response")
+                return []
                 
-                # Process each filing
-                for idx in range(len(filing_dates)):
-                    try:
-                        filing_date = datetime.strptime(filing_dates[idx], "%Y-%m-%d")
-                        form_type = form_types[idx]
-                        accession = accession_numbers[idx]
-                        primary_doc = primary_docs[idx] if idx < len(primary_docs) else None
-                        
-                        # Check if filing is within date range and matches requested types
-                        if start_date <= filing_date <= end_date:
-                            if not filing_types or form_type in filing_types:
-                                # Clean accession number for URL
-                                accession_clean = accession.replace("-", "")
-                                
-                                # Get the filing directory listing using EDGAR API endpoint
-                                filing_url = f"https://www.sec.gov/Archives/edgar/data/{cik.lstrip('0')}/{accession_clean}/index.json"
-                                filing_response = self._make_request(filing_url)
-                                
-                                if not filing_response:
-                                    logger.warning(f"Could not get file list for filing {accession}")
-                                    continue
-                                    
-                                try:
-                                    filing_data = filing_response.json()
-                                    files = []
-                                    
-                                    # Get list of files
-                                    for file_entry in filing_data.get("directory", {}).get("item", []):
-                                        if file_entry["type"] != "dir":
-                                            file_info = {
-                                                "name": file_entry["name"],
-                                                "type": file_entry["type"],
-                                                "size": file_entry.get("size", 0)
-                                            }
-                                            files.append(file_info)
-                                            
-                                    # Create filing info
-                                    filing_info = {
-                                        "accession_number": accession,
-                                        "filing_date": filing_dates[idx],
-                                        "form_type": form_type,
-                                        "file_number": file_numbers[idx] if idx < len(file_numbers) else None,
-                                        "primary_document": primary_doc,
-                                        "primary_doc_description": primary_doc_descs[idx] if idx < len(primary_doc_descs) else None,
-                                        "files": files
-                                    }
-                                    
-                                    logger.info(f"Found filing {accession} ({form_type}) from {filing_dates[idx]} with {len(files)} files")
-                                    yield filing_info
-                                    
-                                except Exception as e:
-                                    logger.error(f"Error processing file list for filing {accession}: {str(e)}")
-                                    continue
-                                    
-                            else:
-                                logger.debug(f"Skipping filing {accession} - form type {form_type} not requested")
-                        else:
-                            logger.debug(f"Skipping filing {accession} - date {filing_date} outside range")
+            logger.info(f"Found {len(dates)} total filings")
+            
+            # Store all matching filings
+            matching_filings = []
+            
+            for i, date_str in enumerate(dates):
+                try:
+                    filing_date = datetime.strptime(date_str, "%Y-%m-%d").date()
+                    if start_date.date() <= filing_date <= end_date.date():
+                        # Get filing info regardless of type
+                        accession_number = filings.get('accessionNumber', [])[i]
+                        if not accession_number:
+                            logger.warning(f"Missing accession number for filing at index {i}")
+                            continue
                             
-                    except Exception as e:
-                        logger.error(f"Error processing filing metadata at index {idx}: {str(e)}")
-                        continue
+                        # Clean up accession number
+                        accession_number = accession_number.replace('-', '')
+                        form_type = filings.get('form', [])[i]
+                        logger.info(f"Processing filing {accession_number} ({form_type})")
                         
-            except Exception as e:
-                logger.error(f"Error processing submissions data: {str(e)}")
-                return
-                
+                        # Check if we want this filing type
+                        if filing_types and form_type not in filing_types:
+                            logger.debug(f"Skipping filing type: {form_type}")
+                            continue
+                            
+                        try:
+                            files = list(self.get_filing_files(cik_formatted, accession_number))
+                            logger.info(f"Found {len(files)} files for filing {accession_number}")
+                        except Exception as e:
+                            logger.error(f"Error getting files for filing {accession_number}: {str(e)}")
+                            files = []
+                        
+                        filing_info = {
+                            "accession_number": accession_number,
+                            "filing_date": date_str,
+                            "form_type": form_type,
+                            "is_xbrl": filings.get('isXBRL', [])[i],
+                            "is_inline_xbrl": filings.get('isInlineXBRL', [])[i],
+                            "primary_document": filings.get('primaryDocument', [])[i],
+                            "file_number": filings.get('fileNumber', [])[i],
+                            "film_number": filings.get('filmNumber', [])[i],
+                            "size": filings.get('size', [])[i],
+                            "files": files
+                        }
+                        
+                        logger.debug(f"Filing details: {json.dumps(filing_info, indent=2)}")
+                        matching_filings.append(filing_info)
+                        
+                except ValueError:
+                    logger.warning(f"Invalid date format: {date_str}")
+                    continue
+                    
+            logger.info(f"Found {len(matching_filings)} filings within date range")
+            return matching_filings
+                    
         except Exception as e:
-            logger.error(f"Error fetching filings for CIK {cik}: {str(e)}")
-            return
-            
+            logger.error(f"Error getting company filings: {str(e)}")
+            return []
+
     def get_filing_files(self, cik: str, accession_number: str) -> List[Dict]:
         """Get list of files for a filing."""
         try:
-            # Clean CIK and accession number
-            cik = str(int(cik.lstrip('0')))  # Remove leading zeros
-            accession_clean = accession_number.replace('-', '')
+            # Format CIK to 10 digits with leading zeros
+            cik_formatted = str(cik).zfill(10)
             
-            # Get filing index
-            index_url = f"https://www.sec.gov/Archives/edgar/data/{cik}/{accession_clean}/index.json"
-            response = self._make_request(index_url)
+            # Build URL for the directory listing
+            url = f"https://www.sec.gov/Archives/edgar/data/{cik_formatted}/{accession_number}/index.json"
+            logger.info(f"Fetching file list from: {url}")
             
-            if response and response.status_code == 200:
-                filing_data = response.json()
-                return filing_data.get('directory', {}).get('item', [])
-            
-            return []
-            
+            # Get directory listing
+            response = self._make_request(url)
+            if not response:
+                logger.error("Failed to get response from SEC API")
+                return []
+                
+            try:
+                data = response.json()
+                logger.debug(f"Received directory data: {json.dumps(data, indent=2)}")
+                
+                # Get directory information
+                directory = data.get('directory', {})
+                if not directory:
+                    logger.warning("No directory information found")
+                    return []
+                    
+                # Get entries
+                entries = directory.get('item', [])
+                if not entries:
+                    logger.warning("No entries found in directory")
+                    return []
+                    
+                # Process each entry
+                files = []
+                for entry in entries:
+                    try:
+                        # Skip directories
+                        if entry.get('type') == 'dir':
+                            continue
+                            
+                        # Get file information
+                        file_info = {
+                            'name': entry.get('name'),
+                            'type': entry.get('type'),
+                            'size': entry.get('size'),
+                            'last_modified': entry.get('last_modified')
+                        }
+                        
+                        # Skip entries without names
+                        if not file_info['name']:
+                            continue
+                            
+                        files.append(file_info)
+                        
+                    except Exception as e:
+                        logger.error(f"Error processing entry {entry}: {str(e)}")
+                        continue
+                        
+                return files
+                
+            except json.JSONDecodeError:
+                logger.error(f"Invalid JSON in response from {url}")
+                return []
+                    
         except Exception as e:
             logger.error(f"Error getting filing files: {str(e)}")
             return []
-            
+
     def download_filing(
         self,
         cik: str,
         accession_number: str,
-        output_dir: Optional[str] = None
-    ) -> List[Path]:
+        output_dir: Optional[str] = None,
+        files: Optional[List[Dict]] = None
+    ) -> Dict[str, Path]:
         """Download all files for a specific filing."""
-        if output_dir is None:
-            output_dir = self.output_dir / cik / accession_number
-        else:
-            output_dir = Path(output_dir)
-            
-        output_dir.mkdir(parents=True, exist_ok=True)
-        downloaded_files = []
-        
         try:
-            # Clean CIK and accession number
-            cik = str(int(cik.lstrip('0')))  # Remove leading zeros
-            accession_clean = accession_number.replace('-', '')
+            # Format CIK
+            cik_formatted = str(cik).strip()
+            logger.info(f"Starting download for filing {accession_number} (CIK: {cik_formatted})")
             
-            # Get filing index
-            base_url = f"https://www.sec.gov/Archives/edgar/data/{cik}/{accession_clean}"
+            # Set output directory
+            if output_dir is None:
+                output_dir = self.output_dir / cik_formatted / accession_number
+                
+            output_dir = Path(output_dir)
+            output_dir.mkdir(parents=True, exist_ok=True)
+            logger.info(f"Using output directory: {output_dir}")
+            
+            downloaded_files = {}
+            
+            # If no files provided, get the list
+            if not files:
+                try:
+                    logger.info("No file list provided, fetching file list...")
+                    files = list(self.get_filing_files(cik_formatted, accession_number))
+                    logger.info(f"Found {len(files)} files to download")
+                except Exception as e:
+                    logger.error(f"Error getting files for filing {accession_number}: {str(e)}")
+                    return downloaded_files
             
             # Download each file
-            for file_info in self.get_filing_files(cik, accession_number):
-                file_name = file_info['name']
-                file_url = f"{base_url}/{file_name}"
+            total_files = len(files)
+            logger.info(f"Starting download of {total_files} files")
+            
+            with Progress() as progress:
+                download_task = progress.add_task("Downloading...", total=total_files)
                 
-                # Create output path
-                output_path = output_dir / file_name
-                
-                # Download file
-                response = self._make_request(file_url)
-                if response and response.status_code == 200:
-                    output_path.parent.mkdir(parents=True, exist_ok=True)
-                    output_path.write_bytes(response.content)
-                    downloaded_files.append(output_path)
-                else:
-                    logger.warning(f"Failed to download {file_name}")
-                    
+                for file_info in files:
+                    try:
+                        if 'name' not in file_info:
+                            logger.warning("File info missing name field, skipping")
+                            continue
+                            
+                        file_name = file_info['name']
+                        file_path = output_dir / file_name
+                        logger.info(f"Processing file: {file_name}")
+                        
+                        # Skip if file already exists and has content
+                        if file_path.exists() and file_path.stat().st_size > 0:
+                            logger.info(f"File already exists and has content: {file_path}")
+                            downloaded_files[file_name] = file_path
+                            progress.advance(download_task)
+                            continue
+                        
+                        # Build URL for the file
+                        url = f"https://www.sec.gov/Archives/edgar/data/{cik_formatted}/{accession_number}/{file_name}"
+                        logger.debug(f"Downloading from URL: {url}")
+                        
+                        # Download the file
+                        response = self._make_request(url)
+                        if response and response.content:
+                            try:
+                                # Ensure the directory exists
+                                file_path.parent.mkdir(parents=True, exist_ok=True)
+                                
+                                # Write the file in binary mode
+                                with open(str(file_path), 'wb') as f:
+                                    f.write(response.content)
+                                    f.flush()
+                                    os.fsync(f.fileno())  # Force write to disk
+                                
+                                # Verify the file was written
+                                if file_path.exists() and file_path.stat().st_size > 0:
+                                    downloaded_files[file_name] = file_path
+                                    logger.info(f"Successfully downloaded: {file_path} ({file_path.stat().st_size} bytes)")
+                                else:
+                                    logger.error(f"File not written correctly: {file_path}")
+                            except Exception as e:
+                                logger.error(f"Error writing file {file_path}: {str(e)}")
+                                if file_path.exists():
+                                    try:
+                                        file_path.unlink()
+                                        logger.info(f"Cleaned up failed download: {file_path}")
+                                    except Exception as cleanup_err:
+                                        logger.error(f"Error cleaning up file: {str(cleanup_err)}")
+                        else:
+                            logger.error(f"Failed to download {url} or response was empty")
+                            
+                        progress.advance(download_task)
+                            
+                    except Exception as e:
+                        logger.error(f"Error downloading file {file_info.get('name', 'unknown')}: {str(e)}")
+                        continue
+            
+            logger.info(f"Download complete. Successfully downloaded {len(downloaded_files)} out of {total_files} files")
             return downloaded_files
             
         except Exception as e:
             logger.error(f"Error downloading filing {accession_number}: {str(e)}")
-            return []
+            return {}
             
     def download_company_filings(
         self,
         cik: str,
         start_date: datetime,
         end_date: datetime,
-        filing_types: List[str] = None,
-        output_dir: Optional[str] = None
+        filing_types: List[str] = None
     ) -> Dict[str, List[Path]]:
         """Download all filings for a company within date range."""
         if not cik:
             logger.error("No CIK provided")
             return {}
             
-        try:
-            cik = str(cik).strip().zfill(10)
-        except Exception as e:
-            logger.error(f"Invalid CIK format: {cik}")
-            return {}
-            
-        if output_dir is None:
-            output_dir = self.output_dir / cik
-        else:
-            output_dir = Path(output_dir)
-            
-        output_dir.mkdir(parents=True, exist_ok=True)
+        logger.info(f"Starting download for CIK: {cik}")
+        logger.info(f"Date range: {start_date.date()} to {end_date.date()}")
+        if filing_types:
+            logger.info(f"Filtering for form types: {filing_types}")
+        
+        # Format CIK (keep original format for directory structure)
+        cik_formatted = str(cik).strip()
+        
         downloaded_files = {}
         
         try:
             with Progress(
-                SpinnerColumn(),
                 TextColumn("[progress.description]{task.description}"),
                 BarColumn(),
-                TaskProgressColumn()
+                TaskProgressColumn(),
+                console=Console(force_terminal=True)
             ) as progress:
                 # First, get list of filings
-                try:
-                    filings_task = progress.add_task("Finding filings...", total=None)
-                    filings = list(self.get_company_filings(cik, start_date, end_date, filing_types))
-                    if not filings:
-                        logger.warning(f"No filings found for CIK {cik}")
-                        return {}
-                    progress.update(filings_task, total=len(filings))
-                except Exception as e:
-                    logger.error(f"Error getting filing list: {str(e)}")
+                find_task = progress.add_task("Finding filings...", total=None)
+                filings = self.get_company_filings(cik, start_date, end_date, filing_types)
+                if not filings:
+                    logger.warning(f"No filings found for CIK {cik}")
                     return {}
+                progress.update(find_task, total=1, completed=1)
+                logger.info(f"Found {len(filings)} filings to download")
+                
+                # Create a new task for downloads
+                download_task = progress.add_task(
+                    f"Downloading {len(filings)} filings...",
+                    total=len(filings)
+                )
                 
                 # Download each filing
                 for filing in filings:
-                    if not filing.get("accession_number"):
-                        logger.warning("Skipping filing with no accession number")
-                        continue
-                        
-                    progress.update(
-                        filings_task,
-                        description=f"Downloading {filing.get('form_type', 'unknown')} from {filing.get('filing_date', 'unknown date')}"
-                    )
-                    
+                    filing_dir = None
                     try:
+                        if not filing.get("accession_number"):
+                            logger.warning("Skipping filing with no accession number")
+                            continue
+                            
+                        progress.update(
+                            download_task,
+                            description=f"Downloading {filing.get('form_type', 'unknown')} from {filing.get('filing_date', 'unknown date')}"
+                        )
+                        logger.info(f"Processing filing: {json.dumps(filing, indent=2)}")
+                        
+                        # Create filing directory
+                        filing_dir = self.output_dir / cik_formatted / filing["accession_number"]
+                        filing_dir.mkdir(parents=True, exist_ok=True)
+                        logger.info(f"Created directory: {filing_dir}")
+                        
+                        # Download files
                         filing_files = self.download_filing(
                             cik,
                             filing["accession_number"],
-                            output_dir / filing["accession_number"]
+                            filing_dir,
+                            filing.get("files", [])
                         )
+                        
                         if filing_files:
-                            downloaded_files[filing["accession_number"]] = filing_files
+                            downloaded_files[filing["accession_number"]] = list(filing_files.values())
+                            logger.info(f"Successfully downloaded {len(filing_files)} files for filing {filing['accession_number']}")
+                            
+                            # Save filing to database
+                            try:
+                                logger.info("Saving filing metadata to database...")
+                                self.db.cursor.execute("""
+                                    INSERT INTO filings (company_cik, accession_number, form_type, filing_date, file_path)
+                                    VALUES (?, ?, ?, ?, ?)
+                                """, (
+                                    cik,
+                                    filing["accession_number"],
+                                    filing.get("form_type"),
+                                    filing.get("filing_date"),
+                                    str(filing_dir)
+                                ))
+                                self.db.conn.commit()
+                                logger.info("Successfully saved to database")
+                            except sqlite3.IntegrityError:
+                                # Filing already exists, update it
+                                logger.info("Filing exists in database, updating...")
+                                self.db.cursor.execute("""
+                                    UPDATE filings 
+                                    SET form_type = ?, filing_date = ?, file_path = ?, updated_at = datetime('now')
+                                    WHERE company_cik = ? AND accession_number = ?
+                                """, (
+                                    filing.get("form_type"),
+                                    filing.get("filing_date"),
+                                    str(filing_dir),
+                                    cik,
+                                    filing["accession_number"]
+                                ))
+                                self.db.conn.commit()
+                                logger.info("Successfully updated database")
+                            except Exception as e:
+                                logger.error(f"Failed to save filing to database: {str(e)}")
+                        else:
+                            logger.warning(f"No files downloaded for filing {filing['accession_number']}")
+                            if filing_dir and filing_dir.exists() and not any(filing_dir.iterdir()):
+                                try:
+                                    filing_dir.rmdir()
+                                    logger.info(f"Removed empty directory: {filing_dir}")
+                                except Exception as e:
+                                    logger.error(f"Error removing empty directory: {str(e)}")
+                                    
+                        progress.advance(download_task)
+                        
                     except Exception as e:
-                        logger.error(f"Error downloading filing {filing['accession_number']}: {str(e)}")
+                        logger.error(f"Error processing filing {filing.get('accession_number')}: {str(e)}")
                         continue
                         
-                    progress.advance(filings_task)
-                    
             return downloaded_files
             
         except Exception as e:
-            logger.error(f"Error in download process: {str(e)}")
-            return {}
-            
-    def extract_filing_text(self, file_path: Path) -> str:
-        """Extract text content from a filing file."""
-        try:
-            with open(file_path, 'r', encoding='utf-8') as f:
-                content = f.read()
-                
-            # If it's an HTML file, use BeautifulSoup to extract text
-            if file_path.suffix.lower() in ['.htm', '.html']:
-                soup = BeautifulSoup(content, 'html.parser')
-                # Remove script and style elements
-                for script in soup(["script", "style"]):
-                    script.decompose()
-                text = soup.get_text()
-                # Clean up whitespace
-                lines = (line.strip() for line in text.splitlines())
-                chunks = (phrase.strip() for line in lines for phrase in line.split("  "))
-                text = ' '.join(chunk for chunk in chunks if chunk)
-                return text
-            else:
-                return content
-                
-        except Exception as e:
-            logger.error(f"Error extracting text from {file_path}: {str(e)}")
-            return ""
-            
-    def parse_filing_metadata(self, file_path: Path) -> Dict:
-        """Extract metadata from a filing file."""
-        try:
-            text = self.extract_filing_text(file_path)
-            metadata = {}
-            
-            # Common patterns in SEC filings
-            patterns = {
-                "filing_date": r"FILED AS OF DATE:\s*(\d{8})",
-                "document_type": r"CONFORMED SUBMISSION TYPE:\s*(\S+)",
-                "company_name": r"COMPANY CONFORMED NAME:\s*(.+?)(?=\n)",
-                "cik": r"CENTRAL INDEX KEY:\s*(\d{10})",
-                "fiscal_year_end": r"FISCAL YEAR END:\s*(\d{4})",
-                "filing_period": r"PERIOD OF REPORT:\s*(\d{8})"
-            }
-            
-            for key, pattern in patterns.items():
-                match = re.search(pattern, text)
-                if match:
-                    metadata[key] = match.group(1)
-                    
-            return metadata
-            
-        except Exception as e:
-            logger.error(f"Error parsing metadata from {file_path}: {str(e)}")
+            logger.error(f"Error downloading company filings: {str(e)}")
             return {}

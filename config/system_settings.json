@@ -1,0 +1,24 @@
+{
+    "ollama": {
+        "auto_detect": true,
+        "manual_settings": {
+            "num_ctx": 32768,
+            "num_gpu": 1,
+            "num_thread": 8,
+            "num_gpu_layers": 35,
+            "batch_size": 256,
+            "temperature": 0.1
+        },
+        "model_name": "mistral",
+        "api_host": "http://localhost:11434",
+        "chunk_overlap": 1000,
+        "max_request_timeout": 120
+    },
+    "system": {
+        "auto_install": true,
+        "ram_gb": 128,
+        "cpu_cores": 8,
+        "gpu_vram_gb": 8,
+        "cuda_available": true
+    }
+}

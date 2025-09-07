@@ -1,0 +1,9 @@
+FROM mistral:latest
+PARAMETER num_ctx 32768
+PARAMETER num_gpu 1
+PARAMETER num_thread 8
+PARAMETER num_batch 256
+PARAMETER num_gqa 8
+PARAMETER rope_freq_scale 1.0
+PARAMETER rope_freq_base 1000000
+PARAMETER num_gpu_layers 35

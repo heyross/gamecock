@@ -6,6 +6,7 @@ from rich.table import Table
 from datetime import datetime, timedelta
 from loguru import logger
 import sys
+from pathlib import Path
 
 # Configure logger to show debug messages
 logger.remove()
@@ -39,10 +40,11 @@ class MenuSystem:
         self.sec = SECHandler()
 
     def main_menu(self):
+        """Run the main menu system."""
         while True:
             self.console.clear()
             print_ascii_art()
-            self.console.print("\nOptions:")
+            self.console.print("\n[bold blue]Main Menu[/bold blue]\n")
             self.console.print("1. Search for Company")
             self.console.print("2. View Saved Companies")
             self.console.print("3. Download Filings")
@@ -61,33 +63,28 @@ class MenuSystem:
                 self.view_data_menu()
             elif choice == "5":
                 break
-
+                
     def search_company_menu(self):
+        """Menu for searching companies."""
         self.console.clear()
         print_ascii_art()
         self.console.print("\n[bold blue]Company Search[/bold blue]\n")
         
-        company_name = Prompt.ask("\nEnter company name")
+        company_name = Prompt.ask("Enter company name or ticker (or press Enter to go back)")
         if not company_name:
             return
             
-        company_info = self.identify_company(company_name)
-            
+        company_info = self.sec.get_company_info(company_name)
         if company_info:
             self.console.print("\n[green]Company found![/green]")
-            
-            choice = self.display_company_info(company_info)
-            
-            if choice != 0:
-                entity = company_info.related_entities[choice - 1]
-                self.display_company_info(entity)
+            self.display_company_info(company_info)
             
             if Prompt.ask("\nSave this company?", choices=["y", "n"]) == "y":
                 if self.db.save_company(company_info):
                     self.console.print("[green]Company saved successfully![/green]")
                 else:
                     self.console.print("[red]Failed to save company.[/red]")
-                
+                    
             # Offer to download filings
             if Prompt.ask("\nDownload filings for this company?", choices=["y", "n"]) == "y":
                 self._download_filings_for_company(company_info)
@@ -99,251 +96,79 @@ class MenuSystem:
             self.console.print("3. Adding the stock ticker if known")
             
         input("\nPress Enter to continue...")
-
-    def identify_company(self, query: str) -> CompanyInfo:
-        """Identify company from user query."""
-        try:
-            # Search SEC EDGAR
-            company = self.sec.get_company_info(query)
-            if not company:
-                return None
-            return company
-            
-        except Exception as e:
-            logger.error(f"Error identifying company: {str(e)}")
-            return None
-
-    def display_company_info(self, company: CompanyInfo):
+        
+    def display_company_info(self, company_info):
         """Display company information."""
-        if not company:
-            return
-            
-        self.console.print("\n[bold cyan]Primary Company Information[/bold cyan]")
+        self.console.print("\n[bold]Company Information[/bold]")
+        self.console.print(f"Name: {company_info.name}")
+        self.console.print(f"CIK: {company_info.primary_identifiers.cik}")
+        if company_info.primary_identifiers.tickers:
+            ticker_info = company_info.primary_identifiers.tickers[0]
+            if isinstance(ticker_info, dict):
+                ticker = ticker_info['symbol']
+                exchange = ticker_info.get('exchange', 'Unknown')
+                self.console.print(f"Ticker: {ticker} ({exchange})")
+            else:
+                self.console.print(f"Ticker: {ticker_info}")
         
-        # Display primary company info in a table
-        table = Table(show_header=True, header_style="bold magenta")
-        table.add_column("Identifier")
-        table.add_column("Value")
-        
-        table.add_row("Name", company.name)
-        if company.primary_identifiers:
-            if company.primary_identifiers.cik:
-                table.add_row("CIK", company.primary_identifiers.cik)
-            if company.primary_identifiers.tickers:
-                tickers = []
-                for ticker in company.primary_identifiers.tickers:
-                    if isinstance(ticker, dict):
-                        ticker_str = ticker.get('symbol', '')
-                        if ticker.get('exchange'):
-                            ticker_str += f" ({ticker['exchange']})"
-                        tickers.append(ticker_str)
-                    else:
-                        tickers.append(str(ticker))
-                table.add_row("Tickers", ", ".join(tickers))
-            if company.primary_identifiers.description:
-                table.add_row("Description", company.primary_identifiers.description)
+        if company_info.related_entities:
+            self.console.print("\n[bold]Related Entities[/bold]")
+            for entity in company_info.related_entities:
+                self.console.print(f"- {entity.name} (CIK: {entity.cik})")
                 
-        self.console.print(table)
-        
-        # Display related entities
-        if company.related_entities:
-            self.console.print("\n[bold cyan]Related Entities[/bold cyan]")
-            for i, entity in enumerate(company.related_entities, 1):
-                self.console.print(f"\n{i}. {entity.name}")
-                if entity.relationship:
-                    self.console.print(f"   Relationship: {entity.relationship}")
-                if entity.cik:
-                    self.console.print(f"   CIK: {entity.cik}")
-                if entity.tickers:
-                    tickers = []
-                    for ticker in entity.tickers:
-                        if isinstance(ticker, dict):
-                            ticker_str = ticker.get('symbol', '')
-                            if ticker.get('exchange'):
-                                ticker_str += f" ({ticker['exchange']})"
-                            tickers.append(ticker_str)
-                        else:
-                            tickers.append(str(ticker))
-                    self.console.print(f"   Tickers: {', '.join(tickers)}")
-                if entity.description:
-                    self.console.print(f"   Description: {entity.description}")
-                    
-        # Prompt for related entity details
-        if company.related_entities:
-            self.console.print("\n[dim]Enter 0 to proceed with primary company, or select a number to view related entity details[/dim]")
-            choice = Prompt.ask("Select entity", choices=["0"] + [str(i) for i in range(1, len(company.related_entities) + 1)])
-            return int(choice)
-        return 0
-
-    def _download_filings_for_company(self, company: CompanyInfo):
+    def _download_filings_for_company(self, company_info):
         """Handle filing downloads for a company."""
         self.console.print("\n[bold]Download Options[/bold]")
+        self.console.print("1. Download all filings (parent and related entities)")
+        self.console.print("2. Download parent company filings only")
+        self.console.print("3. Return to main menu")
         
-        options = {
-            "1": "Download all filings (parent and related entities)",
-            "2": "Download parent company filings only",
-            "3": "Return to main menu"
-        }
-        
-        for key, label in options.items():
-            self.console.print(f"{key}. {label}")
-            
-        choice = Prompt.ask("Choose option", choices=list(options.keys()))
-        
+        choice = Prompt.ask("Choose option", choices=["1", "2", "3"])
         if choice == "3":
             return
             
-        # Set up time range - default to last 10 years
+        # Set date range
         end = datetime.now()
-        start = end - timedelta(days=365*10)
-        
-        # Initialize downloader
-        downloader = SECDownloader()
-        
-        # Determine which entities to download
-        entities_to_download = []
-        if choice == "1":
-            entities_to_download = [company.primary_identifiers] + company.related_entities
-        else:  # choice == "2"
-            entities_to_download = [company.primary_identifiers]
-            
-        # Common filing types
-        filing_types = ["10-K", "10-Q", "8-K", "13F", "4", "SC 13G"]
-        
-        # Download filings for each selected entity
-        total_downloaded = 0
-        for entity in entities_to_download:
-            if not entity.cik:
-                self.console.print(f"[yellow]Skipping {entity.name} - No CIK available[/yellow]")
-                continue
-                
-            self.console.print(f"\n[bold]Downloading filings for {entity.name}[/bold]")
-            try:
-                downloaded = downloader.download_company_filings(
-                    entity.cik,
-                    start,
-                    end,
-                    filing_types
-                )
-                total_downloaded += len(downloaded)
-                
-                # Show download summary
-                self.console.print(f"[green]Successfully downloaded {len(downloaded)} filings for {entity.name}[/green]")
-                
-            except Exception as e:
-                self.console.print(f"[red]Error downloading filings for {entity.name}: {str(e)}[/red]")
-                continue
-                
-        if total_downloaded > 0:
-            self.console.print(f"\n[bold green]Download complete! Total filings downloaded: {total_downloaded}[/bold green]")
-            self.console.print("Files are saved in the data/filings directory, organized by CIK and accession number.")
-        else:
-            self.console.print("\n[yellow]No filings were downloaded. Please try again or check the company information.[/yellow]")
-
-    def view_companies_menu(self):
-        """Display and manage company information."""
-        self.console.clear()
-        
-        # Get company info from user
-        company_name = Prompt.ask("\nEnter company name or identifier")
+        start = end - timedelta(days=365)  # Default to 1 year
         
         try:
-            # Get company information
-            company = self.identify_company(company_name)
-            if not company:
-                self.console.print("[red]Could not identify company. Please try again.[/red]")
-                return
+            self.console.print(f"\nDownloading filings for {company_info.name}")
+            
+            # Initialize downloader
+            downloader = SECDownloader()
+            
+            # Download parent company filings
+            downloaded_files = downloader.download_company_filings(
+                company_info.cik,
+                start,
+                end
+            )
+            
+            if downloaded_files:
+                self.console.print(f"Successfully downloaded {len(downloaded_files)} filings")
+            else:
+                self.console.print("No filings were downloaded. Please try again or check the company information.")
                 
-            # Display company information
-            choice = self.display_company_info(company)
-            
-            if choice != 0:
-                entity = company.related_entities[choice - 1]
-                self.display_company_info(entity)
-            
-            # Ask to save company
-            if Prompt.ask("Save this company?", choices=["y", "n"]) == "y":
-                if self.db.save_company(company):
-                    self.console.print("[green]Company saved successfully![/green]")
-                else:
-                    self.console.print("[red]Failed to save company.[/red]")
-            
-            # Download menu
-            self.console.print("\n[bold]Download Options[/bold]")
-            options = {
-                "0": "Return to main menu",
-                "1": "Download all filings (parent and related entities)",
-                "2": "Download parent company filings only"
-            }
-            
-            for key, label in options.items():
-                self.console.print(f"{key}. {label}")
-                
-            choice = Prompt.ask("Choose option", choices=list(options.keys()))
-            
-            if choice == "0":
-                return
-                
-            # Handle download based on choice
-            if choice in ["1", "2"]:
-                try:
-                    if not company.primary_identifiers.cik:
-                        self.console.print("[red]Error: No CIK available for this company[/red]")
-                        return
-                        
-                    # Initialize downloader
-                    downloader = SECDownloader()
-                    
-                    # Set date range - default to last 10 years
-                    end_date = datetime.now()
-                    start_date = end_date - timedelta(days=365*10)
-                    
-                    # Common filing types
-                    filing_types = ["10-K", "10-Q", "8-K", "13F", "4", "SC 13G"]
-                    
-                    # Download for primary company
-                    self.console.print(f"\n[bold]Downloading filings for {company.name}[/bold]")
-                    
-                    # Download for selected entities
-                    if choice == "1":
-                        entities = [company.primary_identifiers] + company.related_entities
-                    else:
-                        entities = [company.primary_identifiers]
-                        
-                    total_downloaded = 0
-                    for entity in entities:
-                        if not entity.cik:
-                            self.console.print(f"[yellow]Skipping {entity.name} - No CIK available[/yellow]")
-                            continue
+            # Download related entity filings if requested
+            if choice == "1" and company_info.related_entities:
+                for entity in company_info.related_entities:
+                    if entity.cik:
+                        self.console.print(f"\nDownloading filings for related entity: {entity.name}")
+                        related_files = downloader.download_company_filings(
+                            entity.cik,
+                            start,
+                            end
+                        )
+                        if related_files:
+                            self.console.print(f"Successfully downloaded {len(related_files)} filings")
+                        else:
+                            self.console.print(f"No filings found for {entity.name}")
                             
-                        try:
-                            downloaded = downloader.download_company_filings(
-                                entity.cik,
-                                start_date,
-                                end_date,
-                                filing_types
-                            )
-                            count = len(downloaded)
-                            total_downloaded += count
-                            self.console.print(f"[green]Successfully downloaded {count} filings for {entity.name}[/green]")
-                            
-                        except Exception as e:
-                            self.console.print(f"[red]Error downloading filings for {entity.name}: {str(e)}[/red]")
-                            continue
-                            
-                    if total_downloaded > 0:
-                        self.console.print(f"\n[bold green]Download complete! Total filings downloaded: {total_downloaded}[/bold green]")
-                        self.console.print("Files are saved in the data/filings directory, organized by CIK and accession number.")
-                    else:
-                        self.console.print("\n[yellow]No filings were downloaded. Please try again or check the company information.[/yellow]")
-                        
-                except Exception as e:
-                    self.console.print(f"[red]Error during download process: {str(e)}[/red]")
-                    
         except Exception as e:
-            self.console.print(f"[red]Error: {str(e)}[/red]")
-
+            self.console.print(f"Error downloading filings: {str(e)}")
+            
     def download_filings_menu(self):
+        """Menu for downloading filings."""
         self.console.clear()
         print_ascii_art()
         self.console.print("\n[bold blue]Download Filings[/bold blue]\n")
@@ -351,25 +176,108 @@ class MenuSystem:
         companies = self.db.get_all_companies()
         if not companies:
             self.console.print("[yellow]No companies saved. Please search and save a company first.[/yellow]")
-        else:
-            self.console.print("Select a company to download filings for:")
-            for i, company in enumerate(companies, 1):
-                self.console.print(f"{i}. {company.name}")
+            input("\nPress Enter to continue...")
+            return
             
-            choice = Prompt.ask(
-                "\nSelect company (0 to return)",
-                choices=["0"] + [str(i) for i in range(1, len(companies) + 1)]
-            )
-            
-            if choice != "0":
-                company = companies[int(choice) - 1]
-                self._download_filings_for_company(company)
+        self.console.print("Saved Companies:")
+        for i, company in enumerate(companies, 1):
+            self.console.print(f"{i}. {company.name}")
+        self.console.print("0. Return to main menu")
         
+        choice = Prompt.ask("\nSelect a company", choices=[str(i) for i in range(len(companies) + 1)])
+        
+        if choice != "0":
+            company = companies[int(choice) - 1]
+            self._download_filings_for_company(company)
+            
         input("\nPress Enter to continue...")
-
+        
+    def view_companies_menu(self):
+        """Menu for viewing saved companies."""
+        self.console.clear()
+        print_ascii_art()
+        self.console.print("\n[bold blue]Saved Companies[/bold blue]\n")
+        
+        companies = self.db.get_all_companies()
+        if not companies:
+            self.console.print("[yellow]No companies saved.[/yellow]")
+        else:
+            for company in companies:
+                self.console.print(f"\n[bold]{company.name}[/bold]")
+                self.console.print(f"CIK: {company.primary_identifiers.cik}")
+                if company.primary_identifiers.description:
+                    self.console.print(f"Description: {company.primary_identifiers.description}")
+                    
+                # Show related entities
+                related = company.related_entities
+                if related:
+                    self.console.print("\nRelated Entities:")
+                    for entity in related:
+                        self.console.print(f"- {entity.name} (CIK: {entity.cik})")
+                        
+        input("\nPress Enter to continue...")
+        
     def view_data_menu(self):
+        """Menu for viewing downloaded data."""
         self.console.clear()
         print_ascii_art()
         self.console.print("\n[bold blue]View Data[/bold blue]\n")
-        self.console.print("Feature coming soon!")
+        
+        try:
+            # Get database statistics
+            cursor = self.db.cursor
+            
+            # Total number of filings
+            cursor.execute("SELECT COUNT(*) FROM filings")
+            total_filings = cursor.fetchone()[0]
+            
+            # Number of companies
+            cursor.execute("SELECT COUNT(DISTINCT company_cik) FROM filings")
+            total_companies = cursor.fetchone()[0]
+            
+            # Filing types breakdown
+            cursor.execute("""
+                SELECT form_type, COUNT(*) as count 
+                FROM filings 
+                GROUP BY form_type 
+                ORDER BY count DESC
+            """)
+            filing_types = cursor.fetchall()
+            
+            # Latest filing date
+            cursor.execute("SELECT MAX(filing_date) FROM filings")
+            latest_filing = cursor.fetchone()[0]
+            
+            # Create statistics table
+            table = Table(title="Filing Statistics")
+            table.add_column("Metric", style="cyan")
+            table.add_column("Value", style="green")
+            
+            table.add_row("Total Filings", str(total_filings))
+            table.add_row("Total Companies", str(total_companies))
+            table.add_row("Latest Filing Date", str(latest_filing))
+            
+            self.console.print(table)
+            
+            # Create filing types table
+            if filing_types:
+                types_table = Table(title="\nFiling Types Breakdown")
+                types_table.add_column("Form Type", style="cyan")
+                types_table.add_column("Count", style="green")
+                
+                for form_type, count in filing_types:
+                    types_table.add_row(form_type or "Unknown", str(count))
+                    
+                self.console.print(types_table)
+            
+        except Exception as e:
+            self.console.print(f"[red]Error getting statistics: {str(e)}[/red]")
+            
         input("\nPress Enter to continue...")
+        
+def main():
+    menu = MenuSystem()
+    menu.main_menu()
+
+if __name__ == "__main__":
+    main()

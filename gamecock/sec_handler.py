@@ -121,4 +121,4 @@ class SECHandler:
             logger.error(f"Query was: {query}")
             import traceback
             logger.error(traceback.format_exc())
-        return None
+            return None
