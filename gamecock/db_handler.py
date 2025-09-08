@@ -5,7 +5,7 @@ from typing import List, Optional, Any, Dict
 from loguru import logger
 
 from .data_structures import CompanyInfo, EntityIdentifiers
-from .db_swaps import SwapsDatabase, Swap, SwapObligation, SwapAnalysis
+from .db_swaps import SwapsDatabase, Swap, SwapObligation, SwapAnalysis, UnderlyingInstrument, ObligationTrigger
 
 class DatabaseHandler:
     """Handles database operations for SEC data."""
@@ -191,6 +191,63 @@ class DatabaseHandler:
             True if successful, False otherwise
         """
         return self.swaps_db.delete_swap(contract_id)
+    
+    def add_underlying_instrument(self, swap_id: int, instrument_data: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+        """Add an underlying instrument to a swap.
+        
+        Args:
+            swap_id: ID of the swap
+            instrument_data: Dictionary containing instrument data
+            
+        Returns:
+            Dictionary containing the saved instrument data or None if failed
+        """
+        return self.swaps_db.add_underlying_instrument(swap_id, instrument_data)
+    
+    def add_obligation_trigger(self, obligation_id: int, trigger_data: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+        """Add a trigger to an obligation.
+        
+        Args:
+            obligation_id: ID of the obligation
+            trigger_data: Dictionary containing trigger data
+            
+        Returns:
+            Dictionary containing the saved trigger data or None if failed
+        """
+        return self.swaps_db.add_obligation_trigger(obligation_id, trigger_data)
+    
+    def get_swap_obligations_view(self, swap_id: Optional[int] = None) -> List[Dict[str, Any]]:
+        """Get swap obligations view data.
+        
+        Args:
+            swap_id: Optional swap ID to filter by
+            
+        Returns:
+            List of dictionaries containing the swap obligations view data
+        """
+        return self.swaps_db.get_swap_obligations_view(swap_id)
+    
+    def get_obligations_by_counterparty(self, counterparty: str) -> List[Dict[str, Any]]:
+        """Get all obligations for a specific counterparty.
+        
+        Args:
+            counterparty: Name of the counterparty
+            
+        Returns:
+            List of dictionaries containing obligation data
+        """
+        return self.swaps_db.get_obligations_by_counterparty(counterparty)
+    
+    def get_obligations_by_instrument(self, instrument_identifier: str) -> List[Dict[str, Any]]:
+        """Get all obligations related to a specific instrument.
+        
+        Args:
+            instrument_identifier: Identifier of the instrument (ticker, ISIN, etc.)
+            
+        Returns:
+            List of dictionaries containing obligation data
+        """
+        return self.swaps_db.get_obligations_by_instrument(instrument_identifier)
     
     # SEC Database methods
     def save_company(self, company: CompanyInfo) -> bool:

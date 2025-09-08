@@ -139,12 +139,12 @@ class MenuSystem:
         try:
             self.console.print(f"\nDownloading filings for {company_info.name}")
             
-            # Initialize downloader
-            downloader = SECDownloader()
+            # Initialize downloader with shared handlers
+            downloader = SECDownloader(db_handler=self.db, swaps_analyzer=self.swaps_analyzer)
             
             # Download parent company filings
             downloaded_files = downloader.download_company_filings(
-                company_info.cik,
+                company_info.primary_identifiers.cik,
                 start,
                 end
             )
@@ -226,7 +226,7 @@ class MenuSystem:
         """Menu for viewing downloaded data."""
         self.console.clear()
         print_ascii_art()
-        self.console.print("\n[bold blue]View Data[/bold blue]\n")
+        self.console.print("\n[bold blue]View Downloaded Data[/bold blue]\n")
         
         try:
             # Get database statistics
@@ -277,6 +277,211 @@ class MenuSystem:
             
         except Exception as e:
             self.console.print(f"[red]Error getting statistics: {str(e)}[/red]")
+            
+        input("\nPress Enter to continue...")
+        
+    def swaps_analysis_menu(self):
+        """Menu for swaps analysis functionality."""
+        while True:
+            self.console.clear()
+            print_ascii_art()
+            self.console.print("\n[bold blue]Swaps Analysis[/bold blue]\n")
+            
+            self.console.print("1. Load Swaps from File")
+            self.console.print("2. View Loaded Swaps")
+            self.console.print("3. Analyze Reference Entity Exposure")
+            self.console.print("4. Generate Risk Report")
+            self.console.print("5. Export Swaps Data")
+            self.console.print("6. Back to Main Menu")
+            
+            choice = Prompt.ask("\nSelect an option", choices=["1", "2", "3", "4", "5", "6"])
+            
+            if choice == "1":
+                self._load_swaps_from_file()
+            elif choice == "2":
+                self._view_loaded_swaps()
+            elif choice == "3":
+                self._analyze_entity_exposure()
+            elif choice == "4":
+                self._generate_risk_report()
+            elif choice == "5":
+                self._export_swaps_data()
+            elif choice == "6":
+                break
+    
+    def _load_swaps_from_file(self):
+        """Load swaps data from a file."""
+        self.console.clear()
+        print_ascii_art()
+        self.console.print("\n[bold blue]Load Swaps from File[/bold blue]\n")
+        
+        file_path = Prompt.ask("Enter path to swaps file (CSV or JSON)")
+        if not file_path:
+            return
+            
+        try:
+            with self.console.status("[bold green]Loading swaps data...[/]"):
+                swaps = self.swaps_analyzer.load_swaps_from_file(file_path)
+                if swaps:
+                    self.console.print(f"\n[green]Successfully loaded {len(swaps)} swaps.[/green]")
+                else:
+                    self.console.print("[yellow]No valid swaps found in the file.[/yellow]")
+        except Exception as e:
+            self.console.print(f"[red]Error loading swaps: {str(e)}[/red]")
+            
+        input("\nPress Enter to continue...")
+    
+    def _view_loaded_swaps(self):
+        """View currently loaded swaps."""
+        self.console.clear()
+        print_ascii_art()
+        self.console.print("\n[bold blue]Loaded Swaps[/bold blue]\n")
+        
+        swaps = self.swaps_analyzer.swaps
+        if not swaps:
+            self.console.print("[yellow]No swaps loaded.[/yellow]")
+            input("\nPress Enter to continue...")
+            return
+            
+        # Create a table to display swaps
+        table = Table(title=f"Loaded Swaps ({len(swaps)} total)")
+        table.add_column("Contract ID", style="cyan")
+        table.add_column("Reference Entity", style="magenta")
+        table.add_column("Notional", style="green")
+        table.add_column("Type", style="yellow")
+        table.add_column("Maturity", style="blue")
+        
+        for swap in swaps[:50]:  # Show first 50 swaps to avoid overwhelming the console
+            table.add_row(
+                swap.contract_id,
+                swap.reference_entity,
+                f"${swap.notional_amount:,.2f}",
+                swap.swap_type.value if hasattr(swap.swap_type, 'value') else swap.swap_type,
+                swap.maturity_date.isoformat() if hasattr(swap.maturity_date, 'isoformat') else str(swap.maturity_date)
+            )
+            
+        self.console.print(table)
+        
+        if len(swaps) > 50:
+            self.console.print(f"\n[dim](Showing 50 of {len(swaps)} swaps)[/dim]")
+            
+        input("\nPress Enter to continue...")
+    
+    def _analyze_entity_exposure(self):
+        """Analyze exposure to a reference entity."""
+        self.console.clear()
+        print_ascii_art()
+        self.console.print("\n[bold blue]Analyze Reference Entity Exposure[/bold blue]\n")
+        
+        entity_name = Prompt.ask("Enter reference entity name")
+        if not entity_name:
+            return
+            
+        try:
+            with self.console.status(f"[bold green]Analyzing exposure to {entity_name}...[/]"):
+                exposure = self.swaps_analyzer.calculate_exposure(entity_name)
+                
+                if not exposure:
+                    self.console.print("[yellow]No exposure found for the specified entity.[/yellow]")
+                    input("\nPress Enter to continue...")
+                    return
+                
+                # Display exposure summary
+                self.console.print("\n[bold]Exposure Summary:[/bold]")
+                table = Table(show_header=False, show_edge=False)
+                table.add_column(style="cyan")
+                table.add_column(style="green")
+                
+                table.add_row("Total Notional:", f"${exposure['total_notional']:,.2f}")
+                table.add_row("Number of Swaps:", str(exposure['num_swaps']))
+                table.add_row("Average Notional:", f"${exposure['avg_notional']:,.2f}")
+                table.add_row("Largest Swap:", f"${exposure['largest_swap']['notional_amount']:,.2f}" + 
+                             f" (ID: {exposure['largest_swap']['contract_id']})")
+                
+                self.console.print(table)
+                
+        except Exception as e:
+            self.console.print(f"[red]Error analyzing exposure: {str(e)}[/red]")
+            
+        input("\nPress Enter to continue...")
+    
+    def _generate_risk_report(self):
+        """Generate a risk report for a reference entity."""
+        self.console.clear()
+        print_ascii_art()
+        self.console.print("\n[bold blue]Generate Risk Report[/bold blue]\n")
+        
+        entity_name = Prompt.ask("Enter reference entity name")
+        if not entity_name:
+            return
+            
+        try:
+            with self.console.status(f"[bold green]Generating risk report for {entity_name}...[/]"):
+                report = self.swaps_analyzer.generate_risk_report(entity_name, include_analysis=True)
+                
+                if not report:
+                    self.console.print("[yellow]No data found for the specified entity.[/yellow]")
+                    input("\nPress Enter to continue...")
+                    return
+                
+                # Display risk summary
+                self.console.print("\n[bold]Risk Summary:[/bold]")
+                table = Table(show_header=False, show_edge=False)
+                table.add_column(style="cyan")
+                table.add_column(style="green")
+                
+                risk_level = report.get('risk_level', 'Unknown')
+                risk_score = report.get('risk_score', 0)
+                
+                # Color code risk level
+                if risk_level == "Low":
+                    risk_display = f"[green]{risk_level} ({risk_score}/100)[/green]"
+                elif risk_level == "Medium":
+                    risk_display = f"[yellow]{risk_level} ({risk_score}/100)[/yellow]"
+                else:
+                    risk_display = f"[red]{risk_level} ({risk_score}/100)[/red]"
+                
+                table.add_row("Risk Level:", risk_display)
+                table.add_row("Total Exposure:", f"${report['total_notional']:,.2f}")
+                table.add_row("Number of Swaps:", str(report['num_swaps']))
+                table.add_row("Average Time to Maturity:", f"{report['avg_time_to_maturity']:.1f} days")
+                
+                self.console.print(table)
+                
+                # Display detailed analysis if available
+                if 'detailed_analysis' in report:
+                    self.console.print("\n[bold]Detailed Analysis:[/bold]")
+                    for key, value in report['detailed_analysis'].items():
+                        self.console.print(f"\n[cyan]{key}:[/cyan]")
+                        self.console.print(value)
+                
+        except Exception as e:
+            self.console.print(f"[red]Error generating risk report: {str(e)}[/red]")
+            
+        input("\nPress Enter to continue...")
+    
+    def _export_swaps_data(self):
+        """Export swaps data to a CSV file."""
+        self.console.clear()
+        print_ascii_art()
+        self.console.print("\n[bold blue]Export Swaps Data[/bold blue]\n")
+        
+        if not self.swaps_analyzer.swaps:
+            self.console.print("[yellow]No swaps loaded to export.[/yellow]")
+            input("\nPress Enter to continue...")
+            return
+            
+        output_path = Prompt.ask("Enter output file path (e.g., swaps_export.csv)")
+        if not output_path:
+            return
+            
+        try:
+            if self.swaps_analyzer.export_to_csv(output_path):
+                self.console.print(f"\n[green]Successfully exported swaps to {output_path}[/green]")
+            else:
+                self.console.print("[red]Failed to export swaps data.[/red]")
+        except Exception as e:
+            self.console.print(f"[red]Error exporting swaps: {str(e)}[/red]")
             
         input("\nPress Enter to continue...")
         

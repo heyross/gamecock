@@ -2,7 +2,7 @@
 import logging
 from datetime import datetime
 from typing import List, Dict, Any, Optional
-from sqlalchemy import create_engine, Column, Integer, String, Float, Date, DateTime, Text, ForeignKey, JSON, func
+from sqlalchemy import create_engine, Column, Integer, String, Float, Date, DateTime, Text, ForeignKey, JSON, Boolean, func, text
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, relationship, Session
 from sqlalchemy.orm.exc import NoResultFound
@@ -24,6 +24,7 @@ class Swap(Base):
     currency = Column(String(10), nullable=False, default='USD')
     effective_date = Column(Date, nullable=False)
     maturity_date = Column(Date, nullable=False)
+    swap_type = Column(String(50), nullable=True)
     payment_frequency = Column(String(50), nullable=True)
     fixed_rate = Column(Float, nullable=True)
     floating_rate_index = Column(String(100), nullable=True)
@@ -36,6 +37,7 @@ class Swap(Base):
     # Relationships
     obligations = relationship("SwapObligation", back_populates="swap", cascade="all, delete-orphan")
     analysis = relationship("SwapAnalysis", back_populates="swap", uselist=False, cascade="all, delete-orphan")
+    underlying_instruments = relationship("UnderlyingInstrument", back_populates="swap", cascade="all, delete-orphan")
     
     def to_dict(self):
         """Convert swap to dictionary."""
@@ -75,6 +77,7 @@ class SwapObligation(Base):
     
     # Relationships
     swap = relationship("Swap", back_populates="obligations")
+    triggers = relationship("ObligationTrigger", back_populates="obligation", cascade="all, delete-orphan")
     
     def to_dict(self):
         """Convert obligation to dictionary."""
@@ -118,6 +121,68 @@ class SwapAnalysis(Base):
             'updated_at': self.updated_at.isoformat() if self.updated_at else None
         }
 
+class UnderlyingInstrument(Base):
+    """Represents an underlying instrument in a swap contract."""
+    __tablename__ = 'underlying_instruments'
+    
+    id = Column(Integer, primary_key=True)
+    swap_id = Column(Integer, ForeignKey('swaps.id', ondelete='CASCADE'), nullable=False)
+    instrument_type = Column(String(50), nullable=False)
+    identifier = Column(String(100), nullable=False)
+    description = Column(Text, nullable=True)
+    quantity = Column(Float, nullable=True)
+    notional_amount = Column(Float, nullable=True)
+    currency = Column(String(10), nullable=True, default='USD')
+    created_at = Column(DateTime, server_default=func.now())
+    updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now())
+    
+    # Relationships
+    swap = relationship("Swap", back_populates="underlying_instruments")
+    
+    def to_dict(self):
+        """Convert to dictionary."""
+        return {
+            'id': self.id,
+            'swap_id': self.swap_id,
+            'instrument_type': self.instrument_type,
+            'identifier': self.identifier,
+            'description': self.description,
+            'quantity': self.quantity,
+            'notional_amount': self.notional_amount,
+            'currency': self.currency,
+            'created_at': self.created_at.isoformat() if self.created_at else None,
+            'updated_at': self.updated_at.isoformat() if self.updated_at else None
+        }
+
+class ObligationTrigger(Base):
+    """Represents a trigger condition for a swap obligation."""
+    __tablename__ = 'obligation_triggers'
+    
+    id = Column(Integer, primary_key=True)
+    obligation_id = Column(Integer, ForeignKey('swap_obligations.id', ondelete='CASCADE'), nullable=False)
+    trigger_type = Column(String(50), nullable=False)
+    trigger_condition = Column(String(255), nullable=False)
+    description = Column(Text, nullable=True)
+    is_active = Column(Boolean, nullable=False, default=True)
+    created_at = Column(DateTime, server_default=func.now())
+    updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now())
+    
+    # Relationships
+    obligation = relationship("SwapObligation", back_populates="triggers")
+    
+    def to_dict(self):
+        """Convert to dictionary."""
+        return {
+            'id': self.id,
+            'obligation_id': self.obligation_id,
+            'trigger_type': self.trigger_type,
+            'trigger_condition': self.trigger_condition,
+            'description': self.description,
+            'is_active': self.is_active,
+            'created_at': self.created_at.isoformat() if self.created_at else None,
+            'updated_at': self.updated_at.isoformat() if self.updated_at else None
+        }
+
 class SwapsDatabase:
     """Database handler for swaps data."""
     
@@ -130,10 +195,61 @@ class SwapsDatabase:
         self.engine = create_engine(db_url)
         self.Session = sessionmaker(bind=self.engine)
         self._create_tables()
+        self._create_view()
         
     def _create_tables(self):
         """Create database tables if they don't exist."""
         Base.metadata.create_all(self.engine)
+    
+    def _create_view(self):
+        """Create the database view for swap obligations."""
+        view_sql = """
+        CREATE VIEW IF NOT EXISTS vw_swap_obligations AS
+        SELECT 
+            s.id AS swap_id,
+            s.contract_id,
+            s.counterparty,
+            s.reference_entity,
+            s.notional_amount,
+            s.currency,
+            s.effective_date,
+            s.maturity_date,
+        s.swap_type,
+            o.id AS obligation_id,
+            o.obligation_type,
+            o.amount AS obligation_amount,
+            o.currency AS obligation_currency,
+            o.due_date,
+            o.status AS obligation_status,
+            o.description AS obligation_description,
+            ui.instrument_type,
+            ui.identifier AS instrument_identifier,
+            ui.description AS instrument_description,
+            ui.quantity,
+            ui.notional_amount AS instrument_notional,
+            ot.trigger_type,
+            ot.trigger_condition,
+            ot.description AS trigger_description
+        FROM 
+            swaps s
+        LEFT JOIN 
+            swap_obligations o ON s.id = o.swap_id
+        LEFT JOIN 
+            underlying_instruments ui ON s.id = ui.swap_id
+        LEFT JOIN 
+            obligation_triggers ot ON o.id = ot.obligation_id
+        WHERE 
+            (ot.is_active = 1 OR ot.id IS NULL)
+        """
+        session = self.Session()
+        try:
+            session.execute(text(view_sql))
+            session.commit()
+        except SQLAlchemyError as e:
+            session.rollback()
+            logger.error(f"Error creating view: {str(e)}")
+        finally:
+            session.close()
     
     def save_swap(self, swap_data: Dict[str, Any]) -> Optional[Dict[str, Any]]:
         """Save a swap contract to the database.
@@ -149,12 +265,18 @@ class SwapsDatabase:
             # Check if swap already exists
             existing_swap = session.query(Swap).filter_by(contract_id=swap_data['contract_id']).first()
             
+            # Ensure date fields are actual date objects
+            for date_field in ['effective_date', 'maturity_date']:
+                if date_field in swap_data and isinstance(swap_data[date_field], str):
+                    swap_data[date_field] = datetime.strptime(swap_data[date_field], '%Y-%m-%d').date()
+            
             if existing_swap:
                 # Update existing swap
                 for key, value in swap_data.items():
                     if hasattr(existing_swap, key) and key != 'id':
                         setattr(existing_swap, key, value)
                 existing_swap.updated_at = datetime.utcnow()
+                swap = existing_swap
             else:
                 # Create new swap
                 swap = Swap(**swap_data)
@@ -324,5 +446,132 @@ class SwapsDatabase:
             session.rollback()
             logger.error(f"Error deleting swap: {str(e)}")
             return False
+        finally:
+            session.close()
+    
+    def add_underlying_instrument(self, swap_id: int, instrument_data: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+        """Add an underlying instrument to a swap.
+        
+        Args:
+            swap_id: ID of the swap
+            instrument_data: Dictionary containing instrument data
+            
+        Returns:
+            Dictionary containing the saved instrument data or None if failed
+        """
+        session = self.Session()
+        try:
+            instrument = UnderlyingInstrument(swap_id=swap_id, **instrument_data)
+            session.add(instrument)
+            session.commit()
+            return instrument.to_dict()
+        except SQLAlchemyError as e:
+            session.rollback()
+            logger.error(f"Error adding underlying instrument: {str(e)}")
+            return None
+        finally:
+            session.close()
+
+    def add_obligation_trigger(self, obligation_id: int, trigger_data: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+        """Add a trigger to an obligation.
+        
+        Args:
+            obligation_id: ID of the obligation
+            trigger_data: Dictionary containing trigger data
+            
+        Returns:
+            Dictionary containing the saved trigger data or None if failed
+        """
+        session = self.Session()
+        try:
+            trigger = ObligationTrigger(obligation_id=obligation_id, **trigger_data)
+            session.add(trigger)
+            session.commit()
+            return trigger.to_dict()
+        except SQLAlchemyError as e:
+            session.rollback()
+            logger.error(f"Error adding obligation trigger: {str(e)}")
+            return None
+        finally:
+            session.close()
+
+    def get_swap_obligations_view(self, swap_id: Optional[int] = None) -> List[Dict[str, Any]]:
+        """Get swap obligations view data.
+        
+        Args:
+            swap_id: Optional swap ID to filter by
+            
+        Returns:
+            List of dictionaries containing the swap obligations view data
+        """
+        session = self.Session()
+        try:
+            query = "SELECT * FROM vw_swap_obligations"
+            params = {}
+            if swap_id is not None:
+                query += " WHERE swap_id = :swap_id"
+                params['swap_id'] = swap_id
+            
+            result = session.execute(text(query), params)
+            columns = result.keys()
+            return [dict(zip(columns, row)) for row in result.fetchall()]
+        except SQLAlchemyError as e:
+            logger.error(f"Error getting swap obligations view: {str(e)}")
+            return []
+        finally:
+            session.close()
+
+    def get_obligations_by_counterparty(self, counterparty: str) -> List[Dict[str, Any]]:
+        """Get all obligations for a specific counterparty.
+        
+        Args:
+            counterparty: Name of the counterparty
+            
+        Returns:
+            List of dictionaries containing obligation data
+        """
+        session = self.Session()
+        try:
+            swaps = session.query(Swap).filter_by(counterparty=counterparty).all()
+            obligations = []
+            for swap in swaps:
+                for obligation in swap.obligations:
+                    obligation_dict = obligation.to_dict()
+                    obligation_dict['swap_contract_id'] = swap.contract_id
+                    obligation_dict['reference_entity'] = swap.reference_entity
+                    obligations.append(obligation_dict)
+            return obligations
+        except SQLAlchemyError as e:
+            logger.error(f"Error getting obligations by counterparty: {str(e)}")
+            return []
+        finally:
+            session.close()
+
+    def get_obligations_by_instrument(self, instrument_identifier: str) -> List[Dict[str, Any]]:
+        """Get all obligations related to a specific instrument.
+        
+        Args:
+            instrument_identifier: Identifier of the instrument (ticker, ISIN, etc.)
+            
+        Returns:
+            List of dictionaries containing obligation data
+        """
+        session = self.Session()
+        try:
+            instruments = session.query(UnderlyingInstrument).filter_by(identifier=instrument_identifier).all()
+            obligations = []
+            for instrument in instruments:
+                swap = instrument.swap
+                for obligation in swap.obligations:
+                    obligation_dict = obligation.to_dict()
+                    obligation_dict['swap_contract_id'] = swap.contract_id
+                    obligation_dict['counterparty'] = swap.counterparty
+                    obligation_dict['instrument_type'] = instrument.instrument_type
+                    obligation_dict['instrument_identifier'] = instrument.identifier
+                    obligations.append(obligation_dict)
+            return obligations
+        except SQLAlchemyError as e:
+            logger.error(f"Error getting obligations by instrument: {str(e)}")
+            return []
         finally:
             session.close()

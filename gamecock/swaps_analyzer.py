@@ -44,9 +44,9 @@ class SwapContract:
     counterparty: str
     reference_entity: str
     notional_amount: float
-    currency: str = "USD"
     effective_date: Union[date, str]
     maturity_date: Union[date, str]
+    currency: str = "USD"
     swap_type: Union[SwapType, str] = SwapType.OTHER
     payment_frequency: Union[PaymentFrequency, str] = PaymentFrequency.QUARTERLY
     fixed_rate: Optional[float] = None
@@ -168,12 +168,284 @@ class SwapsAnalyzer:
             try:
                 # Convert to dict and save to database
                 swap_dict = swap.to_dict()
-                if self.db.save_swap(swap_dict):
+                saved_swap = self.db.save_swap(swap_dict)
+                if saved_swap:
                     saved_count += 1
+                    # Process and save underlying instruments and obligations
+                    self._process_swap_details(saved_swap['id'], swap)
             except Exception as e:
                 logger.error(f"Error saving swap {swap.contract_id} to database: {str(e)}")
                 
         return saved_count
+    
+    def _process_swap_details(self, swap_id: int, swap: SwapContract):
+        """Process and save underlying instruments and obligations for a swap.
+        
+        Args:
+            swap_id: Database ID of the saved swap
+            swap: SwapContract object containing the swap details
+        """
+        try:
+            # Extract and save underlying instruments
+            instruments = self._extract_underlying_instruments(swap)
+            for instrument_data in instruments:
+                saved_instrument = self.db.add_underlying_instrument(swap_id, instrument_data)
+                if saved_instrument:
+                    logger.debug(f"Added underlying instrument {instrument_data['identifier']} to swap {swap.contract_id}")
+            
+            # Extract and save obligations
+            obligations = self._extract_obligations(swap)
+            for obligation_data in obligations:
+                saved_obligation = self.db.add_obligation(swap_id, obligation_data)
+                if saved_obligation:
+                    logger.debug(f"Added obligation {obligation_data['obligation_type']} to swap {swap.contract_id}")
+                    
+                    # Extract and save triggers for this obligation
+                    triggers = self._extract_obligation_triggers(swap, obligation_data)
+                    for trigger_data in triggers:
+                        saved_trigger = self.db.add_obligation_trigger(saved_obligation['id'], trigger_data)
+                        if saved_trigger:
+                            logger.debug(f"Added trigger {trigger_data['trigger_type']} to obligation {saved_obligation['id']}")
+                            
+        except Exception as e:
+            logger.error(f"Error processing swap details for {swap.contract_id}: {str(e)}")
+    
+    def _extract_underlying_instruments(self, swap: SwapContract) -> List[Dict[str, Any]]:
+        """Extract underlying instruments from a swap contract.
+        
+        Args:
+            swap: SwapContract object
+            
+        Returns:
+            List of dictionaries containing instrument data
+        """
+        instruments = []
+        
+        # Extract from reference entity (most common case)
+        if swap.reference_entity:
+            instrument = {
+                'instrument_type': self._determine_instrument_type(swap.reference_entity),
+                'identifier': swap.reference_entity,
+                'description': f"Reference entity for {swap.swap_type.value} swap",
+                'notional_amount': swap.notional_amount,
+                'currency': swap.currency
+            }
+            instruments.append(instrument)
+        
+        # Extract from additional terms if available
+        if swap.additional_terms and 'underlying_instruments' in swap.additional_terms:
+            for instrument_info in swap.additional_terms['underlying_instruments']:
+                if isinstance(instrument_info, dict):
+                    instruments.append(instrument_info)
+                elif isinstance(instrument_info, str):
+                    # Simple string identifier
+                    instrument = {
+                        'instrument_type': self._determine_instrument_type(instrument_info),
+                        'identifier': instrument_info,
+                        'description': f"Underlying instrument for {swap.swap_type.value} swap",
+                        'currency': swap.currency
+                    }
+                    instruments.append(instrument)
+        
+        return instruments
+    
+    def _extract_obligations(self, swap: SwapContract) -> List[Dict[str, Any]]:
+        """Extract obligations from a swap contract.
+        
+        Args:
+            swap: SwapContract object
+            
+        Returns:
+            List of dictionaries containing obligation data
+        """
+        obligations = []
+        
+        # Generate standard payment obligations based on swap type
+        if swap.swap_type == SwapType.INTEREST_RATE:
+            # Fixed rate payer obligation
+            if swap.fixed_rate:
+                obligation = {
+                    'obligation_type': 'fixed_payment',
+                    'amount': swap.notional_amount * (swap.fixed_rate / 100) / self._get_payment_frequency_factor(swap.payment_frequency),
+                    'currency': swap.currency,
+                    'due_date': self._calculate_next_payment_date(swap.effective_date, swap.payment_frequency),
+                    'status': 'pending',
+                    'description': f"Fixed rate payment at {swap.fixed_rate}%"
+                }
+                obligations.append(obligation)
+            
+            # Floating rate receiver obligation
+            if swap.floating_rate_index:
+                obligation = {
+                    'obligation_type': 'floating_payment',
+                    'amount': 0,  # To be calculated based on floating rate
+                    'currency': swap.currency,
+                    'due_date': self._calculate_next_payment_date(swap.effective_date, swap.payment_frequency),
+                    'status': 'pending',
+                    'description': f"Floating rate payment based on {swap.floating_rate_index}"
+                }
+                obligations.append(obligation)
+        
+        elif swap.swap_type == SwapType.CREDIT_DEFAULT:
+            # Premium payment obligation
+            obligation = {
+                'obligation_type': 'premium_payment',
+                'amount': swap.notional_amount * 0.01,  # Default 1% premium, should be extracted from terms
+                'currency': swap.currency,
+                'due_date': self._calculate_next_payment_date(swap.effective_date, swap.payment_frequency),
+                'status': 'pending',
+                'description': "Credit default swap premium payment"
+            }
+            obligations.append(obligation)
+            
+            # Protection payment obligation (contingent)
+            obligation = {
+                'obligation_type': 'protection_payment',
+                'amount': swap.notional_amount,
+                'currency': swap.currency,
+                'due_date': None,  # Triggered by credit event
+                'status': 'contingent',
+                'description': "Protection payment upon credit event"
+            }
+            obligations.append(obligation)
+        
+        elif swap.swap_type == SwapType.TOTAL_RETURN:
+            # Total return payment obligation
+            obligation = {
+                'obligation_type': 'total_return_payment',
+                'amount': 0,  # Variable based on asset performance
+                'currency': swap.currency,
+                'due_date': self._calculate_next_payment_date(swap.effective_date, swap.payment_frequency),
+                'status': 'pending',
+                'description': f"Total return payment on {swap.reference_entity}"
+            }
+            obligations.append(obligation)
+        
+        # Extract from additional terms if available
+        if swap.additional_terms and 'obligations' in swap.additional_terms:
+            for obligation_info in swap.additional_terms['obligations']:
+                if isinstance(obligation_info, dict):
+                    obligations.append(obligation_info)
+        
+        return obligations
+    
+    def _extract_obligation_triggers(self, swap: SwapContract, obligation: Dict[str, Any]) -> List[Dict[str, Any]]:
+        """Extract triggers for an obligation.
+        
+        Args:
+            swap: SwapContract object
+            obligation: Dictionary containing obligation data
+            
+        Returns:
+            List of dictionaries containing trigger data
+        """
+        triggers = []
+        
+        # Generate triggers based on obligation type
+        if obligation['obligation_type'] == 'protection_payment':
+            # Credit event trigger for CDS
+            trigger = {
+                'trigger_type': 'credit_event',
+                'trigger_condition': f"credit_event({swap.reference_entity}) = true",
+                'description': f"Credit event on {swap.reference_entity}",
+                'is_active': True
+            }
+            triggers.append(trigger)
+        
+        elif obligation['obligation_type'] in ['fixed_payment', 'floating_payment', 'premium_payment']:
+            # Time-based trigger for regular payments
+            trigger = {
+                'trigger_type': 'time_based',
+                'trigger_condition': f"date >= {obligation.get('due_date', 'TBD')}",
+                'description': f"Payment due on {obligation.get('due_date', 'TBD')}",
+                'is_active': True
+            }
+            triggers.append(trigger)
+        
+        elif obligation['obligation_type'] == 'total_return_payment':
+            # Performance-based trigger
+            trigger = {
+                'trigger_type': 'performance',
+                'trigger_condition': f"performance({swap.reference_entity}) != 0",
+                'description': f"Performance change in {swap.reference_entity}",
+                'is_active': True
+            }
+            triggers.append(trigger)
+        
+        # Extract from additional terms if available
+        if swap.additional_terms and 'triggers' in swap.additional_terms:
+            for trigger_info in swap.additional_terms['triggers']:
+                if isinstance(trigger_info, dict):
+                    triggers.append(trigger_info)
+        
+        return triggers
+    
+    def _determine_instrument_type(self, identifier: str) -> str:
+        """Determine the instrument type based on identifier.
+        
+        Args:
+            identifier: Instrument identifier
+            
+        Returns:
+            String representing the instrument type
+        """
+        identifier = identifier.upper()
+        
+        # Simple heuristics - in practice, you'd use more sophisticated logic
+        if len(identifier) <= 5 and identifier.isalpha():
+            return 'equity'
+        elif 'INDEX' in identifier or 'IDX' in identifier:
+            return 'index'
+        elif len(identifier) == 9 and identifier.isalnum():
+            return 'bond'  # CUSIP format
+        elif len(identifier) == 12 and identifier.isalnum():
+            return 'bond'  # ISIN format
+        else:
+            return 'other'
+    
+    def _get_payment_frequency_factor(self, frequency: PaymentFrequency) -> int:
+        """Get the number of payments per year for a given frequency.
+        
+        Args:
+            frequency: Payment frequency
+            
+        Returns:
+            Number of payments per year
+        """
+        frequency_map = {
+            PaymentFrequency.DAILY: 365,
+            PaymentFrequency.WEEKLY: 52,
+            PaymentFrequency.MONTHLY: 12,
+            PaymentFrequency.QUARTERLY: 4,
+            PaymentFrequency.SEMI_ANNUAL: 2,
+            PaymentFrequency.ANNUAL: 1,
+            PaymentFrequency.MATURITY: 1
+        }
+        return frequency_map.get(frequency, 4)  # Default to quarterly
+    
+    def _calculate_next_payment_date(self, start_date: date, frequency: PaymentFrequency) -> date:
+        """Calculate the next payment date based on frequency.
+        
+        Args:
+            start_date: Start date of the swap
+            frequency: Payment frequency
+            
+        Returns:
+            Next payment date
+        """
+        from dateutil.relativedelta import relativedelta
+        
+        if frequency == PaymentFrequency.MONTHLY:
+            return start_date + relativedelta(months=1)
+        elif frequency == PaymentFrequency.QUARTERLY:
+            return start_date + relativedelta(months=3)
+        elif frequency == PaymentFrequency.SEMI_ANNUAL:
+            return start_date + relativedelta(months=6)
+        elif frequency == PaymentFrequency.ANNUAL:
+            return start_date + relativedelta(years=1)
+        else:
+            # Default to quarterly
+            return start_date + relativedelta(months=3)
     
     def _process_dataframe(self, df: pd.DataFrame) -> List[SwapContract]:
         """Process swaps data from a pandas DataFrame.

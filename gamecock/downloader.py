@@ -14,47 +14,17 @@ from loguru import logger
 from rich.console import Console
 from rich.progress import Progress, BarColumn, TaskProgressColumn, TextColumn
 
+from .db_handler import DatabaseHandler
+from .swaps_analyzer import SwapsAnalyzer
+
 logger.remove()  # Remove default handler
 logger.add(sys.stderr, level="DEBUG")  # Add handler with DEBUG level
 
-class DatabaseHandler:
-    def __init__(self, db_path: Optional[Union[str, Path]] = None):
-        if db_path:
-            self.db_path = Path(db_path)
-        else:
-            self.db_path = Path(__file__).parent.parent / 'data' / 'sec_data.db'
-            
-        # Ensure parent directory exists
-        self.db_path.parent.mkdir(parents=True, exist_ok=True)
-        
-        self.conn = sqlite3.connect(self.db_path)
-        self.cursor = self.conn.cursor()
-        self._create_tables()
-
-    def _create_tables(self):
-        """Create necessary database tables if they don't exist."""
-        try:
-            # Create filings table with metadata and file paths
-            self.cursor.execute("""
-                CREATE TABLE IF NOT EXISTS filings (
-                    id INTEGER PRIMARY KEY,
-                    company_cik TEXT,
-                    accession_number TEXT,
-                    form_type TEXT,
-                    filing_date TEXT,
-                    file_path TEXT,
-                    updated_at TEXT,
-                    UNIQUE(company_cik, accession_number)
-                )
-            """)
-            self.conn.commit()
-        except sqlite3.Error as e:
-            logger.error(f"Failed to create filings table: {str(e)}")
 
 class SECDownloader:
     """Downloads SEC filings from EDGAR."""
     
-    def __init__(self, output_dir: Union[str, Path] = None, db_path: Union[str, Path] = None):
+    def __init__(self, output_dir: Union[str, Path] = None, db_handler: Optional[DatabaseHandler] = None, swaps_analyzer: Optional[SwapsAnalyzer] = None):
         """Initialize the downloader."""
         # Load environment variables
         load_dotenv()
@@ -72,8 +42,9 @@ class SECDownloader:
         self.output_dir = Path(output_dir) if output_dir else Path.cwd() / 'downloads'
         self.output_dir.mkdir(parents=True, exist_ok=True)
         
-        # Initialize database
-        self.db = DatabaseHandler(db_path)
+        # Initialize database and analyzer
+        self.db = db_handler or DatabaseHandler()
+        self.swaps_analyzer = swaps_analyzer or SwapsAnalyzer(db_handler=self.db)
         
         # Rate limiting
         self.min_request_interval = 0.1  # seconds between requests
@@ -458,6 +429,11 @@ class SECDownloader:
                         
                         if filing_files:
                             downloaded_files[filing["accession_number"]] = list(filing_files.values())
+                            # Analyze any downloaded swap files
+                            for file_path in filing_files.values():
+                                if file_path.suffix.lower() in ['.csv', '.json']:
+                                    logger.info(f"Found potential swap file: {file_path}. Analyzing...")
+                                    self.swaps_analyzer.load_swaps_from_file(file_path, save_to_db=True)
                             logger.info(f"Successfully downloaded {len(filing_files)} files for filing {filing['accession_number']}")
                             
                             # Save filing to database

@@ -27,6 +27,7 @@ def upgrade():
         sa.Column('currency', sa.String(10), nullable=False, default='USD'),
         sa.Column('effective_date', sa.Date(), nullable=False),
         sa.Column('maturity_date', sa.Date(), nullable=False),
+        sa.Column('swap_type', sa.String(50), nullable=True),
         sa.Column('payment_frequency', sa.String(50), nullable=True),
         sa.Column('fixed_rate', sa.Float(), nullable=True),
         sa.Column('floating_rate_index', sa.String(100), nullable=True),
