@@ -6,9 +6,14 @@ Direct launch script for the Gamecock Menu System
 import os
 from pathlib import Path
 from dotenv import load_dotenv
+from gamecock.setup_handler import SetupHandler
 from gamecock.menu_system import MenuSystem
 
-if __name__ == '__main__':
+def main():
+    # Run setup checks before starting the menu
+    setup = SetupHandler()
+    setup.run_all_checks()
+    
     # Ensure we're in the correct directory for relative paths
     os.chdir(Path(__file__).parent)
     

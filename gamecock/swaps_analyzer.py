@@ -510,6 +510,14 @@ class SwapsAnalyzer:
                     if actual_name in row and pd.notna(row[actual_name]):
                         swap_data[std_name] = row[actual_name]
                 
+                # Validate and convert dates
+                effective_date_dt = pd.to_datetime(swap_data.get('effective_date'), errors='coerce')
+                maturity_date_dt = pd.to_datetime(swap_data.get('maturity_date'), errors='coerce')
+
+                if pd.isna(effective_date_dt) or pd.isna(maturity_date_dt):
+                    logger.warning(f"Skipping record with invalid or missing date. Contract ID: {swap_data.get('contract_id', 'N/A')}")
+                    continue
+
                 # Create swap contract
                 swap = SwapContract(
                     contract_id=str(swap_data.get('contract_id', '')),
@@ -517,8 +525,8 @@ class SwapsAnalyzer:
                     reference_entity=swap_data.get('reference_entity', 'UNKNOWN'),
                     notional_amount=float(swap_data.get('notional_amount', 0)),
                     currency=swap_data.get('currency', 'USD'),
-                    effective_date=pd.to_datetime(swap_data.get('effective_date')).date(),
-                    maturity_date=pd.to_datetime(swap_data.get('maturity_date')).date(),
+                    effective_date=effective_date_dt.date(),
+                    maturity_date=maturity_date_dt.date(),
                     swap_type=swap_data.get('swap_type', SwapType.OTHER),
                     payment_frequency=swap_data.get('payment_frequency', PaymentFrequency.QUARTERLY),
                     fixed_rate=float(swap_data['fixed_rate']) if 'fixed_rate' in swap_data else None,
@@ -531,7 +539,11 @@ class SwapsAnalyzer:
                 swaps.append(swap)
                 
             except Exception as e:
-                logger.error(f"Error processing swap record: {str(e)}", exc_info=True)
+                # Truncate the error message to prevent RecursionError from rich logging a very long string
+                error_message = str(e)
+                if len(error_message) > 500:
+                    error_message = error_message[:500] + "... (truncated)"
+                logger.error(f"Error processing swap record: {error_message}", exc_info=True)
         
         return swaps
     

@@ -119,3 +119,40 @@ class OllamaHandler:
         except Exception as e:
             logger.error(f"Error listing models: {str(e)}")
             return []
+
+    def pull_model(self):
+        """Pull the required model from the Ollama registry."""
+        from rich.console import Console
+        from rich.progress import Progress
+
+        console = Console()
+        console.print(f"[bold green]Downloading model '{self.model}'... This may take a while.[/bold green]")
+
+        try:
+            with Progress(console=console) as progress:
+                task = progress.add_task("[cyan]Downloading...[/]", total=None)
+                
+                with httpx.stream("POST", f"{self.base_url}/api/pull", json={"name": self.model}, timeout=None) as response:
+                    if response.status_code != 200:
+                        console.print(f"[red]Error: Failed to pull model. Status: {response.status_code}[/red]")
+                        return
+
+                    total = 0
+                    completed = 0
+
+                    for line in response.iter_lines():
+                        if line:
+                            data = json.loads(line)
+                            if 'total' in data and 'completed' in data:
+                                if total == 0:
+                                    total = data['total']
+                                    progress.update(task, total=total)
+                                completed = data['completed']
+                                progress.update(task, completed=completed, description=f"[cyan]Downloading... {data['status']}[/cyan]")
+                            else:
+                                progress.update(task, description=f"[cyan]{data.get('status', 'Working...')}[/cyan]")
+
+            console.print(f"[green]Model '{self.model}' downloaded successfully.[/green]")
+
+        except Exception as e:
+            console.print(f"[red]An error occurred while pulling the model: {e}[/red]")

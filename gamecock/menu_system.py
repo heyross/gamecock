@@ -1,6 +1,7 @@
 """Menu system for SEC data handler."""
 from rich.console import Console
 from rich.prompt import Prompt
+from typing import Optional, Dict
 from rich.status import Status
 from rich.table import Table
 from datetime import datetime, timedelta
@@ -18,6 +19,7 @@ from .db_handler import DatabaseHandler
 from .sec_handler import SECHandler
 from .downloader import SECDownloader
 from .swaps_analyzer import SwapsAnalyzer
+from .ai_analyst import AIAnalyst
 
 console = Console()
 
@@ -40,7 +42,8 @@ class MenuSystem:
         self.console = Console()
         self.db = DatabaseHandler()
         self.sec = SECHandler()
-        self.swaps_analyzer = SwapsAnalyzer()
+        self.swaps_analyzer = SwapsAnalyzer(db_handler=self.db)
+        self.ai_analyst = AIAnalyst(db_handler=self.db)
 
     def main_menu(self):
         """Run the main menu system."""
@@ -54,9 +57,10 @@ class MenuSystem:
             self.console.print("4. View Downloaded Data")
             self.console.print("5. Swaps Analysis")
             self.console.print("6. Data Explorer")
-            self.console.print("7. Exit")
+            self.console.print("7. AI Analyst")
+            self.console.print("8. Exit")
             
-            choice = Prompt.ask("\nSelect an option", choices=["1", "2", "3", "4", "5", "6", "7"])
+            choice = Prompt.ask("\nSelect an option", choices=["1", "2", "3", "4", "5", "6", "7", "8"])
             
             if choice == "1":
                 self.search_company_menu()
@@ -71,6 +75,8 @@ class MenuSystem:
             elif choice == "6":
                 self.data_explorer_menu()
             elif choice == "7":
+                self._ai_analyst_menu()
+            elif choice == "8":
                 break
                 
     def search_company_menu(self):
@@ -641,6 +647,32 @@ class MenuSystem:
         
         input("\nPress Enter to continue...")
 
+    def _run_analysis_for_entity(self, original_question: str, entity: Dict):
+        """Helper to run analysis once an entity is confirmed."""
+        with self.console.status("[bold green]AI is analyzing...[/]"):
+            context_data = self.ai_analyst._retrieve_context_data(entity)
+            prompt = self.ai_analyst._generate_rag_prompt(original_question, context_data)
+            response = self.ai_analyst.generate_final_analysis(prompt)
+        
+        if response['type'] == 'analysis':
+            self.console.print("\n[bold]AI Analyst Response:[/bold]")
+            self.console.print(response['message'])
+        else:
+            self.console.print(f"[red]Error: {response['message']}[/red]")
+
+    def _download_data_for_entity(self, entity_name: str):
+        """Helper to find and download data for a new entity."""
+        with self.console.status(f"[bold green]Searching for '{entity_name}' on SEC EDGAR...[/]"):
+            company_info = self.sec_handler.get_company_info(entity_name)
+        
+        if not company_info:
+            self.console.print(f"[red]Could not find '{entity_name}' on SEC EDGAR.[/red]")
+            return
+
+        self.console.print(f"[green]Found company: {company_info.name} (CIK: {company_info.primary_identifiers.cik})[/green]")
+        if Prompt.ask("\nDownload its latest filings?", choices=["y", "n"]) == 'y':
+            self._download_filings_for_company(company_info)
+
     def _explain_swap(self, contract_id: str):
         """Get and display an AI-generated explanation for a swap."""
         self.console.clear()
@@ -704,6 +736,60 @@ class MenuSystem:
             else:
                 self.console.print("[red]Invalid selection.[/red]")
                 input("\nPress Enter to continue...")
+
+    def _ai_analyst_menu(self):
+        """Menu for interacting with the AI Analyst."""
+        self.console.clear()
+        print_ascii_art()
+        self.console.print("\n[bold blue]AI Analyst[/bold blue]\n")
+        self.console.print("Ask a question about a company or security, e.g., 'Summarize the risk for Goldman Sachs'.")
+
+        question = Prompt.ask("\nYour question (or press Enter to go back)")
+        if not question:
+            return
+
+        with self.console.status("[bold green]AI is thinking...[/]"):
+            response = self.ai_analyst.answer(question)
+
+        if response['type'] == 'error':
+            self.console.print(f"[red]Error: {response['message']}[/red]")
+
+        elif response['type'] == 'prompt_download':
+            if Prompt.ask(f"\n{response['message']} (y/n)") == 'y':
+                self._download_data_for_entity(response['entity_name'])
+
+        elif response['type'] == 'prompt_confirm_entity':
+            if Prompt.ask(f"\n{response['message']} (y/n)") == 'y':
+                self._run_analysis_for_entity(question, response['suggestion'])
+
+        elif response['type'] == 'analysis':
+            self.console.print("\n[bold]AI Analyst Response:[/bold]")
+            self.console.print(response['message'])
+
+        input("\nPress Enter to continue...")
+
+    def _run_analysis_for_entity(self, original_question: str, entity: Dict):
+        """Helper to run analysis once an entity is confirmed."""
+        with self.console.status("[bold green]AI is analyzing...[/]"):
+            context_data = self.ai_analyst._retrieve_context_data(entity)
+            prompt = self.ai_analyst._generate_rag_prompt(original_question, context_data)
+            answer = self.ai_analyst.ollama.generate(prompt, max_tokens=1024)
+        
+        self.console.print("\n[bold]AI Analyst Response:[/bold]")
+        self.console.print(answer or "Failed to generate a response.")
+
+    def _download_data_for_entity(self, entity_name: str):
+        """Helper to find and download data for a new entity."""
+        with self.console.status(f"[bold green]Searching for '{entity_name}' on SEC EDGAR...[/]"):
+            company_info = self.sec.get_company_info(entity_name)
+        
+        if not company_info:
+            self.console.print(f"[red]Could not find '{entity_name}' on SEC EDGAR.[/red]")
+            return
+
+        self.console.print(f"[green]Found company: {company_info.name} (CIK: {company_info.primary_identifiers.cik})[/green]")
+        if Prompt.ask("\nDownload its latest filings?", choices=["y", "n"]) == 'y':
+            self._download_filings_for_company(company_info)
 
 def main():
     menu = MenuSystem()
