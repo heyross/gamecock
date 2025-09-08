@@ -1,16 +1,23 @@
-"""Database handler for SEC data."""
+"""Database handler for SEC and swaps data."""
 import sqlite3
 from pathlib import Path
-from typing import List, Optional
+from typing import List, Optional, Any, Dict
 from loguru import logger
 
 from .data_structures import CompanyInfo, EntityIdentifiers
+from .db_swaps import SwapsDatabase, Swap, SwapObligation, SwapAnalysis
 
 class DatabaseHandler:
     """Handles database operations for SEC data."""
     
-    def __init__(self, db_path: Optional[str] = None):
-        """Initialize database connection."""
+    def __init__(self, db_path: Optional[str] = None, swaps_db_url: Optional[str] = None):
+        """Initialize database connections.
+        
+        Args:
+            db_path: Path to the SQLite database file for SEC data
+            swaps_db_url: Database URL for swaps data (defaults to SQLite in data directory)
+        """
+        # Initialize SEC database
         if db_path is None:
             db_path = str(Path(__file__).parent.parent / "data" / "sec_data.db")
             Path(db_path).parent.mkdir(parents=True, exist_ok=True)
@@ -18,6 +25,21 @@ class DatabaseHandler:
         self.conn = sqlite3.connect(self.db_path)
         self.cursor = self.conn.cursor()
         self._init_db()
+        
+        # Initialize swaps database
+        if swaps_db_url is None:
+            swaps_db_path = str(Path(__file__).parent.parent / "data" / "swaps.db")
+            Path(swaps_db_path).parent.mkdir(parents=True, exist_ok=True)
+            swaps_db_url = f"sqlite:///{swaps_db_path}"
+            
+        self.swaps_db = SwapsDatabase(swaps_db_url)
+        
+    def __del__(self):
+        """Close database connections on deletion."""
+        if hasattr(self, 'conn'):
+            self.conn.close()
+        if hasattr(self, 'swaps_db') and hasattr(self.swaps_db, 'engine'):
+            self.swaps_db.engine.dispose()
         
     def _init_db(self):
         """Initialize database tables."""        
@@ -90,6 +112,87 @@ class DatabaseHandler:
         
         self.conn.commit()
         
+    # Swaps database methods
+    def save_swap(self, swap_data: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+        """Save a swap contract to the database.
+        
+        Args:
+            swap_data: Dictionary containing swap data
+            
+        Returns:
+            Dictionary containing the saved swap data or None if failed
+        """
+        return self.swaps_db.save_swap(swap_data)
+    
+    def get_swap(self, contract_id: str) -> Optional[Dict[str, Any]]:
+        """Get a swap by contract ID.
+        
+        Args:
+            contract_id: Unique identifier for the swap contract
+            
+        Returns:
+            Dictionary containing swap data or None if not found
+        """
+        return self.swaps_db.get_swap(contract_id)
+    
+    def find_swaps_by_reference_entity(self, entity_name: str) -> List[Dict[str, Any]]:
+        """Find all swaps for a reference entity.
+        
+        Args:
+            entity_name: Name of the reference entity
+            
+        Returns:
+            List of dictionaries containing swap data
+        """
+        return self.swaps_db.find_swaps_by_reference_entity(entity_name)
+    
+    def add_obligation(self, swap_id: int, obligation_data: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+        """Add an obligation to a swap.
+        
+        Args:
+            swap_id: ID of the swap
+            obligation_data: Dictionary containing obligation data
+            
+        Returns:
+            Dictionary containing the saved obligation data or None if failed
+        """
+        return self.swaps_db.add_obligation(swap_id, obligation_data)
+    
+    def save_analysis(self, swap_id: int, analysis_data: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+        """Save analysis for a swap.
+        
+        Args:
+            swap_id: ID of the swap
+            analysis_data: Dictionary containing analysis data
+            
+        Returns:
+            Dictionary containing the saved analysis data or None if failed
+        """
+        return self.swaps_db.save_analysis(swap_id, analysis_data)
+    
+    def get_swap_with_analysis(self, contract_id: str) -> Optional[Dict[str, Any]]:
+        """Get a swap with its analysis and obligations.
+        
+        Args:
+            contract_id: Unique identifier for the swap contract
+            
+        Returns:
+            Dictionary containing swap data with analysis and obligations, or None if not found
+        """
+        return self.swaps_db.get_swap_with_analysis(contract_id)
+    
+    def delete_swap(self, contract_id: str) -> bool:
+        """Delete a swap and all its related data.
+        
+        Args:
+            contract_id: Unique identifier for the swap contract
+            
+        Returns:
+            True if successful, False otherwise
+        """
+        return self.swaps_db.delete_swap(contract_id)
+    
+    # SEC Database methods
     def save_company(self, company: CompanyInfo) -> bool:
         """Save company information to database."""
         try:

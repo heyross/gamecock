@@ -1,0 +1,762 @@
+"""
+Swaps Analysis Module
+
+This module provides functionality to analyze swaps data from various sources including SEC filings.
+"""
+import os
+import logging
+import pandas as pd
+from pathlib import Path
+from typing import Dict, List, Optional, Any, Union
+from dataclasses import dataclass, field, asdict
+from datetime import datetime, date
+import json
+from enum import Enum
+
+from .db_handler import DatabaseHandler
+
+logger = logging.getLogger(__name__)
+
+class SwapType(str, Enum):
+    """Types of swaps."""
+    CREDIT_DEFAULT = "credit_default"
+    INTEREST_RATE = "interest_rate"
+    TOTAL_RETURN = "total_return"
+    CURRENCY = "currency"
+    COMMODITY = "commodity"
+    EQUITY = "equity"
+    OTHER = "other"
+
+class PaymentFrequency(str, Enum):
+    """Payment frequency for swap payments."""
+    DAILY = "daily"
+    WEEKLY = "weekly"
+    MONTHLY = "monthly"
+    QUARTERLY = "quarterly"
+    SEMI_ANNUAL = "semi_annual"
+    ANNUAL = "annual"
+    MATURITY = "at_maturity"
+
+@dataclass
+class SwapContract:
+    """Represents a single swap contract."""
+    contract_id: str
+    counterparty: str
+    reference_entity: str
+    notional_amount: float
+    currency: str = "USD"
+    effective_date: Union[date, str]
+    maturity_date: Union[date, str]
+    swap_type: Union[SwapType, str] = SwapType.OTHER
+    payment_frequency: Union[PaymentFrequency, str] = PaymentFrequency.QUARTERLY
+    fixed_rate: Optional[float] = None
+    floating_rate_index: Optional[str] = None
+    floating_rate_spread: Optional[float] = None
+    collateral_terms: Dict[str, Any] = field(default_factory=dict)
+    additional_terms: Dict[str, Any] = field(default_factory=dict)
+    
+    def __post_init__(self):
+        # Convert string dates to date objects if needed
+        if isinstance(self.effective_date, str):
+            self.effective_date = datetime.strptime(self.effective_date, "%Y-%m-%d").date()
+        if isinstance(self.maturity_date, str):
+            self.maturity_date = datetime.strptime(self.maturity_date, "%Y-%m-%d").date()
+            
+        # Convert enums from strings if needed
+        if isinstance(self.swap_type, str):
+            self.swap_type = SwapType(self.swap_type.lower())
+        if isinstance(self.payment_frequency, str):
+            self.payment_frequency = PaymentFrequency(self.payment_frequency.lower())
+    
+    def to_dict(self) -> Dict[str, Any]:
+        """Convert swap to dictionary."""
+        data = asdict(self)
+        # Convert enums to strings
+        data['swap_type'] = self.swap_type.value
+        data['payment_frequency'] = self.payment_frequency.value
+        # Convert dates to ISO format strings
+        data['effective_date'] = self.effective_date.isoformat()
+        data['maturity_date'] = self.maturity_date.isoformat()
+        return data
+        
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> 'SwapContract':
+        """Create SwapContract from dictionary."""
+        return cls(**data)
+
+class SwapsAnalyzer:
+    """Handles analysis of swaps data from various sources."""
+    
+    def __init__(self, db_handler: Optional[DatabaseHandler] = None, data_dir: str = "data"):
+        """Initialize the swaps analyzer.
+        
+        Args:
+            db_handler: Database handler instance (optional)
+            data_dir: Directory where swaps data files are stored
+        """
+        self.data_dir = Path(data_dir)
+        self.data_dir.mkdir(parents=True, exist_ok=True)
+        self.db = db_handler or DatabaseHandler()
+        self._loaded_swaps: List[SwapContract] = []
+        
+    @property
+    def swaps(self) -> List[SwapContract]:
+        """Get all swaps from both memory and database."""
+        return self._loaded_swaps + self._get_swaps_from_db()
+    
+    def _get_swaps_from_db(self) -> List[SwapContract]:
+        """Load swaps from the database."""
+        # This is a simplified example - in a real implementation, you'd query the database
+        # and convert the results to SwapContract objects
+        return []
+        
+    def load_swaps_from_file(self, file_path: Union[str, Path], save_to_db: bool = True) -> List[SwapContract]:
+        """Load swaps data from a file.
+        
+        Args:
+            file_path: Path to the file containing swaps data
+            save_to_db: Whether to save the loaded swaps to the database
+            
+        Returns:
+            List of loaded SwapContract objects
+        """
+        loaded_swaps = []
+        try:
+            file_path = Path(file_path)
+            if not file_path.exists():
+                logger.error(f"File not found: {file_path}")
+                return loaded_swaps
+                
+            logger.info(f"Loading swaps from {file_path}")
+            
+            # Handle different file formats
+            if file_path.suffix.lower() == '.csv':
+                df = pd.read_csv(file_path)
+                loaded_swaps = self._process_dataframe(df)
+            elif file_path.suffix.lower() == '.json':
+                with open(file_path, 'r', encoding='utf-8') as f:
+                    data = json.load(f)
+                    loaded_swaps = self._process_json(data)
+            else:
+                logger.error(f"Unsupported file format: {file_path.suffix}")
+                
+            # Save to database if requested
+            if save_to_db and loaded_swaps:
+                self._save_swaps_to_db(loaded_swaps)
+                
+            # Add to in-memory list
+            self._loaded_swaps.extend(loaded_swaps)
+            
+            logger.info(f"Successfully loaded {len(loaded_swaps)} swaps from {file_path}")
+            
+        except Exception as e:
+            logger.error(f"Error loading swaps data: {str(e)}", exc_info=True)
+            
+        return loaded_swaps
+        
+    def _save_swaps_to_db(self, swaps: List[SwapContract]) -> int:
+        """Save a list of swaps to the database.
+        
+        Args:
+            swaps: List of SwapContract objects to save
+            
+        Returns:
+            Number of swaps successfully saved
+        """
+        saved_count = 0
+        for swap in swaps:
+            try:
+                # Convert to dict and save to database
+                swap_dict = swap.to_dict()
+                if self.db.save_swap(swap_dict):
+                    saved_count += 1
+            except Exception as e:
+                logger.error(f"Error saving swap {swap.contract_id} to database: {str(e)}")
+                
+        return saved_count
+    
+    def _process_dataframe(self, df: pd.DataFrame) -> List[SwapContract]:
+        """Process swaps data from a pandas DataFrame.
+        
+        Args:
+            df: DataFrame containing swaps data
+            
+        Returns:
+            List of processed SwapContract objects
+        """
+        swaps = []
+        
+        # Convert column names to lowercase for case-insensitive matching
+        df.columns = df.columns.str.lower()
+        
+        # Handle missing or differently named columns
+        column_mapping = {
+            'contract_id': ['contract_id', 'id', 'swap_id', 'contractid'],
+            'counterparty': ['counterparty', 'cp', 'party'],
+            'reference_entity': ['reference_entity', 'reference', 'underlying', 'entity'],
+            'notional_amount': ['notional_amount', 'notional', 'amount', 'size'],
+            'currency': ['currency', 'ccy', 'curr'],
+            'effective_date': ['effective_date', 'start_date', 'trade_date'],
+            'maturity_date': ['maturity_date', 'end_date', 'expiry_date'],
+            'swap_type': ['swap_type', 'type', 'product'],
+            'payment_frequency': ['payment_frequency', 'freq', 'payment'],
+            'fixed_rate': ['fixed_rate', 'rate', 'coupon'],
+            'floating_rate_index': ['floating_rate_index', 'index', 'floating_index'],
+            'floating_rate_spread': ['floating_rate_spread', 'spread', 'margin']
+        }
+        
+        # Find actual column names in the dataframe
+        actual_columns = {}
+        for standard_name, possible_names in column_mapping.items():
+            for name in possible_names:
+                if name in df.columns:
+                    actual_columns[standard_name] = name
+                    break
+        
+        # Process each row
+        for _, row in df.iterrows():
+            try:
+                # Extract values using mapped column names
+                swap_data = {}
+                for std_name, actual_name in actual_columns.items():
+                    if actual_name in row and pd.notna(row[actual_name]):
+                        swap_data[std_name] = row[actual_name]
+                
+                # Create swap contract
+                swap = SwapContract(
+                    contract_id=str(swap_data.get('contract_id', '')),
+                    counterparty=swap_data.get('counterparty', 'UNKNOWN'),
+                    reference_entity=swap_data.get('reference_entity', 'UNKNOWN'),
+                    notional_amount=float(swap_data.get('notional_amount', 0)),
+                    currency=swap_data.get('currency', 'USD'),
+                    effective_date=pd.to_datetime(swap_data.get('effective_date')).date(),
+                    maturity_date=pd.to_datetime(swap_data.get('maturity_date')).date(),
+                    swap_type=swap_data.get('swap_type', SwapType.OTHER),
+                    payment_frequency=swap_data.get('payment_frequency', PaymentFrequency.QUARTERLY),
+                    fixed_rate=float(swap_data['fixed_rate']) if 'fixed_rate' in swap_data else None,
+                    floating_rate_index=swap_data.get('floating_rate_index'),
+                    floating_rate_spread=float(swap_data['floating_rate_spread']) 
+                        if 'floating_rate_spread' in swap_data and pd.notna(swap_data['floating_rate_spread']) 
+                        else None,
+                )
+                
+                swaps.append(swap)
+                
+            except Exception as e:
+                logger.error(f"Error processing swap record: {str(e)}", exc_info=True)
+        
+        return swaps
+    
+    def _process_json(self, data: Union[Dict, List]) -> List[SwapContract]:
+        """Process swaps data from a JSON structure.
+        
+        Args:
+            data: Dictionary or list containing swaps data
+            
+        Returns:
+            List of processed SwapContract objects
+        """
+        swaps = []
+        
+        if isinstance(data, list):
+            for item in data:
+                try:
+                    swap = self._process_swap_item(item)
+                    if swap:
+                        swaps.append(swap)
+                except Exception as e:
+                    logger.error(f"Error processing swap item: {str(e)}", exc_info=True)
+        elif isinstance(data, dict):
+            try:
+                swap = self._process_swap_item(data)
+                if swap:
+                    swaps.append(swap)
+            except Exception as e:
+                logger.error(f"Error processing swap item: {str(e)}", exc_info=True)
+                
+        return swaps
+    
+    def _process_swap_item(self, item: Dict) -> Optional[SwapContract]:
+        """Process a single swap item from JSON data.
+        
+        Args:
+            item: Dictionary containing swap data
+            
+        Returns:
+            Processed SwapContract or None if processing failed
+        """
+        try:
+            # Handle nested structures
+            if 'data' in item and isinstance(item['data'], dict):
+                item = {**item, **item.pop('data')}
+                
+            # Convert all keys to lowercase for case-insensitive matching
+            item = {k.lower(): v for k, v in item.items()}
+            
+            # Map fields to expected names
+            field_mapping = {
+                'contract_id': ['contract_id', 'id', 'swap_id', 'contractid'],
+                'counterparty': ['counterparty', 'cp', 'party'],
+                'reference_entity': ['reference_entity', 'reference', 'underlying', 'entity'],
+                'notional_amount': ['notional_amount', 'notional', 'amount', 'size'],
+                'currency': ['currency', 'ccy', 'curr'],
+                'effective_date': ['effective_date', 'start_date', 'trade_date'],
+                'maturity_date': ['maturity_date', 'end_date', 'expiry_date'],
+                'swap_type': ['swap_type', 'type', 'product'],
+                'payment_frequency': ['payment_frequency', 'freq', 'payment'],
+                'fixed_rate': ['fixed_rate', 'rate', 'coupon'],
+                'floating_rate_index': ['floating_rate_index', 'index', 'floating_index'],
+                'floating_rate_spread': ['floating_rate_spread', 'spread', 'margin'],
+                'collateral_terms': ['collateral_terms', 'collateral', 'margin_terms'],
+                'additional_terms': ['additional_terms', 'terms', 'misc']
+            }
+            
+            # Extract values using mapped field names
+            swap_data = {}
+            for field, possible_names in field_mapping.items():
+                for name in possible_names:
+                    if name in item and item[name] is not None:
+                        swap_data[field] = item[name]
+                        break
+            
+            # Skip if required fields are missing
+            required_fields = ['contract_id', 'counterparty', 'reference_entity', 
+                             'notional_amount', 'effective_date', 'maturity_date']
+            if not all(field in swap_data for field in required_fields):
+                logger.warning(f"Skipping swap with missing required fields: {item}")
+                return None
+            
+            # Create and return the swap contract
+            return SwapContract(
+                contract_id=str(swap_data['contract_id']),
+                counterparty=swap_data['counterparty'],
+                reference_entity=swap_data['reference_entity'],
+                notional_amount=float(swap_data['notional_amount']),
+                currency=swap_data.get('currency', 'USD'),
+                effective_date=swap_data['effective_date'],
+                maturity_date=swap_data['maturity_date'],
+                swap_type=swap_data.get('swap_type', SwapType.OTHER),
+                payment_frequency=swap_data.get('payment_frequency', PaymentFrequency.QUARTERLY),
+                fixed_rate=float(swap_data['fixed_rate']) if 'fixed_rate' in swap_data else None,
+                floating_rate_index=swap_data.get('floating_rate_index'),
+                floating_rate_spread=float(swap_data['floating_rate_spread']) 
+                    if 'floating_rate_spread' in swap_data and swap_data['floating_rate_spread'] is not None 
+                    else None,
+                collateral_terms=swap_data.get('collateral_terms', {}),
+                additional_terms=swap_data.get('additional_terms', {})
+            )
+            
+        except Exception as e:
+            logger.error(f"Error processing swap item: {str(e)}", exc_info=True)
+            return None
+    
+    def find_swaps_by_reference_entity(self, entity_name: str, use_db: bool = True) -> List[SwapContract]:
+        """Find all swaps referencing a specific entity.
+        
+        Args:
+            entity_name: Name of the reference entity to search for
+            use_db: Whether to search in the database in addition to in-memory swaps
+            
+        Returns:
+            List of matching SwapContract objects
+        """
+        # Search in-memory swaps
+        in_memory_matches = [
+            swap for swap in self._loaded_swaps 
+            if entity_name.lower() in swap.reference_entity.lower()
+        ]
+        
+        # Search database if requested
+        db_matches = []
+        if use_db:
+            try:
+                db_results = self.db.find_swaps_by_reference_entity(entity_name)
+                db_matches = [
+                    SwapContract.from_dict(swap_dict) 
+                    for swap_dict in db_results
+                    if entity_name.lower() in swap_dict.get('reference_entity', '').lower()
+                ]
+            except Exception as e:
+                logger.error(f"Error searching swaps in database: {str(e)}")
+        
+        # Combine and deduplicate results
+        all_matches = {swap.contract_id: swap for swap in (in_memory_matches + db_matches)}
+        return list(all_matches.values())
+    
+    def calculate_exposure(self, entity_name: str) -> Dict[str, Any]:
+        """Calculate exposure to a specific reference entity.
+        
+        Args:
+            entity_name: Name of the reference entity
+            
+        Returns:
+            Dictionary containing exposure metrics
+        """
+        entity_swaps = self.find_swaps_by_reference_entity(entity_name)
+        if not entity_swaps:
+            return {}
+        
+        total_notional = sum(swap.notional_amount for swap in entity_swaps)
+        
+        # Calculate exposure by currency
+        exposure_by_currency = {}
+        for swap in entity_swaps:
+            currency = swap.currency.upper()
+            exposure_by_currency[currency] = exposure_by_currency.get(currency, 0) + swap.notional_amount
+        
+        # Calculate exposure by counterparty
+        exposure_by_counterparty = {}
+        for swap in entity_swaps:
+            cp = swap.counterparty
+            exposure_by_counterparty[cp] = exposure_by_counterparty.get(cp, 0) + swap.notional_amount
+               
+        # Calculate exposure by swap type
+        exposure_by_type = {}
+        for swap in entity_swaps:
+            swap_type = swap.swap_type.value if hasattr(swap.swap_type, 'value') else str(swap.swap_type)
+            exposure_by_type[swap_type] = exposure_by_type.get(swap_type, 0) + swap.notional_amount
+        
+        # Get min/max maturities
+        maturities = [swap.maturity_date for swap in entity_swaps if hasattr(swap, 'maturity_date')]
+        min_maturity = min(maturities) if maturities else None
+        max_maturity = max(maturities) if maturities else None
+        
+        return {
+            'reference_entity': entity_name,
+            'total_notional': total_notional,
+            'num_contracts': len(entity_swaps),
+            'counterparties': list({swap.counterparty for swap in entity_swaps}),
+            'currencies': list({swap.currency.upper() for swap in entity_swaps}),
+            'exposure_by_currency': exposure_by_currency,
+            'exposure_by_counterparty': exposure_by_counterparty,
+            'exposure_by_type': exposure_by_type,
+            'earliest_maturity': min_maturity.isoformat() if min_maturity else None,
+            'latest_maturity': max_maturity.isoformat() if max_maturity else None,
+            'swap_types': list({swap.swap_type.value if hasattr(swap.swap_type, 'value') else str(swap.swap_type) 
+                              for swap in entity_swaps})
+        }
+    
+    def generate_risk_report(self, entity_name: str, include_analysis: bool = False) -> Dict:
+        """Generate a risk report for a reference entity.
+        
+        Args:
+            entity_name: Name of the reference entity
+            include_analysis: Whether to include detailed analysis (may be slower)
+            
+        Returns:
+            Dictionary containing risk metrics and analysis
+        """
+        # Get basic exposure metrics
+        exposure = self.calculate_exposure(entity_name)
+        if not exposure:
+            return {"error": f"No swaps found for reference entity: {entity_name}"}
+        
+        # Get all swaps for the entity
+        entity_swaps = self.find_swaps_by_reference_entity(entity_name)
+        today = date.today()
+        
+        # Calculate time to maturity for each swap (in years)
+        time_to_maturity = []
+        for swap in entity_swaps:
+            if hasattr(swap, 'maturity_date') and swap.maturity_date:
+                days = (swap.maturity_date - today).days
+                if days > 0:  # Only include future maturities
+                    time_to_maturity.append(days / 365.25)
+        
+        # Calculate risk metrics
+        total_notional = exposure['total_notiation']
+        avg_time_to_maturity = sum(time_to_maturity) / len(time_to_maturity) if time_to_maturity else 0
+        
+        # Calculate concentration risk
+        num_counterparties = len(exposure['counterparties'])
+        counterparty_concentration = max(exposure['exposure_by_counterparty'].values()) / total_notional if total_notional > 0 else 1.0
+        
+        # Calculate currency risk
+        num_currencies = len(exposure['currencies'])
+        currency_concentration = max(exposure['exposure_by_currency'].values()) / total_notional if total_notional > 0 else 1.0
+        
+        # Calculate risk score (0-100, higher is riskier)
+        risk_score = self._calculate_risk_score(
+            total_notional=total_notional,
+            avg_time_to_maturity=avg_time_to_maturity,
+            counterparty_concentration=counterparty_concentration,
+            currency_concentration=currency_concentration
+        )
+        
+        # Prepare report
+        report = {
+            "reference_entity": entity_name,
+            "as_of_date": today.isoformat(),
+            "summary": {
+                "total_notional": total_notional,
+                "num_contracts": exposure['num_contracts'],
+                "num_counterparties": num_counterparties,
+                "num_currencies": num_currencies,
+                "swap_types": exposure['swap_types'],
+                "earliest_maturity": exposure.get('earliest_maturity'),
+                "latest_maturity": exposure.get('latest_maturity'),
+                "avg_time_to_maturity_years": round(avg_time_to_maturity, 2)
+            },
+            "exposure_metrics": {
+                "by_currency": exposure['exposure_by_currency'],
+                "by_counterparty": exposure['exposure_by_counterparty'],
+                "by_type": exposure['exposure_by_type']
+            },
+            "risk_metrics": {
+                "risk_score": round(risk_score, 1),
+                "risk_level": self._get_risk_level(risk_score),
+                "counterparty_concentration": round(counterparty_concentration * 100, 1),
+                "currency_concentration": round(currency_concentration * 100, 1),
+                "time_horizon_risk": "high" if avg_time_to_maturity > 5 else "medium" if avg_time_to_maturity > 1 else "low"
+            }
+        }
+        
+        # Add detailed analysis if requested
+        if include_analysis:
+            report["detailed_analysis"] = self._generate_detailed_analysis(entity_swaps, exposure)
+        
+        return report
+    
+    def _calculate_risk_score(
+        self, 
+        total_notional: float, 
+        avg_time_to_maturity: float,
+        counterparty_concentration: float,
+        currency_concentration: float
+    ) -> float:
+        """Calculate a composite risk score (0-100)."""
+        # Notional risk (0-40 points)
+        notional_risk = min(40, (total_notional ** 0.5) / 1000)
+        
+        # Time to maturity risk (0-20 points)
+        time_risk = min(20, avg_time_to_maturity * 2)
+        
+        # Counterparty concentration risk (0-20 points)
+        cp_risk = counterparty_concentration * 20
+        
+        # Currency concentration risk (0-20 points)
+        curr_risk = currency_concentration * 20
+        
+        return min(100, notional_risk + time_risk + cp_risk + curr_risk)
+    
+    def _get_risk_level(self, score: float) -> str:
+        """Convert risk score to risk level."""
+        if score >= 70:
+            return "Very High"
+        elif score >= 50:
+            return "High"
+        elif score >= 30:
+            return "Moderate"
+        elif score >= 15:
+            return "Low"
+        else:
+            return "Minimal"
+    
+    def _generate_detailed_analysis(self, swaps: List[SwapContract], exposure: Dict) -> Dict:
+        """Generate detailed analysis of swaps."""
+        if not swaps:
+            return {}
+            
+        # Calculate metrics by swap type
+        metrics_by_type = {}
+        for swap in swaps:
+            swap_type = swap.swap_type.value if hasattr(swap.swap_type, 'value') else str(swap.swap_type)
+            if swap_type not in metrics_by_type:
+                metrics_by_type[swap_type] = {
+                    'count': 0,
+                    'total_notional': 0,
+                    'fixed_rate_swaps': 0,
+                    'floating_rate_swaps': 0,
+                    'avg_notional': 0,
+                    'min_maturity': None,
+                    'max_maturity': None
+                }
+            
+            metrics = metrics_by_type[swap_type]
+            metrics['count'] += 1
+            metrics['total_notional'] += swap.notional_amount
+            
+            if swap.fixed_rate is not None:
+                metrics['fixed_rate_swaps'] += 1
+            if swap.floating_rate_index is not None:
+                metrics['floating_rate_swaps'] += 1
+                
+            if hasattr(swap, 'maturity_date') and swap.maturity_date:
+                if metrics['min_maturity'] is None or swap.maturity_date < metrics['min_maturity']:
+                    metrics['min_maturity'] = swap.maturity_date
+                if metrics['max_maturity'] is None or swap.maturity_date > metrics['max_maturity']:
+                    metrics['max_maturity'] = swap.maturity_date
+        
+        # Calculate averages
+        for metrics in metrics_by_type.values():
+            if metrics['count'] > 0:
+                metrics['avg_notional'] = metrics['total_notional'] / metrics['count']
+        
+        # Identify top counterparties
+        top_counterparties = sorted(
+            exposure['exposure_by_counterparty'].items(), 
+            key=lambda x: x[1], 
+            reverse=True
+        )[:5]  # Top 5
+        
+        # Identify currency exposures
+        currency_exposures = sorted(
+            exposure['exposure_by_currency'].items(),
+            key=lambda x: x[1],
+            reverse=True
+        )
+        
+        return {
+            'metrics_by_swap_type': {
+                k: {
+                    'count': v['count'],
+                    'total_notional': v['total_notional'],
+                    'avg_notional': v['avg_notional'],
+                    'fixed_rate_swaps': v['fixed_rate_swaps'],
+                    'floating_rate_swaps': v['floating_rate_swaps'],
+                    'min_maturity': v['min_maturity'].isoformat() if v['min_maturity'] else None,
+                    'max_maturity': v['max_maturity'].isoformat() if v['max_maturity'] else None
+                }
+                for k, v in metrics_by_type.items()
+            },
+            'top_counterparties': [
+                {'counterparty': cp, 'notional': amt, 'percentage': (amt / exposure['total_notional']) * 100}
+                for cp, amt in top_counterparties
+            ],
+            'currency_exposures': [
+                {'currency': curr, 'notional': amt, 'percentage': (amt / exposure['total_notional']) * 100}
+                for curr, amt in currency_exposures
+            ]
+        }
+    
+    def analyze_counterparty_risk(self, counterparty: str) -> Dict[str, Any]:
+        """Analyze risk exposure to a specific counterparty.
+        
+        Args:
+            counterparty: Name of the counterparty
+            
+        Returns:
+            Dictionary with risk analysis for the counterparty
+        """
+        # Find all swaps with this counterparty
+        swaps = [
+            swap for swap in self.swaps 
+            if swap.counterparty.lower() == counterparty.lower()
+        ]
+        
+        if not swaps:
+            return {"error": f"No swaps found for counterparty: {counterparty}"}
+        
+        # Calculate exposure metrics
+        total_notional = sum(swap.notional_amount for swap in swaps)
+        reference_entities = list({swap.reference_entity for swap in swaps})
+        
+        # Calculate net exposure by reference entity
+        net_exposure = {}
+        for entity in reference_entities:
+            entity_swaps = [s for s in swaps if s.reference_entity == entity]
+            net = sum(s.notional_amount * (1 if 'pay' in getattr(s, 'position', '').lower() else -1) 
+                     for s in entity_swaps)
+            net_exposure[entity] = net
+        
+        # Calculate concentration risk
+        exposure_by_entity = {
+            entity: sum(s.notional_amount for s in swaps if s.reference_entity == entity)
+            for entity in reference_entities
+        }
+        max_entity_exposure = max(exposure_by_entity.values()) if exposure_by_entity else 0
+        concentration_ratio = max_entity_exposure / total_notional if total_notional > 0 else 0
+        
+        # Calculate credit exposure metrics
+        today = date.today()
+        days_to_maturity = [
+            (s.maturity_date - today).days 
+            for s in swaps 
+            if hasattr(s, 'maturity_date') and s.maturity_date
+        ]
+        avg_days_to_maturity = sum(days_to_maturity) / len(days_to_maturity) if days_to_maturity else 0
+        
+        return {
+            "counterparty": counterparty,
+            "total_notional_exposure": total_notional,
+            "num_contracts": len(swaps),
+            "reference_entities": reference_entities,
+            "net_exposure_by_entity": net_exposure,
+            "concentration_risk": {
+                "max_entity_exposure": max_entity_exposure,
+                "concentration_ratio": concentration_ratio,
+                "risk_level": "High" if concentration_ratio > 0.5 else "Medium" if concentration_ratio > 0.2 else "Low"
+            },
+            "maturity_profile": {
+                "avg_days_to_maturity": avg_days_to_maturity,
+                "earliest_maturity": min((s.maturity_date for s in swaps if hasattr(s, 'maturity') and s.maturity_date), default=None),
+                "latest_maturity": max((s.maturity_date for s in swaps if hasattr(s, 'maturity') and s.maturity_date), default=None)
+            },
+            "swap_types": {
+                "credit_default": sum(1 for s in swaps if getattr(s, 'swap_type', '').lower() == 'credit_default'),
+                "interest_rate": sum(1 for s in swaps if getattr(s, 'swap_type', '').lower() == 'interest_rate'),
+                "total_return": sum(1 for s in swaps if getattr(s, 'swap_type', '').lower() == 'total_return'),
+                "other": sum(1 for s in swaps if getattr(s, 'swap_type', '').lower() not in 
+                                 ['credit_default', 'interest_rate', 'total_return'])
+            },
+            "collateral_terms": list({
+                json.dumps(s.collateral_terms) 
+                for s in swaps 
+                if hasattr(s, 'collateral_terms') and s.collateral_terms
+            })
+        }
+    
+    def export_to_csv(self, output_path: str, swaps: Optional[List[SwapContract]] = None) -> bool:
+        """Export swaps data to a CSV file.
+        
+        Args:
+            output_path: Path to save the CSV file
+            swaps: List of swaps to export (defaults to all loaded swaps)
+            
+        Returns:
+            True if export was successful, False otherwise
+        """
+        try:
+            if swaps is None:
+                swaps = self.swaps
+                
+            if not swaps:
+                logger.warning("No swaps to export")
+                return False
+            
+            # Convert swaps to list of dictionaries
+            data = []
+            for swap in swaps:
+                swap_dict = {
+                    'contract_id': swap.contract_id,
+                    'counterparty': swap.counterparty,
+                    'reference_entity': swap.reference_entity,
+                    'notional_amount': swap.notional_amount,
+                    'currency': swap.currency,
+                    'effective_date': swap.effective_date.isoformat() if hasattr(swap.effective_date, 'isoformat') else str(swap.effective_date),
+                    'maturity_date': swap.maturity_date.isoformat() if hasattr(swap.maturity_date, 'isoformat') else str(swap.maturity_date),
+                    'swap_type': swap.swap_type.value if hasattr(swap.swap_type, 'value') else str(swap.swap_type),
+                    'payment_frequency': swap.payment_frequency.value if hasattr(swap.payment_frequency, 'value') else str(swap.payment_frequency),
+                    'fixed_rate': swap.fixed_rate,
+                    'floating_rate_index': swap.floating_rate_index,
+                    'floating_rate_spread': swap.floating_rate_spread,
+                    'collateral_terms': json.dumps(swap.collateral_terms) if swap.collateral_terms else '',
+                    'additional_terms': json.dumps(swap.additional_terms) if swap.additional_terms else ''
+                }
+                data.append(swap_dict)
+            
+            # Create DataFrame and export to CSV
+            df = pd.DataFrame(data)
+            
+            # Ensure output directory exists
+            output_path = Path(output_path)
+            output_path.parent.mkdir(parents=True, exist_ok=True)
+            
+            # Write to CSV
+            df.to_csv(output_path, index=False, encoding='utf-8')
+            logger.info(f"Successfully exported {len(swaps)} swaps to {output_path}")
+            return True
+            
+        except Exception as e:
+            logger.error(f"Error exporting to CSV: {str(e)}", exc_info=True)
+            return False

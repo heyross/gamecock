@@ -16,6 +16,7 @@ from .data_structures import CompanyInfo, EntityIdentifiers
 from .db_handler import DatabaseHandler
 from .sec_handler import SECHandler
 from .downloader import SECDownloader
+from .swaps_analyzer import SwapsAnalyzer
 
 console = Console()
 
@@ -38,6 +39,7 @@ class MenuSystem:
         self.console = Console()
         self.db = DatabaseHandler()
         self.sec = SECHandler()
+        self.swaps_analyzer = SwapsAnalyzer()
 
     def main_menu(self):
         """Run the main menu system."""
@@ -49,9 +51,10 @@ class MenuSystem:
             self.console.print("2. View Saved Companies")
             self.console.print("3. Download Filings")
             self.console.print("4. View Downloaded Data")
-            self.console.print("5. Exit")
+            self.console.print("5. Swaps Analysis")
+            self.console.print("6. Exit")
             
-            choice = Prompt.ask("\nSelect an option", choices=["1", "2", "3", "4", "5"])
+            choice = Prompt.ask("\nSelect an option", choices=["1", "2", "3", "4", "5", "6"])
             
             if choice == "1":
                 self.search_company_menu()
@@ -62,6 +65,8 @@ class MenuSystem:
             elif choice == "4":
                 self.view_data_menu()
             elif choice == "5":
+                self.swaps_analysis_menu()
+            elif choice == "6":
                 break
                 
     def search_company_menu(self):
