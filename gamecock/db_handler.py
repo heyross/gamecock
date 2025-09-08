@@ -248,6 +248,22 @@ class DatabaseHandler:
             List of dictionaries containing obligation data
         """
         return self.swaps_db.get_obligations_by_instrument(instrument_identifier)
+
+    def get_all_counterparties(self) -> List[Dict[str, Any]]:
+        """Get all counterparties from the database."""
+        return self.swaps_db.get_all_counterparties()
+
+    def get_all_reference_securities(self) -> List[Dict[str, Any]]:
+        """Get all reference securities from the database."""
+        return self.swaps_db.get_all_reference_securities()
+
+    def get_swaps_by_counterparty_id(self, counterparty_id: int) -> List[Dict[str, Any]]:
+        """Get all swaps for a specific counterparty by their ID."""
+        return self.swaps_db.get_swaps_by_counterparty_id(counterparty_id)
+
+    def get_swaps_by_security_id(self, security_id: int) -> List[Dict[str, Any]]:
+        """Get all swaps related to a specific reference security by its ID."""
+        return self.swaps_db.get_swaps_by_security_id(security_id)
     
     # SEC Database methods
     def save_company(self, company: CompanyInfo) -> bool:

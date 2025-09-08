@@ -18,7 +18,7 @@ class Swap(Base):
     
     id = Column(Integer, primary_key=True)
     contract_id = Column(String(100), unique=True, nullable=False)
-    counterparty = Column(String(255), nullable=False)
+    counterparty_id = Column(Integer, ForeignKey('counterparties.id'), nullable=False)
     reference_entity = Column(String(255), nullable=False)
     notional_amount = Column(Float, nullable=False)
     currency = Column(String(10), nullable=False, default='USD')
@@ -37,6 +37,7 @@ class Swap(Base):
     # Relationships
     obligations = relationship("SwapObligation", back_populates="swap", cascade="all, delete-orphan")
     analysis = relationship("SwapAnalysis", back_populates="swap", uselist=False, cascade="all, delete-orphan")
+    counterparty_rel = relationship("Counterparty", back_populates="swaps")
     underlying_instruments = relationship("UnderlyingInstrument", back_populates="swap", cascade="all, delete-orphan")
     
     def to_dict(self):
@@ -44,7 +45,7 @@ class Swap(Base):
         return {
             'id': self.id,
             'contract_id': self.contract_id,
-            'counterparty': self.counterparty,
+            'counterparty': self.counterparty_rel.name if self.counterparty_rel else None,
             'reference_entity': self.reference_entity,
             'notional_amount': self.notional_amount,
             'currency': self.currency,
@@ -121,6 +122,30 @@ class SwapAnalysis(Base):
             'updated_at': self.updated_at.isoformat() if self.updated_at else None
         }
 
+class ReferenceSecurity(Base):
+    """Represents a reference security in a swap contract."""
+    __tablename__ = 'reference_securities'
+    
+    id = Column(Integer, primary_key=True)
+    identifier = Column(String(100), unique=True, nullable=False)
+    security_type = Column(String(50), nullable=True)
+    description = Column(Text, nullable=True)
+    created_at = Column(DateTime, server_default=func.now())
+    updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now())
+    
+    underlying_instruments = relationship("UnderlyingInstrument", back_populates="security_rel")
+
+    def to_dict(self):
+        """Convert to dictionary."""
+        return {
+            'id': self.id,
+            'identifier': self.identifier,
+            'security_type': self.security_type,
+            'description': self.description,
+            'created_at': self.created_at.isoformat() if self.created_at else None,
+            'updated_at': self.updated_at.isoformat() if self.updated_at else None
+        }
+
 class UnderlyingInstrument(Base):
     """Represents an underlying instrument in a swap contract."""
     __tablename__ = 'underlying_instruments'
@@ -128,7 +153,7 @@ class UnderlyingInstrument(Base):
     id = Column(Integer, primary_key=True)
     swap_id = Column(Integer, ForeignKey('swaps.id', ondelete='CASCADE'), nullable=False)
     instrument_type = Column(String(50), nullable=False)
-    identifier = Column(String(100), nullable=False)
+    security_id = Column(Integer, ForeignKey('reference_securities.id'), nullable=False)
     description = Column(Text, nullable=True)
     quantity = Column(Float, nullable=True)
     notional_amount = Column(Float, nullable=True)
@@ -138,6 +163,7 @@ class UnderlyingInstrument(Base):
     
     # Relationships
     swap = relationship("Swap", back_populates="underlying_instruments")
+    security_rel = relationship("ReferenceSecurity", back_populates="underlying_instruments")
     
     def to_dict(self):
         """Convert to dictionary."""
@@ -145,11 +171,35 @@ class UnderlyingInstrument(Base):
             'id': self.id,
             'swap_id': self.swap_id,
             'instrument_type': self.instrument_type,
-            'identifier': self.identifier,
+            'identifier': self.security_rel.identifier if self.security_rel else None,
             'description': self.description,
             'quantity': self.quantity,
             'notional_amount': self.notional_amount,
             'currency': self.currency,
+            'created_at': self.created_at.isoformat() if self.created_at else None,
+            'updated_at': self.updated_at.isoformat() if self.updated_at else None
+        }
+
+class Counterparty(Base):
+    """Represents a counterparty in a swap contract."""
+    __tablename__ = 'counterparties'
+    
+    id = Column(Integer, primary_key=True)
+    name = Column(String(255), unique=True, nullable=False)
+    lei = Column(String(20), unique=True, nullable=True)  # Legal Entity Identifier
+    entity_type = Column(String(50), nullable=True)
+    created_at = Column(DateTime, server_default=func.now())
+    updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now())
+    
+    swaps = relationship("Swap", back_populates="counterparty_rel")
+
+    def to_dict(self):
+        """Convert to dictionary."""
+        return {
+            'id': self.id,
+            'name': self.name,
+            'lei': self.lei,
+            'entity_type': self.entity_type,
             'created_at': self.created_at.isoformat() if self.created_at else None,
             'updated_at': self.updated_at.isoformat() if self.updated_at else None
         }
@@ -208,13 +258,13 @@ class SwapsDatabase:
         SELECT 
             s.id AS swap_id,
             s.contract_id,
-            s.counterparty,
+            c.name AS counterparty,
             s.reference_entity,
             s.notional_amount,
             s.currency,
             s.effective_date,
             s.maturity_date,
-        s.swap_type,
+            s.swap_type,
             o.id AS obligation_id,
             o.obligation_type,
             o.amount AS obligation_amount,
@@ -223,8 +273,8 @@ class SwapsDatabase:
             o.status AS obligation_status,
             o.description AS obligation_description,
             ui.instrument_type,
-            ui.identifier AS instrument_identifier,
-            ui.description AS instrument_description,
+            rs.identifier AS instrument_identifier,
+            rs.description AS instrument_description,
             ui.quantity,
             ui.notional_amount AS instrument_notional,
             ot.trigger_type,
@@ -233,9 +283,13 @@ class SwapsDatabase:
         FROM 
             swaps s
         LEFT JOIN 
+            counterparties c ON s.counterparty_id = c.id
+        LEFT JOIN 
             swap_obligations o ON s.id = o.swap_id
         LEFT JOIN 
             underlying_instruments ui ON s.id = ui.swap_id
+        LEFT JOIN
+            reference_securities rs ON ui.security_id = rs.id
         LEFT JOIN 
             obligation_triggers ot ON o.id = ot.obligation_id
         WHERE 
@@ -261,7 +315,19 @@ class SwapsDatabase:
             Dictionary containing the saved swap data or None if failed
         """
         session = self.Session()
+        session = self.Session()
         try:
+            # Get or create the counterparty
+            counterparty_name = swap_data.pop('counterparty', None)
+            if not counterparty_name:
+                raise ValueError("Counterparty name is required to save a swap.")
+
+            counterparty = session.query(Counterparty).filter_by(name=counterparty_name).first()
+            if not counterparty:
+                counterparty = Counterparty(name=counterparty_name)
+                session.add(counterparty)
+                session.flush()  # Flush to get the ID for the new counterparty
+
             # Check if swap already exists
             existing_swap = session.query(Swap).filter_by(contract_id=swap_data['contract_id']).first()
             
@@ -270,6 +336,8 @@ class SwapsDatabase:
                 if date_field in swap_data and isinstance(swap_data[date_field], str):
                     swap_data[date_field] = datetime.strptime(swap_data[date_field], '%Y-%m-%d').date()
             
+            swap_data['counterparty_id'] = counterparty.id
+
             if existing_swap:
                 # Update existing swap
                 for key, value in swap_data.items():
@@ -461,6 +529,23 @@ class SwapsDatabase:
         """
         session = self.Session()
         try:
+            # Get or create the reference security
+            security_identifier = instrument_data.pop('identifier', None)
+            if not security_identifier:
+                raise ValueError("Security identifier is required to add an instrument.")
+
+            security = session.query(ReferenceSecurity).filter_by(identifier=security_identifier).first()
+            if not security:
+                security = ReferenceSecurity(
+                    identifier=security_identifier,
+                    security_type=instrument_data.get('instrument_type'),
+                    description=instrument_data.get('description')
+                )
+                session.add(security)
+                session.flush()  # Flush to get the ID
+
+            # Create the instrument link
+            instrument_data['security_id'] = security.id
             instrument = UnderlyingInstrument(swap_id=swap_id, **instrument_data)
             session.add(instrument)
             session.commit()
@@ -532,7 +617,7 @@ class SwapsDatabase:
         """
         session = self.Session()
         try:
-            swaps = session.query(Swap).filter_by(counterparty=counterparty).all()
+            swaps = session.query(Swap).join(Counterparty).filter(Counterparty.name == counterparty).all()
             obligations = []
             for swap in swaps:
                 for obligation in swap.obligations:
@@ -558,20 +643,68 @@ class SwapsDatabase:
         """
         session = self.Session()
         try:
-            instruments = session.query(UnderlyingInstrument).filter_by(identifier=instrument_identifier).all()
+            instruments = session.query(UnderlyingInstrument).join(ReferenceSecurity).filter(ReferenceSecurity.identifier == instrument_identifier).all()
             obligations = []
             for instrument in instruments:
                 swap = instrument.swap
                 for obligation in swap.obligations:
                     obligation_dict = obligation.to_dict()
                     obligation_dict['swap_contract_id'] = swap.contract_id
-                    obligation_dict['counterparty'] = swap.counterparty
+                    obligation_dict['counterparty'] = swap.counterparty_rel.name
                     obligation_dict['instrument_type'] = instrument.instrument_type
-                    obligation_dict['instrument_identifier'] = instrument.identifier
+                    obligation_dict['instrument_identifier'] = instrument.security_rel.identifier
                     obligations.append(obligation_dict)
             return obligations
         except SQLAlchemyError as e:
             logger.error(f"Error getting obligations by instrument: {str(e)}")
+            return []
+        finally:
+            session.close()
+
+    def get_all_counterparties(self) -> List[Dict[str, Any]]:
+        """Get all counterparties from the database."""
+        session = self.Session()
+        try:
+            counterparties = session.query(Counterparty).order_by(Counterparty.name).all()
+            return [c.to_dict() for c in counterparties]
+        except SQLAlchemyError as e:
+            logger.error(f"Error getting all counterparties: {str(e)}")
+            return []
+        finally:
+            session.close()
+
+    def get_all_reference_securities(self) -> List[Dict[str, Any]]:
+        """Get all reference securities from the database."""
+        session = self.Session()
+        try:
+            securities = session.query(ReferenceSecurity).order_by(ReferenceSecurity.identifier).all()
+            return [s.to_dict() for s in securities]
+        except SQLAlchemyError as e:
+            logger.error(f"Error getting all reference securities: {str(e)}")
+            return []
+        finally:
+            session.close()
+
+    def get_swaps_by_counterparty_id(self, counterparty_id: int) -> List[Dict[str, Any]]:
+        """Get all swaps for a specific counterparty by their ID."""
+        session = self.Session()
+        try:
+            swaps = session.query(Swap).filter_by(counterparty_id=counterparty_id).all()
+            return [s.to_dict() for s in swaps]
+        except SQLAlchemyError as e:
+            logger.error(f"Error getting swaps by counterparty ID: {str(e)}")
+            return []
+        finally:
+            session.close()
+
+    def get_swaps_by_security_id(self, security_id: int) -> List[Dict[str, Any]]:
+        """Get all swaps related to a specific reference security by its ID."""
+        session = self.Session()
+        try:
+            swaps = session.query(Swap).join(UnderlyingInstrument).filter(UnderlyingInstrument.security_id == security_id).all()
+            return [s.to_dict() for s in swaps]
+        except SQLAlchemyError as e:
+            logger.error(f"Error getting swaps by security ID: {str(e)}")
             return []
         finally:
             session.close()

@@ -14,6 +14,7 @@ import json
 from enum import Enum
 
 from .db_handler import DatabaseHandler
+from .ollama_handler import OllamaHandler
 
 logger = logging.getLogger(__name__)
 
@@ -87,7 +88,7 @@ class SwapContract:
 class SwapsAnalyzer:
     """Handles analysis of swaps data from various sources."""
     
-    def __init__(self, db_handler: Optional[DatabaseHandler] = None, data_dir: str = "data"):
+    def __init__(self, db_handler: Optional[DatabaseHandler] = None, ollama_handler: Optional[OllamaHandler] = None, data_dir: str = "data"):
         """Initialize the swaps analyzer.
         
         Args:
@@ -97,7 +98,9 @@ class SwapsAnalyzer:
         self.data_dir = Path(data_dir)
         self.data_dir.mkdir(parents=True, exist_ok=True)
         self.db = db_handler or DatabaseHandler()
+        self.ollama = ollama_handler or OllamaHandler()
         self._loaded_swaps: List[SwapContract] = []
+        self._db_swaps_cache: Optional[List[SwapContract]] = None
         
     @property
     def swaps(self) -> List[SwapContract]:
@@ -105,10 +108,23 @@ class SwapsAnalyzer:
         return self._loaded_swaps + self._get_swaps_from_db()
     
     def _get_swaps_from_db(self) -> List[SwapContract]:
-        """Load swaps from the database."""
-        # This is a simplified example - in a real implementation, you'd query the database
-        # and convert the results to SwapContract objects
-        return []
+        """Load swaps from the database, using a cache."""
+        if self._db_swaps_cache is not None:
+            return self._db_swaps_cache
+        
+        try:
+            swap_dicts = self.db.get_swap_obligations_view()
+            self._db_swaps_cache = [SwapContract.from_dict(s) for s in swap_dicts]
+            return self._db_swaps_cache
+        except Exception as e:
+            logger.error(f"Error loading swaps from database: {str(e)}")
+            return []
+
+    def clear_cache(self):
+        """Clear the internal swaps cache."""
+        self._loaded_swaps = []
+        self._db_swaps_cache = None
+        logger.info("Swaps analyzer cache has been cleared.")
         
     def load_swaps_from_file(self, file_path: Union[str, Path], save_to_db: bool = True) -> List[SwapContract]:
         """Load swaps data from a file.
@@ -642,12 +658,8 @@ class SwapsAnalyzer:
         db_matches = []
         if use_db:
             try:
-                db_results = self.db.find_swaps_by_reference_entity(entity_name)
-                db_matches = [
-                    SwapContract.from_dict(swap_dict) 
-                    for swap_dict in db_results
-                    if entity_name.lower() in swap_dict.get('reference_entity', '').lower()
-                ]
+                db_results = self.db.get_obligations_by_instrument(entity_name)
+                db_matches = [SwapContract.from_dict(s) for s in db_results]
             except Exception as e:
                 logger.error(f"Error searching swaps in database: {str(e)}")
         
@@ -669,124 +681,124 @@ class SwapsAnalyzer:
             return {}
         
         total_notional = sum(swap.notional_amount for swap in entity_swaps)
-        
-        # Calculate exposure by currency
+        num_contracts = len(entity_swaps)
+
+        # Aggregate data for analysis
         exposure_by_currency = {}
+        exposure_by_counterparty = {}
+        exposure_by_type = {}
+        maturities = []
+
         for swap in entity_swaps:
             currency = swap.currency.upper()
-            exposure_by_currency[currency] = exposure_by_currency.get(currency, 0) + swap.notional_amount
-        
-        # Calculate exposure by counterparty
-        exposure_by_counterparty = {}
-        for swap in entity_swaps:
-            cp = swap.counterparty
-            exposure_by_counterparty[cp] = exposure_by_counterparty.get(cp, 0) + swap.notional_amount
-               
-        # Calculate exposure by swap type
-        exposure_by_type = {}
-        for swap in entity_swaps:
+            counterparty = swap.counterparty
             swap_type = swap.swap_type.value if hasattr(swap.swap_type, 'value') else str(swap.swap_type)
+
+            exposure_by_currency[currency] = exposure_by_currency.get(currency, 0) + swap.notional_amount
+            exposure_by_counterparty[counterparty] = exposure_by_counterparty.get(counterparty, 0) + swap.notional_amount
             exposure_by_type[swap_type] = exposure_by_type.get(swap_type, 0) + swap.notional_amount
-        
+            
+            if hasattr(swap, 'maturity_date') and swap.maturity_date:
+                maturities.append(swap.maturity_date)
+
+        # Find the largest swap
+        largest_swap = max(entity_swaps, key=lambda s: s.notional_amount, default=None)
+
         # Get min/max maturities
-        maturities = [swap.maturity_date for swap in entity_swaps if hasattr(swap, 'maturity_date')]
         min_maturity = min(maturities) if maturities else None
         max_maturity = max(maturities) if maturities else None
-        
+
         return {
             'reference_entity': entity_name,
             'total_notional': total_notional,
-            'num_contracts': len(entity_swaps),
-            'counterparties': list({swap.counterparty for swap in entity_swaps}),
-            'currencies': list({swap.currency.upper() for swap in entity_swaps}),
+            'num_swaps': num_contracts,
+            'avg_notional': total_notional / num_contracts if num_contracts > 0 else 0,
+            'largest_swap': largest_swap.to_dict() if largest_swap else None,
+            'counterparties': list(exposure_by_counterparty.keys()),
+            'currencies': list(exposure_by_currency.keys()),
             'exposure_by_currency': exposure_by_currency,
             'exposure_by_counterparty': exposure_by_counterparty,
             'exposure_by_type': exposure_by_type,
             'earliest_maturity': min_maturity.isoformat() if min_maturity else None,
             'latest_maturity': max_maturity.isoformat() if max_maturity else None,
-            'swap_types': list({swap.swap_type.value if hasattr(swap.swap_type, 'value') else str(swap.swap_type) 
-                              for swap in entity_swaps})
+            'swap_types': list(exposure_by_type.keys())
         }
     
     def generate_risk_report(self, entity_name: str, include_analysis: bool = False) -> Dict:
         """Generate a risk report for a reference entity.
-        
+
         Args:
             entity_name: Name of the reference entity
             include_analysis: Whether to include detailed analysis (may be slower)
-            
+
         Returns:
             Dictionary containing risk metrics and analysis
         """
-        # Get basic exposure metrics
         exposure = self.calculate_exposure(entity_name)
         if not exposure:
             return {"error": f"No swaps found for reference entity: {entity_name}"}
-        
-        # Get all swaps for the entity
-        entity_swaps = self.find_swaps_by_reference_entity(entity_name)
+
         today = date.today()
-        
-        # Calculate time to maturity for each swap (in years)
-        time_to_maturity = []
-        for swap in entity_swaps:
-            if hasattr(swap, 'maturity_date') and swap.maturity_date:
-                days = (swap.maturity_date - today).days
-                if days > 0:  # Only include future maturities
-                    time_to_maturity.append(days / 365.25)
-        
-        # Calculate risk metrics
-        total_notional = exposure['total_notiation']
+        entity_swaps = self.find_swaps_by_reference_entity(entity_name)
+
+        time_to_maturity = [
+            (swap.maturity_date - today).days / 365.25
+            for swap in entity_swaps
+            if hasattr(swap, 'maturity_date') and swap.maturity_date and (swap.maturity_date - today).days > 0
+        ]
         avg_time_to_maturity = sum(time_to_maturity) / len(time_to_maturity) if time_to_maturity else 0
-        
-        # Calculate concentration risk
-        num_counterparties = len(exposure['counterparties'])
+
+        total_notional = exposure['total_notional']
         counterparty_concentration = max(exposure['exposure_by_counterparty'].values()) / total_notional if total_notional > 0 else 1.0
-        
-        # Calculate currency risk
-        num_currencies = len(exposure['currencies'])
         currency_concentration = max(exposure['exposure_by_currency'].values()) / total_notional if total_notional > 0 else 1.0
-        
-        # Calculate risk score (0-100, higher is riskier)
+
         risk_score = self._calculate_risk_score(
             total_notional=total_notional,
             avg_time_to_maturity=avg_time_to_maturity,
             counterparty_concentration=counterparty_concentration,
-            currency_concentration=currency_concentration
+            currency_concentration=currency_concentration,
+            swap_types=exposure['swap_types']
         )
-        
-        # Prepare report
+
+        if risk_score > 75:
+            risk_level = "High"
+        elif risk_score > 50:
+            risk_level = "Medium"
+        else:
+            risk_level = "Low"
+
         report = {
             "reference_entity": entity_name,
             "as_of_date": today.isoformat(),
-            "summary": {
-                "total_notional": total_notional,
-                "num_contracts": exposure['num_contracts'],
-                "num_counterparties": num_counterparties,
-                "num_currencies": num_currencies,
-                "swap_types": exposure['swap_types'],
-                "earliest_maturity": exposure.get('earliest_maturity'),
-                "latest_maturity": exposure.get('latest_maturity'),
-                "avg_time_to_maturity_years": round(avg_time_to_maturity, 2)
-            },
-            "exposure_metrics": {
-                "by_currency": exposure['exposure_by_currency'],
-                "by_counterparty": exposure['exposure_by_counterparty'],
-                "by_type": exposure['exposure_by_type']
-            },
-            "risk_metrics": {
-                "risk_score": round(risk_score, 1),
-                "risk_level": self._get_risk_level(risk_score),
-                "counterparty_concentration": round(counterparty_concentration * 100, 1),
-                "currency_concentration": round(currency_concentration * 100, 1),
-                "time_horizon_risk": "high" if avg_time_to_maturity > 5 else "medium" if avg_time_to_maturity > 1 else "low"
+            "risk_score": risk_score,
+            "risk_level": risk_level,
+            "total_notional": total_notional,
+            "num_swaps": exposure['num_swaps'],
+            "avg_time_to_maturity": avg_time_to_maturity,
+            "detailed_analysis": {
+                "counterparty_concentration": {
+                    "value": round(counterparty_concentration, 4),
+                    "breakdown": exposure['exposure_by_counterparty']
+                },
+                "currency_concentration": {
+                    "value": round(currency_concentration, 4),
+                    "breakdown": exposure['exposure_by_currency']
+                },
+                "maturity_profile": {
+                    "earliest": exposure['earliest_maturity'],
+                    "latest": exposure['latest_maturity']
+                },
+                "swap_type_exposure": exposure['exposure_by_type']
             }
         }
-        
-        # Add detailed analysis if requested
-        if include_analysis:
-            report["detailed_analysis"] = self._generate_detailed_analysis(entity_swaps, exposure)
-        
+
+        if include_analysis and self.ollama.is_running() and self.ollama.is_model_available():
+            summary_prompt = self._create_risk_summary_prompt(report)
+            ai_summary = self.ollama.generate(summary_prompt, max_tokens=256)
+            report['ai_summary'] = ai_summary or "Failed to generate AI summary."
+        elif include_analysis:
+            report['ai_summary'] = "Ollama service not available for AI summary."
+
         return report
     
     def _calculate_risk_score(
@@ -794,7 +806,8 @@ class SwapsAnalyzer:
         total_notional: float, 
         avg_time_to_maturity: float,
         counterparty_concentration: float,
-        currency_concentration: float
+        currency_concentration: float,
+        swap_types: List[str]
     ) -> float:
         """Calculate a composite risk score (0-100)."""
         # Notional risk (0-40 points)
@@ -809,7 +822,10 @@ class SwapsAnalyzer:
         # Currency concentration risk (0-20 points)
         curr_risk = currency_concentration * 20
         
-        return min(100, notional_risk + time_risk + cp_risk + curr_risk)
+        # Swap type risk (0-20 points)
+        swap_type_risk = len(swap_types) * 5
+        
+        return min(100, notional_risk + time_risk + cp_risk + curr_risk + swap_type_risk)
     
     def _get_risk_level(self, score: float) -> str:
         """Convert risk score to risk level."""
@@ -1030,5 +1046,148 @@ class SwapsAnalyzer:
             return True
             
         except Exception as e:
-            logger.error(f"Error exporting to CSV: {str(e)}", exc_info=True)
+            logger.error(f"Error exporting swaps: {str(e)}")
             return False
+
+    def _calculate_risk_score(
+        self,
+        total_notional: float,
+        avg_time_to_maturity: float,
+        counterparty_concentration: float,
+        currency_concentration: float,
+        swap_types: List[str]
+    ) -> float:
+        """Calculate a risk score based on several factors."""
+        # Define weights for each risk factor
+        weights = {
+            'notional': 0.30,
+            'maturity': 0.20,
+            'counterparty': 0.25,
+            'currency': 0.15,
+            'type': 0.10
+        }
+
+        # 1. Notional Amount Score (normalized)
+        # Scale logarithmically, score of 50 for $10M notional
+        notional_score = min(100, max(0, 10 * (total_notional / 1_000_000) ** 0.5))
+
+        # 2. Maturity Score (longer maturity = higher risk)
+        # Score of 50 for 5 years average maturity
+        maturity_score = min(100, max(0, (avg_time_to_maturity * 10)))
+
+        # 3. Counterparty Concentration Score
+        # Score is directly proportional to concentration
+        counterparty_score = min(100, max(0, counterparty_concentration * 100))
+
+        # 4. Currency Concentration Score
+        currency_score = min(100, max(0, currency_concentration * 100))
+
+        # 5. Swap Type Risk Score (based on inherent risk of swap types)
+        type_risk_weights = {
+            SwapType.CREDIT_DEFAULT: 90,
+            SwapType.TOTAL_RETURN: 80,
+            SwapType.EQUITY: 70,
+            SwapType.COMMODITY: 65,
+            SwapType.CURRENCY: 50,
+            SwapType.INTEREST_RATE: 40,
+            SwapType.OTHER: 30
+        }
+        type_scores = [type_risk_weights.get(SwapType(st), 30) for st in swap_types]
+        type_score = sum(type_scores) / len(type_scores) if type_scores else 30
+
+        # Calculate final weighted score
+        final_score = (
+            notional_score * weights['notional'] +
+            maturity_score * weights['maturity'] +
+            counterparty_score * weights['counterparty'] +
+            currency_score * weights['currency'] +
+            type_score * weights['type']
+        )
+
+        return round(min(100, max(0, final_score)), 2)
+
+    def _create_risk_summary_prompt(self, report: Dict) -> str:
+        """Create a prompt for generating an AI-driven risk summary."""
+        details = report['detailed_analysis']
+        prompt = f"""
+        Analyze the following swap portfolio risk report and provide a concise, high-level executive summary.
+        Focus on the overall risk level and the primary contributing factors.
+
+        **Risk Report Summary:**
+        - **Reference Entity:** {report['reference_entity']}
+        - **Overall Risk Score:** {report['risk_score']:.2f}/100 ({report['risk_level']})
+        - **Total Notional Exposure:** ${report['total_notional']:,.2f} across {report['num_swaps']} contracts.
+        - **Counterparty Concentration:** {details['counterparty_concentration']['value']:.2%} (The largest counterparty accounts for this percentage of the total notional).
+        - **Currency Concentration:** {details['currency_concentration']['value']:.2%} (The largest currency accounts for this percentage of the total notional).
+        - **Average Time to Maturity:** {report['avg_time_to_maturity']:.2f} years.
+
+        **Executive Summary:**
+        """
+        return prompt
+
+    def explain_swap(self, contract_id: str) -> Optional[str]:
+        """Generate a plain-language explanation of a swap using Ollama."""
+        if not self.ollama.is_running() or not self.ollama.is_model_available():
+            logger.error("Ollama is not running or the model is not available.")
+            return "Ollama service is not available. Please ensure it is running and the model is downloaded."
+
+        # Fetch swap details from the database view
+        all_swaps = self.db.get_swap_obligations_view()
+        swap_details_list = [s for s in all_swaps if s['contract_id'] == contract_id]
+
+        if not swap_details_list:
+            return f"No swap found with Contract ID: {contract_id}"
+        
+        # Consolidate swap details
+        swap_details = swap_details_list[0]
+        obligations = []
+        for item in swap_details_list:
+            if item.get('obligation_id') and item['obligation_id'] not in [o.get('id') for o in obligations]:
+                obligations.append({
+                    'id': item['obligation_id'],
+                    'type': item['obligation_type'],
+                    'amount': item['obligation_amount'],
+                    'currency': item['obligation_currency'],
+                    'due_date': item['due_date'],
+                    'trigger': item.get('trigger_condition')
+                })
+        
+        # Create a detailed prompt for the LLM
+        prompt = f"""
+        Please provide a clear, plain-language explanation of the following financial swap agreement.
+        Focus on the key parties, their obligations, the underlying asset, and what events trigger payments.
+
+        **Swap Details:**
+        - **Contract ID:** {swap_details.get('contract_id')}
+        - **Swap Type:** {swap_details.get('swap_type', 'N/A')}
+        - **Counterparty:** {swap_details.get('counterparty')}
+        - **Reference Entity/Security:** {swap_details.get('instrument_identifier', swap_details.get('reference_entity'))}
+        - **Notional Amount:** {swap_details.get('currency')} {swap_details.get('notional_amount'):,.2f}
+        - **Effective Date:** {swap_details.get('effective_date')}
+        - **Maturity Date:** {swap_details.get('maturity_date')}
+
+        **Key Obligations:**
+        {self._format_obligations_for_prompt(obligations)}
+
+        **Explanation:**
+        """
+
+        try:
+            explanation = self.ollama.generate(prompt, max_tokens=512)
+            return explanation
+        except Exception as e:
+            logger.error(f"Error generating swap explanation: {str(e)}")
+            return "An error occurred while generating the explanation."
+
+    def _format_obligations_for_prompt(self, obligations: List[Dict]) -> str:
+        """Format a list of obligations for inclusion in an LLM prompt."""
+        if not obligations:
+            return "- No specific obligations listed."
+        
+        formatted_text = ""
+        for ob in obligations:
+            formatted_text += f"- **Obligation:** {ob.get('type', 'N/A')}\n"
+            formatted_text += f"  - **Amount:** {ob.get('currency')} {ob.get('amount', 0):,.2f}\n"
+            formatted_text += f"  - **Due Date:** {ob.get('due_date', 'Contingent')}\n"
+            formatted_text += f"  - **Trigger Condition:** {ob.get('trigger', 'N/A')}\n"
+        return formatted_text
