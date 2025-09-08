@@ -39,7 +39,11 @@ class SECDownloader:
             raise ValueError("SEC_USER_AGENT not set in .env file")
         
         # Set output directory
-        self.output_dir = Path(output_dir) if output_dir else Path.cwd() / 'downloads'
+        if output_dir:
+            self.output_dir = Path(output_dir)
+        else:
+            # Default to a 'downloaded_filings' directory inside the app's data folder
+            self.output_dir = Path(__file__).parent.parent / "data" / "downloaded_filings"
         self.output_dir.mkdir(parents=True, exist_ok=True)
         
         # Initialize database and analyzer

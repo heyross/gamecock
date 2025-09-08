@@ -20,6 +20,7 @@ from .sec_handler import SECHandler
 from .downloader import SECDownloader
 from .swaps_analyzer import SwapsAnalyzer
 from .ai_analyst import AIAnalyst
+from .ollama_handler import OllamaHandler
 
 console = Console()
 
@@ -42,8 +43,15 @@ class MenuSystem:
         self.console = Console()
         self.db = DatabaseHandler()
         self.sec = SECHandler()
-        self.swaps_analyzer = SwapsAnalyzer(db_handler=self.db)
-        self.ai_analyst = AIAnalyst(db_handler=self.db)
+        self.ollama = OllamaHandler()
+        self.swaps_analyzer = SwapsAnalyzer(db_handler=self.db, ollama_handler=self.ollama)
+        self.downloader = SECDownloader(db_handler=self.db, swaps_analyzer=self.swaps_analyzer)
+        self.ai_analyst = AIAnalyst(
+            db_handler=self.db,
+            ollama_handler=self.ollama,
+            sec_handler=self.sec,
+            downloader=self.downloader
+        )
 
     def main_menu(self):
         """Run the main menu system."""
@@ -58,9 +66,10 @@ class MenuSystem:
             self.console.print("5. Swaps Analysis")
             self.console.print("6. Data Explorer")
             self.console.print("7. AI Analyst")
-            self.console.print("8. Exit")
+            self.console.print("8. Re-import Downloaded Files")
+            self.console.print("0. Exit")
             
-            choice = Prompt.ask("\nSelect an option", choices=["1", "2", "3", "4", "5", "6", "7", "8"])
+            choice = Prompt.ask("\nSelect an option", choices=["1", "2", "3", "4", "5", "6", "7", "8", "0"])
             
             if choice == "1":
                 self.search_company_menu()
@@ -77,6 +86,8 @@ class MenuSystem:
             elif choice == "7":
                 self._ai_analyst_menu()
             elif choice == "8":
+                self._reimport_data_menu()
+            elif choice == "0":
                 break
                 
     def search_company_menu(self):
@@ -136,10 +147,10 @@ class MenuSystem:
         self.console.print("\n[bold]Download Options[/bold]")
         self.console.print("1. Download all filings (parent and related entities)")
         self.console.print("2. Download parent company filings only")
-        self.console.print("3. Return to main menu")
+        self.console.print("0. Return to main menu")
         
-        choice = Prompt.ask("Choose option", choices=["1", "2", "3"])
-        if choice == "3":
+        choice = Prompt.ask("Choose option", choices=["1", "2", "0"])
+        if choice == "0":
             return
             
         # Set date range
@@ -306,9 +317,9 @@ class MenuSystem:
             self.console.print("3. Analyze Reference Entity Exposure")
             self.console.print("4. Generate Risk Report")
             self.console.print("5. Export Swaps Data")
-            self.console.print("6. Back to Main Menu")
+            self.console.print("0. Back to Main Menu")
             
-            choice = Prompt.ask("\nSelect an option", choices=["1", "2", "3", "4", "5", "6"])
+            choice = Prompt.ask("\nSelect an option", choices=["1", "2", "3", "4", "5", "0"])
             
             if choice == "1":
                 self._load_swaps_from_file()
@@ -320,7 +331,7 @@ class MenuSystem:
                 self._generate_risk_report()
             elif choice == "5":
                 self._export_swaps_data()
-            elif choice == "6":
+            elif choice == "0":
                 break
     
     def _load_swaps_from_file(self):
@@ -533,15 +544,15 @@ class MenuSystem:
             self.console.print("\n[bold blue]Data Explorer[/bold blue]\n")
             self.console.print("1. List All Counterparties")
             self.console.print("2. List All Reference Securities")
-            self.console.print("3. Back to Main Menu")
+            self.console.print("0. Back to Main Menu")
             
-            choice = Prompt.ask("\nSelect an option", choices=["1", "2", "3"])
+            choice = Prompt.ask("\nSelect an option", choices=["1", "2", "0"])
             
             if choice == "1":
                 self._list_all_counterparties()
             elif choice == "2":
                 self._list_all_reference_securities()
-            elif choice == "3":
+            elif choice == "0":
                 break
 
     def _list_all_counterparties(self):
@@ -737,34 +748,71 @@ class MenuSystem:
                 self.console.print("[red]Invalid selection.[/red]")
                 input("\nPress Enter to continue...")
 
+    def _reimport_data_menu(self):
+        """Menu to re-import all downloaded files."""
+        self.console.clear()
+        print_ascii_art()
+        self.console.print("\n[bold blue]Re-import Downloaded Files[/bold blue]\n")
+
+        download_dir = Path(__file__).parent.parent / "data" / "downloaded_filings"
+        if not download_dir.exists() or not any(download_dir.iterdir()):
+            self.console.print("[yellow]No downloaded files found to re-import.[/yellow]")
+            input("\nPress Enter to continue...")
+            return
+
+        self.console.print(f"This will scan the '[yellow]{download_dir}[/yellow]' directory and re-process all CSV and JSON files.")
+        if Prompt.ask("\nAre you sure you want to continue?", choices=["y", "n"]) == 'y':
+            with self.console.status("[bold green]Re-importing files...[/]"):
+                self.swaps_analyzer.load_swaps_from_directory(download_dir, save_to_db=True)
+            self.console.print("\n[green]Re-import process completed.[/green]")
+        else:
+            self.console.print("\n[yellow]Re-import cancelled.[/yellow]")
+
+        input("\nPress Enter to continue...")
+
     def _ai_analyst_menu(self):
         """Menu for interacting with the AI Analyst."""
         self.console.clear()
         print_ascii_art()
         self.console.print("\n[bold blue]AI Analyst[/bold blue]\n")
-        self.console.print("Ask a question about a company or security, e.g., 'Summarize the risk for Goldman Sachs'.")
 
-        question = Prompt.ask("\nYour question (or press Enter to go back)")
-        if not question:
+        if not self.ai_analyst.ollama.is_running():
+            self.console.print("[bold yellow]Warning: Ollama service is not running.[/bold yellow]")
+            self.console.print("The AI Analyst features are disabled. Please start the Ollama application to use them.")
+            input("\nPress Enter to continue...")
             return
 
-        with self.console.status("[bold green]AI is thinking...[/]"):
-            response = self.ai_analyst.answer(question)
+        self.console.print("Ask a question about a company or security, e.g., 'Summarize the risk for Goldman Sachs'.")
+        original_question = Prompt.ask("\nYour question (or press Enter to go back)")
+        if not original_question:
+            return
 
-        if response['type'] == 'error':
-            self.console.print(f"[red]Error: {response['message']}[/red]")
+        # Loop to allow for re-analysis after download
+        while True:
+            with self.console.status("[bold green]AI is thinking...[/]"):
+                response = self.ai_analyst.answer(original_question)
 
-        elif response['type'] == 'prompt_download':
-            if Prompt.ask(f"\n{response['message']} (y/n)") == 'y':
-                self._download_data_for_entity(response['entity_name'])
+            if response['type'] == 'error':
+                self.console.print(f"[red]Error: {response['message']}[/red]")
+                break
 
-        elif response['type'] == 'prompt_confirm_entity':
-            if Prompt.ask(f"\n{response['message']} (y/n)") == 'y':
-                self._run_analysis_for_entity(question, response['suggestion'])
+            elif response['type'] == 'prompt_download':
+                if Prompt.ask(f"\n{response['message']} (y/n)") == 'y':
+                    download_success = self._download_data_for_entity(response['entity_name'])
+                    if download_success:
+                        self.console.print("\n[green]Download complete. Re-running analysis...[/green]")
+                        continue  # Re-run the analysis
+                break # Exit if user says no or download fails
 
-        elif response['type'] == 'analysis':
-            self.console.print("\n[bold]AI Analyst Response:[/bold]")
-            self.console.print(response['message'])
+            elif response['type'] == 'prompt_confirm_entity':
+                if Prompt.ask(f"\n{response['message']} (y/n)") == 'y':
+                    self._run_analysis_for_entity(original_question, response['suggestion'])
+                break
+
+            elif response['type'] == 'analysis':
+                self.console.print("\n[bold]AI Analyst Response:[/bold]")
+                self.console.print(response['message'])
+                break
 
         input("\nPress Enter to continue...")
 
@@ -778,22 +826,18 @@ class MenuSystem:
         self.console.print("\n[bold]AI Analyst Response:[/bold]")
         self.console.print(answer or "Failed to generate a response.")
 
-    def _download_data_for_entity(self, entity_name: str):
-        """Helper to find and download data for a new entity."""
+    def _download_data_for_entity(self, entity_name: str) -> bool:
+        """Helper to find and download data for a new entity. Returns True if download was initiated."""
         with self.console.status(f"[bold green]Searching for '{entity_name}' on SEC EDGAR...[/]"):
             company_info = self.sec.get_company_info(entity_name)
         
         if not company_info:
             self.console.print(f"[red]Could not find '{entity_name}' on SEC EDGAR.[/red]")
-            return
+            return False
 
         self.console.print(f"[green]Found company: {company_info.name} (CIK: {company_info.primary_identifiers.cik})[/green]")
         if Prompt.ask("\nDownload its latest filings?", choices=["y", "n"]) == 'y':
             self._download_filings_for_company(company_info)
+            return True
+        return False
 
-def main():
-    menu = MenuSystem()
-    menu.main_menu()
-
-if __name__ == "__main__":
-    main()

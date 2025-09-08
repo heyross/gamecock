@@ -2,6 +2,7 @@
 import json
 from typing import Optional, Dict, Any, List
 from loguru import logger
+from loguru import logger
 import difflib
 
 from .db_handler import DatabaseHandler
@@ -12,12 +13,12 @@ from .downloader import SECDownloader
 class AIAnalyst:
     """Uses a RAG model to provide AI-driven analysis of swaps data."""
 
-    def __init__(self, db_handler: Optional[DatabaseHandler] = None, ollama_handler: Optional[OllamaHandler] = None):
+    def __init__(self, db_handler: DatabaseHandler, ollama_handler: OllamaHandler, sec_handler: SECHandler, downloader: SECDownloader):
         """Initialize the AI Analyst."""
-        self.db = db_handler or DatabaseHandler()
-        self.ollama = ollama_handler or OllamaHandler()
-        self.sec_handler = SECHandler()
-        self.downloader = SECDownloader(db_handler=self.db)
+        self.db = db_handler
+        self.ollama = ollama_handler
+        self.sec_handler = sec_handler
+        self.downloader = downloader
 
     def answer(self, question: str) -> Dict[str, Any]:
         """Handles a user's question by parsing, retrieving data, and generating a response or a follow-up prompt."""
@@ -74,26 +75,38 @@ class AIAnalyst:
 
     def _find_entity_match(self, entity_name: str) -> Dict[str, Any]:
         """Finds an exact or close match for an entity in the database."""
+        logger.debug(f"Finding entity match for: '{entity_name}'")
         entity_name_lower = entity_name.lower()
+
         all_counterparties = self.db.get_all_counterparties()
         all_securities = self.db.get_all_reference_securities()
-        
+
+        logger.debug(f"Found {len(all_counterparties)} counterparties and {len(all_securities)} securities in the database.")
+
         cp_map = {cp['name'].lower(): {'type': 'counterparty', 'name': cp['name'], 'id': cp['id']} for cp in all_counterparties}
         sec_map = {sec['identifier'].lower(): {'type': 'security', 'name': sec['identifier'], 'id': sec['id']} for sec in all_securities}
-        
+
+        logger.debug(f"Counterparty names: {list(cp_map.keys())}")
+        logger.debug(f"Security identifiers: {list(sec_map.keys())}")
+
         if entity_name_lower in cp_map:
+            logger.debug(f"Found exact match for '{entity_name}' in counterparties.")
             return {'status': 'EXACT_MATCH', 'match': cp_map[entity_name_lower]}
         if entity_name_lower in sec_map:
+            logger.debug(f"Found exact match for '{entity_name}' in securities.")
             return {'status': 'EXACT_MATCH', 'match': sec_map[entity_name_lower]}
 
+        logger.debug(f"No exact match found for '{entity_name}'. Searching for close matches...")
         all_names = list(cp_map.keys()) + list(sec_map.keys())
-        close_matches = difflib.get_close_matches(entity_name_lower, all_names, n=1, cutoff=0.7)
-        
+        close_matches = difflib.get_close_matches(entity_name_lower, all_names, n=1, cutoff=0.6) # Lowered cutoff for better matching
+
         if close_matches:
             match_name = close_matches[0]
+            logger.debug(f"Found close match: '{match_name}'")
             suggestion = cp_map.get(match_name) or sec_map.get(match_name)
             return {'status': 'CLOSE_MATCH', 'suggestion': suggestion}
 
+        logger.debug(f"No close match found for '{entity_name}'.")
         return {'status': 'NO_MATCH'}
 
     def _retrieve_context_data(self, entity: Dict[str, Any]) -> Optional[Dict[str, Any]]:

@@ -1,7 +1,7 @@
 """Ollama API handler for managing Ollama LLM interactions."""
 import httpx
-import psutil
 import json
+import psutil
 from typing import Optional, Dict, Any
 from loguru import logger
 

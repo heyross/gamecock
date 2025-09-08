@@ -61,9 +61,9 @@ class SetupHandler:
         logger.info("Validating Ollama setup...")
         with Status("[bold green]Checking Ollama service...[/]") as status:
             if not self.ollama.is_running():
-                console.print("[bold red]Ollama service is not running.[/bold red]")
-                console.print("Please start the Ollama application and then restart this tool.")
-                sys.exit(1)
+                console.print("[bold yellow]Warning: Ollama service is not running.[/bold yellow]")
+                console.print("The AI Analyst features will be disabled. Please start Ollama to use them.")
+                return # Continue without blocking
             status.update("[bold green]Ollama service is running. Checking for model...[/]")
             
             if not self.ollama.is_model_available():

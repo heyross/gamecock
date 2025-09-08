@@ -19,9 +19,15 @@ from datetime import datetime, timedelta
 @click.version_option(version=__version__)
 def cli():
     """SEC filing analysis tool."""
-    # Run setup checks before any command
-    setup = SetupHandler()
-    setup.run_all_checks()
+    try:
+        # Run setup checks before any command
+        setup = SetupHandler()
+        setup.run_all_checks()
+    except Exception as e:
+        print(f"An unexpected error occurred during startup: {e}")
+        import traceback
+        traceback.print_exc()
+        sys.exit(1)
 
 @cli.command()
 @click.option('--debug/--no-debug', default=False, help='Enable debug logging')

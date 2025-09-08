@@ -126,26 +126,28 @@ class SwapsAnalyzer:
         self._db_swaps_cache = None
         logger.info("Swaps analyzer cache has been cleared.")
         
+    def load_swaps_from_directory(self, directory: Union[str, Path], save_to_db: bool = True):
+        """Load all swap files from a directory."""
+        directory = Path(directory)
+        if not directory.is_dir():
+            logger.error(f"Directory not found: {directory}")
+            return
+
+        for file_path in directory.glob('**/*'):
+            if file_path.is_file() and file_path.suffix.lower() in ['.csv', '.json']:
+                self.load_swaps_from_file(file_path, save_to_db=save_to_db)
+
     def load_swaps_from_file(self, file_path: Union[str, Path], save_to_db: bool = True) -> List[SwapContract]:
-        """Load swaps data from a file.
-        
-        Args:
-            file_path: Path to the file containing swaps data
-            save_to_db: Whether to save the loaded swaps to the database
-            
-        Returns:
-            List of loaded SwapContract objects
-        """
+        """Load swaps data from a file."""
         loaded_swaps = []
         try:
             file_path = Path(file_path)
             if not file_path.exists():
                 logger.error(f"File not found: {file_path}")
                 return loaded_swaps
-                
+
             logger.info(f"Loading swaps from {file_path}")
-            
-            # Handle different file formats
+
             if file_path.suffix.lower() == '.csv':
                 df = pd.read_csv(file_path)
                 loaded_swaps = self._process_dataframe(df)
@@ -154,44 +156,43 @@ class SwapsAnalyzer:
                     data = json.load(f)
                     loaded_swaps = self._process_json(data)
             else:
-                logger.error(f"Unsupported file format: {file_path.suffix}")
-                
-            # Save to database if requested
+                logger.warning(f"Unsupported file format for swaps: {file_path.suffix}")
+
             if save_to_db and loaded_swaps:
-                self._save_swaps_to_db(loaded_swaps)
-                
-            # Add to in-memory list
+                saved_count = self._save_swaps_to_db(loaded_swaps)
+                if saved_count > 0:
+                    self.clear_cache() # Force reload from DB on next access
+
             self._loaded_swaps.extend(loaded_swaps)
-            
             logger.info(f"Successfully loaded {len(loaded_swaps)} swaps from {file_path}")
-            
+
         except Exception as e:
-            logger.error(f"Error loading swaps data: {str(e)}", exc_info=True)
-            
+            logger.error(f"Error loading swaps data from {file_path}: {str(e)}", exc_info=True)
+
         return loaded_swaps
         
     def _save_swaps_to_db(self, swaps: List[SwapContract]) -> int:
-        """Save a list of swaps to the database.
-        
-        Args:
-            swaps: List of SwapContract objects to save
-            
-        Returns:
-            Number of swaps successfully saved
-        """
+        """Save a list of swaps to the database, ensuring entities are created."""
         saved_count = 0
         for swap in swaps:
             try:
-                # Convert to dict and save to database
+                # Ensure counterparty and reference_entity exist before saving swap
+                self.db.swaps_db.get_or_create_counterparty(swap.counterparty)
+                self.db.swaps_db.get_or_create_security(swap.reference_entity)
+
                 swap_dict = swap.to_dict()
                 saved_swap = self.db.save_swap(swap_dict)
+                
                 if saved_swap:
                     saved_count += 1
-                    # Process and save underlying instruments and obligations
                     self._process_swap_details(saved_swap['id'], swap)
             except Exception as e:
                 logger.error(f"Error saving swap {swap.contract_id} to database: {str(e)}")
-                
+
+        if saved_count > 0:
+            logger.info(f"Successfully saved {saved_count} swaps to the database.")
+            self.clear_cache() # Invalidate cache after DB changes
+
         return saved_count
     
     def _process_swap_details(self, swap_id: int, swap: SwapContract):
@@ -479,18 +480,18 @@ class SwapsAnalyzer:
         
         # Handle missing or differently named columns
         column_mapping = {
-            'contract_id': ['contract_id', 'id', 'swap_id', 'contractid'],
-            'counterparty': ['counterparty', 'cp', 'party'],
-            'reference_entity': ['reference_entity', 'reference', 'underlying', 'entity'],
-            'notional_amount': ['notional_amount', 'notional', 'amount', 'size'],
-            'currency': ['currency', 'ccy', 'curr'],
+            'contract_id': ['contract_id', 'id', 'swap_id', 'contractid', 'dissemination identifier'],
+            'counterparty': ['counterparty', 'cp', 'party', 'prime brokerage transaction indicator'],
+            'reference_entity': ['reference_entity', 'reference', 'underlying', 'entity', 'underlying asset name', 'underlier id-leg 1'],
+            'notional_amount': ['notional_amount', 'notional', 'amount', 'size', 'notional amount-leg 1'],
+            'currency': ['currency', 'ccy', 'curr', 'notional currency-leg 1'],
             'effective_date': ['effective_date', 'start_date', 'trade_date'],
-            'maturity_date': ['maturity_date', 'end_date', 'expiry_date'],
-            'swap_type': ['swap_type', 'type', 'product'],
-            'payment_frequency': ['payment_frequency', 'freq', 'payment'],
-            'fixed_rate': ['fixed_rate', 'rate', 'coupon'],
+            'maturity_date': ['maturity_date', 'end_date', 'expiration date'],
+            'swap_type': ['swap_type', 'type', 'product', 'asset class'],
+            'payment_frequency': ['payment_frequency', 'freq', 'payment', 'fixed rate payment frequency period-leg 1'],
+            'fixed_rate': ['fixed_rate', 'rate', 'coupon', 'fixed rate-leg 1'],
             'floating_rate_index': ['floating_rate_index', 'index', 'floating_index'],
-            'floating_rate_spread': ['floating_rate_spread', 'spread', 'margin']
+            'floating_rate_spread': ['floating_rate_spread', 'spread', 'margin', 'spread-leg 1']
         }
         
         # Find actual column names in the dataframe
@@ -518,22 +519,37 @@ class SwapsAnalyzer:
                     logger.warning(f"Skipping record with invalid or missing date. Contract ID: {swap_data.get('contract_id', 'N/A')}")
                     continue
 
+                # --- Data Validation and Type Conversion ---
+                try:
+                    notional = float(swap_data.get('notional_amount', 0))
+                except (ValueError, TypeError):
+                    logger.warning(f"Could not convert notional_amount '{swap_data.get('notional_amount')}' to float. Skipping row.")
+                    continue
+
+                try:
+                    fixed_rate = float(swap_data['fixed_rate']) if 'fixed_rate' in swap_data else None
+                except (ValueError, TypeError):
+                    fixed_rate = None
+
+                try:
+                    spread = float(swap_data['floating_rate_spread']) if 'floating_rate_spread' in swap_data and pd.notna(swap_data['floating_rate_spread']) else None
+                except (ValueError, TypeError):
+                    spread = None
+
                 # Create swap contract
                 swap = SwapContract(
                     contract_id=str(swap_data.get('contract_id', '')),
-                    counterparty=swap_data.get('counterparty', 'UNKNOWN'),
-                    reference_entity=swap_data.get('reference_entity', 'UNKNOWN'),
-                    notional_amount=float(swap_data.get('notional_amount', 0)),
-                    currency=swap_data.get('currency', 'USD'),
+                    counterparty=str(swap_data.get('counterparty', 'UNKNOWN')),
+                    reference_entity=str(swap_data.get('reference_entity', 'UNKNOWN')),
+                    notional_amount=notional,
+                    currency=str(swap_data.get('currency', 'USD')),
                     effective_date=effective_date_dt.date(),
                     maturity_date=maturity_date_dt.date(),
                     swap_type=swap_data.get('swap_type', SwapType.OTHER),
                     payment_frequency=swap_data.get('payment_frequency', PaymentFrequency.QUARTERLY),
-                    fixed_rate=float(swap_data['fixed_rate']) if 'fixed_rate' in swap_data else None,
+                    fixed_rate=fixed_rate,
                     floating_rate_index=swap_data.get('floating_rate_index'),
-                    floating_rate_spread=float(swap_data['floating_rate_spread']) 
-                        if 'floating_rate_spread' in swap_data and pd.notna(swap_data['floating_rate_spread']) 
-                        else None,
+                    floating_rate_spread=spread,
                 )
                 
                 swaps.append(swap)

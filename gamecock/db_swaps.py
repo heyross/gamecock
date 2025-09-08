@@ -251,6 +251,42 @@ class SwapsDatabase:
         """Create database tables if they don't exist."""
         Base.metadata.create_all(self.engine)
     
+    def get_or_create_counterparty(self, name: str) -> Counterparty:
+        """Get an existing counterparty or create a new one."""
+        session = self.Session()
+        try:
+            counterparty = session.query(Counterparty).filter(func.lower(Counterparty.name) == name.lower()).first()
+            if not counterparty:
+                counterparty = Counterparty(name=name)
+                session.add(counterparty)
+                session.commit()
+                logger.info(f"Created new counterparty: {name}")
+            return counterparty
+        except SQLAlchemyError as e:
+            session.rollback()
+            logger.error(f"Error getting or creating counterparty '{name}': {e}")
+            raise
+        finally:
+            session.close()
+
+    def get_or_create_security(self, identifier: str) -> ReferenceSecurity:
+        """Get an existing reference security or create a new one."""
+        session = self.Session()
+        try:
+            security = session.query(ReferenceSecurity).filter(func.lower(ReferenceSecurity.identifier) == identifier.lower()).first()
+            if not security:
+                security = ReferenceSecurity(identifier=identifier)
+                session.add(security)
+                session.commit()
+                logger.info(f"Created new reference security: {identifier}")
+            return security
+        except SQLAlchemyError as e:
+            session.rollback()
+            logger.error(f"Error getting or creating security '{identifier}': {e}")
+            raise
+        finally:
+            session.close()
+
     def _create_view(self):
         """Create the database view for swap obligations."""
         view_sql = """
@@ -701,7 +737,8 @@ class SwapsDatabase:
         """Get all swaps related to a specific reference security by its ID."""
         session = self.Session()
         try:
-            swaps = session.query(Swap).join(UnderlyingInstrument).filter(UnderlyingInstrument.security_id == security_id).all()
+            # Correctly join through the underlying_instruments table
+            swaps = session.query(Swap).join(Swap.underlying_instruments).filter(UnderlyingInstrument.security_id == security_id).all()
             return [s.to_dict() for s in swaps]
         except SQLAlchemyError as e:
             logger.error(f"Error getting swaps by security ID: {str(e)}")
