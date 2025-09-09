@@ -191,31 +191,6 @@ class SwapsAnalyzer:
 
         return report
     
-    def _calculate_risk_score(
-        self, 
-        total_notional: float, 
-        avg_time_to_maturity: float,
-        counterparty_concentration: float,
-        currency_concentration: float,
-        swap_types: List[str]
-    ) -> float:
-        """Calculate a composite risk score (0-100)."""
-        # Notional risk (0-40 points)
-        notional_risk = min(40, (total_notional ** 0.5) / 1000)
-        
-        # Time to maturity risk (0-20 points)
-        time_risk = min(20, avg_time_to_maturity * 2)
-        
-        # Counterparty concentration risk (0-20 points)
-        cp_risk = counterparty_concentration * 20
-        
-        # Currency concentration risk (0-20 points)
-        curr_risk = currency_concentration * 20
-        
-        # Swap type risk (0-20 points)
-        swap_type_risk = len(swap_types) * 5
-        
-        return min(100, notional_risk + time_risk + cp_risk + curr_risk + swap_type_risk)
     
     def _get_risk_level(self, score: float) -> str:
         """Convert risk score to risk level."""
@@ -230,82 +205,6 @@ class SwapsAnalyzer:
         else:
             return "Minimal"
     
-    def _generate_detailed_analysis(self, swaps: List[SwapContract], exposure: Dict) -> Dict:
-        """Generate detailed analysis of swaps."""
-        if not swaps:
-            return {}
-            
-        # Calculate metrics by swap type
-        metrics_by_type = {}
-        for swap in swaps:
-            swap_type = swap.swap_type.value if hasattr(swap.swap_type, 'value') else str(swap.swap_type)
-            if swap_type not in metrics_by_type:
-                metrics_by_type[swap_type] = {
-                    'count': 0,
-                    'total_notional': 0,
-                    'fixed_rate_swaps': 0,
-                    'floating_rate_swaps': 0,
-                    'avg_notional': 0,
-                    'min_maturity': None,
-                    'max_maturity': None
-                }
-            
-            metrics = metrics_by_type[swap_type]
-            metrics['count'] += 1
-            metrics['total_notional'] += swap.notional_amount
-            
-            if swap.fixed_rate is not None:
-                metrics['fixed_rate_swaps'] += 1
-            if swap.floating_rate_index is not None:
-                metrics['floating_rate_swaps'] += 1
-                
-            if hasattr(swap, 'maturity_date') and swap.maturity_date:
-                if metrics['min_maturity'] is None or swap.maturity_date < metrics['min_maturity']:
-                    metrics['min_maturity'] = swap.maturity_date
-                if metrics['max_maturity'] is None or swap.maturity_date > metrics['max_maturity']:
-                    metrics['max_maturity'] = swap.maturity_date
-        
-        # Calculate averages
-        for metrics in metrics_by_type.values():
-            if metrics['count'] > 0:
-                metrics['avg_notional'] = metrics['total_notional'] / metrics['count']
-        
-        # Identify top counterparties
-        top_counterparties = sorted(
-            exposure['exposure_by_counterparty'].items(), 
-            key=lambda x: x[1], 
-            reverse=True
-        )[:5]  # Top 5
-        
-        # Identify currency exposures
-        currency_exposures = sorted(
-            exposure['exposure_by_currency'].items(),
-            key=lambda x: x[1],
-            reverse=True
-        )
-        
-        return {
-            'metrics_by_swap_type': {
-                k: {
-                    'count': v['count'],
-                    'total_notional': v['total_notional'],
-                    'avg_notional': v['avg_notional'],
-                    'fixed_rate_swaps': v['fixed_rate_swaps'],
-                    'floating_rate_swaps': v['floating_rate_swaps'],
-                    'min_maturity': v['min_maturity'].isoformat() if v['min_maturity'] else None,
-                    'max_maturity': v['max_maturity'].isoformat() if v['max_maturity'] else None
-                }
-                for k, v in metrics_by_type.items()
-            },
-            'top_counterparties': [
-                {'counterparty': cp, 'notional': amt, 'percentage': (amt / exposure['total_notional']) * 100}
-                for cp, amt in top_counterparties
-            ],
-            'currency_exposures': [
-                {'currency': curr, 'notional': amt, 'percentage': (amt / exposure['total_notional']) * 100}
-                for curr, amt in currency_exposures
-            ]
-        }
     
     def analyze_counterparty_risk(self, counterparty: str) -> Dict[str, Any]:
         """Analyze risk exposure to a specific counterparty.
@@ -483,7 +382,7 @@ class SwapsAnalyzer:
             SwapType.OTHER: 30
         }
         type_scores = [type_risk_weights.get(SwapType(st), 30) for st in swap_types]
-        type_score = sum(type_scores) / len(type_scores) if type_scores else 30
+        type_score = sum(type_scores) / len(type_scores) if type_scores else 0
 
         # Calculate final weighted score
         final_score = (
@@ -552,7 +451,7 @@ class SwapsAnalyzer:
         - **Swap Type:** {swap_details.get('swap_type', 'N/A')}
         - **Counterparty:** {swap_details.get('counterparty')}
         - **Reference Entity/Security:** {swap_details.get('instrument_identifier', swap_details.get('reference_entity'))}
-        - **Notional Amount:** {swap_details.get('currency')} {swap_details.get('notional_amount'):,.2f}
+        - **Notional Amount:** {f"{swap_details.get('currency')} {swap_details.get('notional_amount'):,.2f}" if swap_details.get('notional_amount') is not None else 'N/A'}
         - **Effective Date:** {swap_details.get('effective_date')}
         - **Maturity Date:** {swap_details.get('maturity_date')}
 

@@ -39,20 +39,29 @@ def print_ascii_art():
 class MenuSystem:
     """Menu system for SEC filing downloader."""
     
-    def __init__(self):
+    def __init__(self, 
+                 db_handler: Optional[DatabaseHandler] = None,
+                 sec_handler: Optional[SECHandler] = None,
+                 ollama_handler: Optional[OllamaHandler] = None,
+                 swaps_analyzer: Optional[SwapsAnalyzer] = None,
+                 swaps_processor: Optional[SwapsProcessor] = None,
+                 downloader: Optional[SECDownloader] = None,
+                 ai_analyst: Optional[AIAnalyst] = None):
         """Initialize menu system."""
         self.console = Console()
-        self._initialize_handlers()
+        self._initialize_handlers(db_handler, sec_handler, ollama_handler, swaps_analyzer, swaps_processor, downloader, ai_analyst)
 
-    def _initialize_handlers(self):
+    def _initialize_handlers(self, 
+                             db_handler, sec_handler, ollama_handler, 
+                             swaps_analyzer, swaps_processor, downloader, ai_analyst):
         """Initialize all the handlers to avoid circular dependencies."""
-        self.db = DatabaseHandler()
-        self.sec = SECHandler()
-        self.ollama = OllamaHandler()
-        self.swaps_analyzer = SwapsAnalyzer(db_handler=self.db, ollama_handler=self.ollama)
-        self.swaps_processor = SwapsProcessor(db_handler=self.db)
-        self.downloader = SECDownloader(db_handler=self.db, swaps_analyzer=self.swaps_analyzer)
-        self.ai_analyst = AIAnalyst(
+        self.db = db_handler or DatabaseHandler()
+        self.sec = sec_handler or SECHandler()
+        self.ollama = ollama_handler or OllamaHandler()
+        self.swaps_analyzer = swaps_analyzer or SwapsAnalyzer(db_handler=self.db, ollama_handler=self.ollama)
+        self.swaps_processor = swaps_processor or SwapsProcessor(db_handler=self.db)
+        self.downloader = downloader or SECDownloader(db_handler=self.db, swaps_analyzer=self.swaps_analyzer)
+        self.ai_analyst = ai_analyst or AIAnalyst(
             db_handler=self.db,
             ollama_handler=self.ollama,
             sec_handler=self.sec
@@ -165,11 +174,8 @@ class MenuSystem:
         try:
             self.console.print(f"\nDownloading filings for {company_info.name}")
             
-            # Initialize downloader with shared handlers
-            downloader = SECDownloader(db_handler=self.db, swaps_analyzer=self.swaps_analyzer)
-            
             # Download parent company filings
-            downloaded_files = downloader.download_company_filings(
+            downloaded_files = self.downloader.download_company_filings(
                 company_info.primary_identifiers.cik,
                 start,
                 end
@@ -185,7 +191,7 @@ class MenuSystem:
                 for entity in company_info.related_entities:
                     if entity.cik:
                         self.console.print(f"\nDownloading filings for related entity: {entity.name}")
-                        related_files = downloader.download_company_filings(
+                        related_files = self.downloader.download_company_filings(
                             entity.cik,
                             start,
                             end
@@ -743,23 +749,30 @@ class MenuSystem:
                 return None
             elif choice == '0':
                 current_path = current_path.parent
-            elif choice.isdigit() and 1 <= int(choice) <= len(items):
-                selected_item = items[int(choice) - 1]
-                if selected_item.is_dir():
-                    current_path = selected_item
+            elif choice.isdigit():
+                choice_idx = int(choice) - 1
+                if 0 <= choice_idx < len(items):
+                    selected_item = items[choice_idx]
+                    if selected_item.is_file():
+                        return selected_item  # Return the file path
+                    else:
+                        current_path = selected_item  # Navigate into the directory
                 else:
-                    return selected_item # Return the selected file path
+                    self.console.print(f"[red]Invalid selection: {choice}[/red]")
+                    input("\nPress Enter to continue...")
             else:
-                self.console.print("[red]Invalid selection.[/red]")
+                self.console.print(f"[red]Invalid input: {choice}[/red]")
                 input("\nPress Enter to continue...")
 
-    def _reimport_data_menu(self):
+    def _reimport_data_menu(self, data_dir: Optional[Path] = None):
         """Menu to re-import all downloaded files."""
         self.console.clear()
         print_ascii_art()
         self.console.print("\n[bold blue]Re-import Downloaded Files[/bold blue]\n")
 
-        data_dir = Path(__file__).parent.parent / "data"
+        if data_dir is None:
+            data_dir = Path(__file__).parent.parent / "data"
+
         if not data_dir.exists() or not any(data_dir.iterdir()):
             self.console.print("[yellow]No files found in the data directory to re-import.[/yellow]")
             input("\nPress Enter to continue...")
