@@ -19,6 +19,7 @@ from .db_handler import DatabaseHandler
 from .sec_handler import SECHandler
 from .downloader import SECDownloader
 from .swaps_analyzer import SwapsAnalyzer
+from .swaps_processor import SwapsProcessor
 from .ai_analyst import AIAnalyst
 from .ollama_handler import OllamaHandler
 
@@ -41,16 +42,20 @@ class MenuSystem:
     def __init__(self):
         """Initialize menu system."""
         self.console = Console()
+        self._initialize_handlers()
+
+    def _initialize_handlers(self):
+        """Initialize all the handlers to avoid circular dependencies."""
         self.db = DatabaseHandler()
         self.sec = SECHandler()
         self.ollama = OllamaHandler()
         self.swaps_analyzer = SwapsAnalyzer(db_handler=self.db, ollama_handler=self.ollama)
+        self.swaps_processor = SwapsProcessor(db_handler=self.db)
         self.downloader = SECDownloader(db_handler=self.db, swaps_analyzer=self.swaps_analyzer)
         self.ai_analyst = AIAnalyst(
             db_handler=self.db,
             ollama_handler=self.ollama,
-            sec_handler=self.sec,
-            downloader=self.downloader
+            sec_handler=self.sec
         )
 
     def main_menu(self):
@@ -754,16 +759,16 @@ class MenuSystem:
         print_ascii_art()
         self.console.print("\n[bold blue]Re-import Downloaded Files[/bold blue]\n")
 
-        download_dir = Path(__file__).parent.parent / "data" / "downloaded_filings"
-        if not download_dir.exists() or not any(download_dir.iterdir()):
-            self.console.print("[yellow]No downloaded files found to re-import.[/yellow]")
+        data_dir = Path(__file__).parent.parent / "data"
+        if not data_dir.exists() or not any(data_dir.iterdir()):
+            self.console.print("[yellow]No files found in the data directory to re-import.[/yellow]")
             input("\nPress Enter to continue...")
             return
 
-        self.console.print(f"This will scan the '[yellow]{download_dir}[/yellow]' directory and re-process all CSV and JSON files.")
+        self.console.print(f"This will scan the '[yellow]{data_dir}[/yellow]' directory and all its subdirectories to re-process all CSV, JSON, and TXT files.")
         if Prompt.ask("\nAre you sure you want to continue?", choices=["y", "n"]) == 'y':
             with self.console.status("[bold green]Re-importing files...[/]"):
-                self.swaps_analyzer.load_swaps_from_directory(download_dir, save_to_db=True)
+                self.swaps_processor.process_directory(data_dir, save_to_db=True)
             self.console.print("\n[green]Re-import process completed.[/green]")
         else:
             self.console.print("\n[yellow]Re-import cancelled.[/yellow]")

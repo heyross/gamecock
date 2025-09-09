@@ -1,0 +1,8 @@
+contract_id,counterparty,reference_entity,notional_amount,currency,effective_date,maturity_date,swap_type,fixed_rate
+SWAP001,Goldman Sachs,GME,1000000,USD,2023-01-01,2028-01-01,credit_default,1.5
+SWAP002,JP Morgan,AMC,500000,USD,2023-02-01,2025-02-01,interest_rate,2.1
+SWAP003,Citadel,BBBY,2000000,EUR,2023-03-01,2030-03-01,total_return,
+SWAP004,Goldman Sachs,GME,250000,USD,2023-04-01,2026-04-01,credit_default,1.8
+SWAP005,Barclays,TSLA,1500000,USD,2023-05-01,2027-05-01,equity,
+# Malformed row
+SWAP006,Morgan Stanley,MSFT,invalid_notional,USD,2023-06-01,2029-06-01,interest_rate,2.5

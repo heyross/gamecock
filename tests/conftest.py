@@ -6,9 +6,17 @@ import logging
 from pathlib import Path
 
 @pytest.fixture(autouse=True)
-def disable_logging():
-    """Disable logging during tests."""
-    logging.getLogger().setLevel(logging.ERROR)
+def caplog_for_loguru(caplog):
+    """Fixture to capture loguru logs with pytest's caplog."""
+    from loguru import logger
+    import logging
+
+    class PropagateHandler(logging.Handler):
+        def emit(self, record):
+            logging.getLogger(record.name).handle(record)
+
+    logger.add(PropagateHandler(), format="{message}")
+    yield caplog
 
 @pytest.fixture
 def sample_sec_data(tmp_path):

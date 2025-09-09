@@ -13,12 +13,11 @@ from .downloader import SECDownloader
 class AIAnalyst:
     """Uses a RAG model to provide AI-driven analysis of swaps data."""
 
-    def __init__(self, db_handler: DatabaseHandler, ollama_handler: OllamaHandler, sec_handler: SECHandler, downloader: SECDownloader):
+    def __init__(self, db_handler: DatabaseHandler, ollama_handler: OllamaHandler, sec_handler: SECHandler):
         """Initialize the AI Analyst."""
         self.db = db_handler
         self.ollama = ollama_handler
         self.sec_handler = sec_handler
-        self.downloader = downloader
 
     def answer(self, question: str) -> Dict[str, Any]:
         """Handles a user's question by parsing, retrieving data, and generating a response or a follow-up prompt."""

@@ -50,7 +50,16 @@ def download(cik: str, years: int):
     end_date = datetime.now()
     start_date = end_date - timedelta(days=365 * years)
     
-    with Status("[bold green]Downloading filings...[/]") as status:
+    console = Console()
+    downloaded_files = []
+    if console.is_terminal:
+        with Status("[bold green]Downloading filings...[/]") as status:
+            downloaded_files = downloader.download_company_filings(
+                cik=cik,
+                start_date=start_date,
+                end_date=end_date
+            )
+    else:
         downloaded_files = downloader.download_company_filings(
             cik=cik,
             start_date=start_date,

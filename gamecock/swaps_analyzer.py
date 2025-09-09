@@ -15,75 +15,10 @@ from enum import Enum
 
 from .db_handler import DatabaseHandler
 from .ollama_handler import OllamaHandler
+from .data_structures import SwapContract, SwapType, PaymentFrequency
 
 logger = logging.getLogger(__name__)
 
-class SwapType(str, Enum):
-    """Types of swaps."""
-    CREDIT_DEFAULT = "credit_default"
-    INTEREST_RATE = "interest_rate"
-    TOTAL_RETURN = "total_return"
-    CURRENCY = "currency"
-    COMMODITY = "commodity"
-    EQUITY = "equity"
-    OTHER = "other"
-
-class PaymentFrequency(str, Enum):
-    """Payment frequency for swap payments."""
-    DAILY = "daily"
-    WEEKLY = "weekly"
-    MONTHLY = "monthly"
-    QUARTERLY = "quarterly"
-    SEMI_ANNUAL = "semi_annual"
-    ANNUAL = "annual"
-    MATURITY = "at_maturity"
-
-@dataclass
-class SwapContract:
-    """Represents a single swap contract."""
-    contract_id: str
-    counterparty: str
-    reference_entity: str
-    notional_amount: float
-    effective_date: Union[date, str]
-    maturity_date: Union[date, str]
-    currency: str = "USD"
-    swap_type: Union[SwapType, str] = SwapType.OTHER
-    payment_frequency: Union[PaymentFrequency, str] = PaymentFrequency.QUARTERLY
-    fixed_rate: Optional[float] = None
-    floating_rate_index: Optional[str] = None
-    floating_rate_spread: Optional[float] = None
-    collateral_terms: Dict[str, Any] = field(default_factory=dict)
-    additional_terms: Dict[str, Any] = field(default_factory=dict)
-    
-    def __post_init__(self):
-        # Convert string dates to date objects if needed
-        if isinstance(self.effective_date, str):
-            self.effective_date = datetime.strptime(self.effective_date, "%Y-%m-%d").date()
-        if isinstance(self.maturity_date, str):
-            self.maturity_date = datetime.strptime(self.maturity_date, "%Y-%m-%d").date()
-            
-        # Convert enums from strings if needed
-        if isinstance(self.swap_type, str):
-            self.swap_type = SwapType(self.swap_type.lower())
-        if isinstance(self.payment_frequency, str):
-            self.payment_frequency = PaymentFrequency(self.payment_frequency.lower())
-    
-    def to_dict(self) -> Dict[str, Any]:
-        """Convert swap to dictionary."""
-        data = asdict(self)
-        # Convert enums to strings
-        data['swap_type'] = self.swap_type.value
-        data['payment_frequency'] = self.payment_frequency.value
-        # Convert dates to ISO format strings
-        data['effective_date'] = self.effective_date.isoformat()
-        data['maturity_date'] = self.maturity_date.isoformat()
-        return data
-        
-    @classmethod
-    def from_dict(cls, data: Dict[str, Any]) -> 'SwapContract':
-        """Create SwapContract from dictionary."""
-        return cls(**data)
 
 class SwapsAnalyzer:
     """Handles analysis of swaps data from various sources."""
@@ -99,16 +34,10 @@ class SwapsAnalyzer:
         self.data_dir.mkdir(parents=True, exist_ok=True)
         self.db = db_handler or DatabaseHandler()
         self.ollama = ollama_handler or OllamaHandler()
-        self._loaded_swaps: List[SwapContract] = []
         self._db_swaps_cache: Optional[List[SwapContract]] = None
-        
-    @property
-    def swaps(self) -> List[SwapContract]:
-        """Get all swaps from both memory and database."""
-        return self._loaded_swaps + self._get_swaps_from_db()
-    
-    def _get_swaps_from_db(self) -> List[SwapContract]:
-        """Load swaps from the database, using a cache."""
+
+    def get_all_swaps_from_db(self) -> List[SwapContract]:
+        """Load all swaps from the database, using a cache."""
         if self._db_swaps_cache is not None:
             return self._db_swaps_cache
         
@@ -122,578 +51,8 @@ class SwapsAnalyzer:
 
     def clear_cache(self):
         """Clear the internal swaps cache."""
-        self._loaded_swaps = []
         self._db_swaps_cache = None
         logger.info("Swaps analyzer cache has been cleared.")
-        
-    def load_swaps_from_directory(self, directory: Union[str, Path], save_to_db: bool = True):
-        """Load all swap files from a directory."""
-        directory = Path(directory)
-        if not directory.is_dir():
-            logger.error(f"Directory not found: {directory}")
-            return
-
-        for file_path in directory.glob('**/*'):
-            if file_path.is_file() and file_path.suffix.lower() in ['.csv', '.json']:
-                self.load_swaps_from_file(file_path, save_to_db=save_to_db)
-
-    def load_swaps_from_file(self, file_path: Union[str, Path], save_to_db: bool = True) -> List[SwapContract]:
-        """Load swaps data from a file."""
-        loaded_swaps = []
-        try:
-            file_path = Path(file_path)
-            if not file_path.exists():
-                logger.error(f"File not found: {file_path}")
-                return loaded_swaps
-
-            logger.info(f"Loading swaps from {file_path}")
-
-            if file_path.suffix.lower() == '.csv':
-                df = pd.read_csv(file_path)
-                loaded_swaps = self._process_dataframe(df)
-            elif file_path.suffix.lower() == '.json':
-                with open(file_path, 'r', encoding='utf-8') as f:
-                    data = json.load(f)
-                    loaded_swaps = self._process_json(data)
-            else:
-                logger.warning(f"Unsupported file format for swaps: {file_path.suffix}")
-
-            if save_to_db and loaded_swaps:
-                saved_count = self._save_swaps_to_db(loaded_swaps)
-                if saved_count > 0:
-                    self.clear_cache() # Force reload from DB on next access
-
-            self._loaded_swaps.extend(loaded_swaps)
-            logger.info(f"Successfully loaded {len(loaded_swaps)} swaps from {file_path}")
-
-        except Exception as e:
-            logger.error(f"Error loading swaps data from {file_path}: {str(e)}", exc_info=True)
-
-        return loaded_swaps
-        
-    def _save_swaps_to_db(self, swaps: List[SwapContract]) -> int:
-        """Save a list of swaps to the database, ensuring entities are created."""
-        saved_count = 0
-        for swap in swaps:
-            try:
-                # Ensure counterparty and reference_entity exist before saving swap
-                self.db.swaps_db.get_or_create_counterparty(swap.counterparty)
-                self.db.swaps_db.get_or_create_security(swap.reference_entity)
-
-                swap_dict = swap.to_dict()
-                saved_swap = self.db.save_swap(swap_dict)
-                
-                if saved_swap:
-                    saved_count += 1
-                    self._process_swap_details(saved_swap['id'], swap)
-            except Exception as e:
-                logger.error(f"Error saving swap {swap.contract_id} to database: {str(e)}")
-
-        if saved_count > 0:
-            logger.info(f"Successfully saved {saved_count} swaps to the database.")
-            self.clear_cache() # Invalidate cache after DB changes
-
-        return saved_count
-    
-    def _process_swap_details(self, swap_id: int, swap: SwapContract):
-        """Process and save underlying instruments and obligations for a swap.
-        
-        Args:
-            swap_id: Database ID of the saved swap
-            swap: SwapContract object containing the swap details
-        """
-        try:
-            # Extract and save underlying instruments
-            instruments = self._extract_underlying_instruments(swap)
-            for instrument_data in instruments:
-                saved_instrument = self.db.add_underlying_instrument(swap_id, instrument_data)
-                if saved_instrument:
-                    logger.debug(f"Added underlying instrument {instrument_data['identifier']} to swap {swap.contract_id}")
-            
-            # Extract and save obligations
-            obligations = self._extract_obligations(swap)
-            for obligation_data in obligations:
-                saved_obligation = self.db.add_obligation(swap_id, obligation_data)
-                if saved_obligation:
-                    logger.debug(f"Added obligation {obligation_data['obligation_type']} to swap {swap.contract_id}")
-                    
-                    # Extract and save triggers for this obligation
-                    triggers = self._extract_obligation_triggers(swap, obligation_data)
-                    for trigger_data in triggers:
-                        saved_trigger = self.db.add_obligation_trigger(saved_obligation['id'], trigger_data)
-                        if saved_trigger:
-                            logger.debug(f"Added trigger {trigger_data['trigger_type']} to obligation {saved_obligation['id']}")
-                            
-        except Exception as e:
-            logger.error(f"Error processing swap details for {swap.contract_id}: {str(e)}")
-    
-    def _extract_underlying_instruments(self, swap: SwapContract) -> List[Dict[str, Any]]:
-        """Extract underlying instruments from a swap contract.
-        
-        Args:
-            swap: SwapContract object
-            
-        Returns:
-            List of dictionaries containing instrument data
-        """
-        instruments = []
-        
-        # Extract from reference entity (most common case)
-        if swap.reference_entity:
-            instrument = {
-                'instrument_type': self._determine_instrument_type(swap.reference_entity),
-                'identifier': swap.reference_entity,
-                'description': f"Reference entity for {swap.swap_type.value} swap",
-                'notional_amount': swap.notional_amount,
-                'currency': swap.currency
-            }
-            instruments.append(instrument)
-        
-        # Extract from additional terms if available
-        if swap.additional_terms and 'underlying_instruments' in swap.additional_terms:
-            for instrument_info in swap.additional_terms['underlying_instruments']:
-                if isinstance(instrument_info, dict):
-                    instruments.append(instrument_info)
-                elif isinstance(instrument_info, str):
-                    # Simple string identifier
-                    instrument = {
-                        'instrument_type': self._determine_instrument_type(instrument_info),
-                        'identifier': instrument_info,
-                        'description': f"Underlying instrument for {swap.swap_type.value} swap",
-                        'currency': swap.currency
-                    }
-                    instruments.append(instrument)
-        
-        return instruments
-    
-    def _extract_obligations(self, swap: SwapContract) -> List[Dict[str, Any]]:
-        """Extract obligations from a swap contract.
-        
-        Args:
-            swap: SwapContract object
-            
-        Returns:
-            List of dictionaries containing obligation data
-        """
-        obligations = []
-        
-        # Generate standard payment obligations based on swap type
-        if swap.swap_type == SwapType.INTEREST_RATE:
-            # Fixed rate payer obligation
-            if swap.fixed_rate:
-                obligation = {
-                    'obligation_type': 'fixed_payment',
-                    'amount': swap.notional_amount * (swap.fixed_rate / 100) / self._get_payment_frequency_factor(swap.payment_frequency),
-                    'currency': swap.currency,
-                    'due_date': self._calculate_next_payment_date(swap.effective_date, swap.payment_frequency),
-                    'status': 'pending',
-                    'description': f"Fixed rate payment at {swap.fixed_rate}%"
-                }
-                obligations.append(obligation)
-            
-            # Floating rate receiver obligation
-            if swap.floating_rate_index:
-                obligation = {
-                    'obligation_type': 'floating_payment',
-                    'amount': 0,  # To be calculated based on floating rate
-                    'currency': swap.currency,
-                    'due_date': self._calculate_next_payment_date(swap.effective_date, swap.payment_frequency),
-                    'status': 'pending',
-                    'description': f"Floating rate payment based on {swap.floating_rate_index}"
-                }
-                obligations.append(obligation)
-        
-        elif swap.swap_type == SwapType.CREDIT_DEFAULT:
-            # Premium payment obligation
-            obligation = {
-                'obligation_type': 'premium_payment',
-                'amount': swap.notional_amount * 0.01,  # Default 1% premium, should be extracted from terms
-                'currency': swap.currency,
-                'due_date': self._calculate_next_payment_date(swap.effective_date, swap.payment_frequency),
-                'status': 'pending',
-                'description': "Credit default swap premium payment"
-            }
-            obligations.append(obligation)
-            
-            # Protection payment obligation (contingent)
-            obligation = {
-                'obligation_type': 'protection_payment',
-                'amount': swap.notional_amount,
-                'currency': swap.currency,
-                'due_date': None,  # Triggered by credit event
-                'status': 'contingent',
-                'description': "Protection payment upon credit event"
-            }
-            obligations.append(obligation)
-        
-        elif swap.swap_type == SwapType.TOTAL_RETURN:
-            # Total return payment obligation
-            obligation = {
-                'obligation_type': 'total_return_payment',
-                'amount': 0,  # Variable based on asset performance
-                'currency': swap.currency,
-                'due_date': self._calculate_next_payment_date(swap.effective_date, swap.payment_frequency),
-                'status': 'pending',
-                'description': f"Total return payment on {swap.reference_entity}"
-            }
-            obligations.append(obligation)
-        
-        # Extract from additional terms if available
-        if swap.additional_terms and 'obligations' in swap.additional_terms:
-            for obligation_info in swap.additional_terms['obligations']:
-                if isinstance(obligation_info, dict):
-                    obligations.append(obligation_info)
-        
-        return obligations
-    
-    def _extract_obligation_triggers(self, swap: SwapContract, obligation: Dict[str, Any]) -> List[Dict[str, Any]]:
-        """Extract triggers for an obligation.
-        
-        Args:
-            swap: SwapContract object
-            obligation: Dictionary containing obligation data
-            
-        Returns:
-            List of dictionaries containing trigger data
-        """
-        triggers = []
-        
-        # Generate triggers based on obligation type
-        if obligation['obligation_type'] == 'protection_payment':
-            # Credit event trigger for CDS
-            trigger = {
-                'trigger_type': 'credit_event',
-                'trigger_condition': f"credit_event({swap.reference_entity}) = true",
-                'description': f"Credit event on {swap.reference_entity}",
-                'is_active': True
-            }
-            triggers.append(trigger)
-        
-        elif obligation['obligation_type'] in ['fixed_payment', 'floating_payment', 'premium_payment']:
-            # Time-based trigger for regular payments
-            trigger = {
-                'trigger_type': 'time_based',
-                'trigger_condition': f"date >= {obligation.get('due_date', 'TBD')}",
-                'description': f"Payment due on {obligation.get('due_date', 'TBD')}",
-                'is_active': True
-            }
-            triggers.append(trigger)
-        
-        elif obligation['obligation_type'] == 'total_return_payment':
-            # Performance-based trigger
-            trigger = {
-                'trigger_type': 'performance',
-                'trigger_condition': f"performance({swap.reference_entity}) != 0",
-                'description': f"Performance change in {swap.reference_entity}",
-                'is_active': True
-            }
-            triggers.append(trigger)
-        
-        # Extract from additional terms if available
-        if swap.additional_terms and 'triggers' in swap.additional_terms:
-            for trigger_info in swap.additional_terms['triggers']:
-                if isinstance(trigger_info, dict):
-                    triggers.append(trigger_info)
-        
-        return triggers
-    
-    def _determine_instrument_type(self, identifier: str) -> str:
-        """Determine the instrument type based on identifier.
-        
-        Args:
-            identifier: Instrument identifier
-            
-        Returns:
-            String representing the instrument type
-        """
-        identifier = identifier.upper()
-        
-        # Simple heuristics - in practice, you'd use more sophisticated logic
-        if len(identifier) <= 5 and identifier.isalpha():
-            return 'equity'
-        elif 'INDEX' in identifier or 'IDX' in identifier:
-            return 'index'
-        elif len(identifier) == 9 and identifier.isalnum():
-            return 'bond'  # CUSIP format
-        elif len(identifier) == 12 and identifier.isalnum():
-            return 'bond'  # ISIN format
-        else:
-            return 'other'
-    
-    def _get_payment_frequency_factor(self, frequency: PaymentFrequency) -> int:
-        """Get the number of payments per year for a given frequency.
-        
-        Args:
-            frequency: Payment frequency
-            
-        Returns:
-            Number of payments per year
-        """
-        frequency_map = {
-            PaymentFrequency.DAILY: 365,
-            PaymentFrequency.WEEKLY: 52,
-            PaymentFrequency.MONTHLY: 12,
-            PaymentFrequency.QUARTERLY: 4,
-            PaymentFrequency.SEMI_ANNUAL: 2,
-            PaymentFrequency.ANNUAL: 1,
-            PaymentFrequency.MATURITY: 1
-        }
-        return frequency_map.get(frequency, 4)  # Default to quarterly
-    
-    def _calculate_next_payment_date(self, start_date: date, frequency: PaymentFrequency) -> date:
-        """Calculate the next payment date based on frequency.
-        
-        Args:
-            start_date: Start date of the swap
-            frequency: Payment frequency
-            
-        Returns:
-            Next payment date
-        """
-        from dateutil.relativedelta import relativedelta
-        
-        if frequency == PaymentFrequency.MONTHLY:
-            return start_date + relativedelta(months=1)
-        elif frequency == PaymentFrequency.QUARTERLY:
-            return start_date + relativedelta(months=3)
-        elif frequency == PaymentFrequency.SEMI_ANNUAL:
-            return start_date + relativedelta(months=6)
-        elif frequency == PaymentFrequency.ANNUAL:
-            return start_date + relativedelta(years=1)
-        else:
-            # Default to quarterly
-            return start_date + relativedelta(months=3)
-    
-    def _process_dataframe(self, df: pd.DataFrame) -> List[SwapContract]:
-        """Process swaps data from a pandas DataFrame.
-        
-        Args:
-            df: DataFrame containing swaps data
-            
-        Returns:
-            List of processed SwapContract objects
-        """
-        swaps = []
-        
-        # Convert column names to lowercase for case-insensitive matching
-        df.columns = df.columns.str.lower()
-        
-        # Handle missing or differently named columns
-        column_mapping = {
-            'contract_id': ['contract_id', 'id', 'swap_id', 'contractid', 'dissemination identifier'],
-            'counterparty': ['counterparty', 'cp', 'party', 'prime brokerage transaction indicator'],
-            'reference_entity': ['reference_entity', 'reference', 'underlying', 'entity', 'underlying asset name', 'underlier id-leg 1'],
-            'notional_amount': ['notional_amount', 'notional', 'amount', 'size', 'notional amount-leg 1'],
-            'currency': ['currency', 'ccy', 'curr', 'notional currency-leg 1'],
-            'effective_date': ['effective_date', 'start_date', 'trade_date'],
-            'maturity_date': ['maturity_date', 'end_date', 'expiration date'],
-            'swap_type': ['swap_type', 'type', 'product', 'asset class'],
-            'payment_frequency': ['payment_frequency', 'freq', 'payment', 'fixed rate payment frequency period-leg 1'],
-            'fixed_rate': ['fixed_rate', 'rate', 'coupon', 'fixed rate-leg 1'],
-            'floating_rate_index': ['floating_rate_index', 'index', 'floating_index'],
-            'floating_rate_spread': ['floating_rate_spread', 'spread', 'margin', 'spread-leg 1']
-        }
-        
-        # Find actual column names in the dataframe
-        actual_columns = {}
-        for standard_name, possible_names in column_mapping.items():
-            for name in possible_names:
-                if name in df.columns:
-                    actual_columns[standard_name] = name
-                    break
-        
-        # Process each row
-        for _, row in df.iterrows():
-            try:
-                # Extract values using mapped column names
-                swap_data = {}
-                for std_name, actual_name in actual_columns.items():
-                    if actual_name in row and pd.notna(row[actual_name]):
-                        swap_data[std_name] = row[actual_name]
-                
-                # Validate and convert dates
-                effective_date_dt = pd.to_datetime(swap_data.get('effective_date'), errors='coerce')
-                maturity_date_dt = pd.to_datetime(swap_data.get('maturity_date'), errors='coerce')
-
-                if pd.isna(effective_date_dt) or pd.isna(maturity_date_dt):
-                    logger.warning(f"Skipping record with invalid or missing date. Contract ID: {swap_data.get('contract_id', 'N/A')}")
-                    continue
-
-                # --- Data Validation and Type Conversion ---
-                try:
-                    notional = float(swap_data.get('notional_amount', 0))
-                except (ValueError, TypeError):
-                    logger.warning(f"Could not convert notional_amount '{swap_data.get('notional_amount')}' to float. Skipping row.")
-                    continue
-
-                try:
-                    fixed_rate = float(swap_data['fixed_rate']) if 'fixed_rate' in swap_data else None
-                except (ValueError, TypeError):
-                    fixed_rate = None
-
-                try:
-                    spread = float(swap_data['floating_rate_spread']) if 'floating_rate_spread' in swap_data and pd.notna(swap_data['floating_rate_spread']) else None
-                except (ValueError, TypeError):
-                    spread = None
-
-                # Create swap contract
-                swap = SwapContract(
-                    contract_id=str(swap_data.get('contract_id', '')),
-                    counterparty=str(swap_data.get('counterparty', 'UNKNOWN')),
-                    reference_entity=str(swap_data.get('reference_entity', 'UNKNOWN')),
-                    notional_amount=notional,
-                    currency=str(swap_data.get('currency', 'USD')),
-                    effective_date=effective_date_dt.date(),
-                    maturity_date=maturity_date_dt.date(),
-                    swap_type=swap_data.get('swap_type', SwapType.OTHER),
-                    payment_frequency=swap_data.get('payment_frequency', PaymentFrequency.QUARTERLY),
-                    fixed_rate=fixed_rate,
-                    floating_rate_index=swap_data.get('floating_rate_index'),
-                    floating_rate_spread=spread,
-                )
-                
-                swaps.append(swap)
-                
-            except Exception as e:
-                # Truncate the error message to prevent RecursionError from rich logging a very long string
-                error_message = str(e)
-                if len(error_message) > 500:
-                    error_message = error_message[:500] + "... (truncated)"
-                logger.error(f"Error processing swap record: {error_message}", exc_info=True)
-        
-        return swaps
-    
-    def _process_json(self, data: Union[Dict, List]) -> List[SwapContract]:
-        """Process swaps data from a JSON structure.
-        
-        Args:
-            data: Dictionary or list containing swaps data
-            
-        Returns:
-            List of processed SwapContract objects
-        """
-        swaps = []
-        
-        if isinstance(data, list):
-            for item in data:
-                try:
-                    swap = self._process_swap_item(item)
-                    if swap:
-                        swaps.append(swap)
-                except Exception as e:
-                    logger.error(f"Error processing swap item: {str(e)}", exc_info=True)
-        elif isinstance(data, dict):
-            try:
-                swap = self._process_swap_item(data)
-                if swap:
-                    swaps.append(swap)
-            except Exception as e:
-                logger.error(f"Error processing swap item: {str(e)}", exc_info=True)
-                
-        return swaps
-    
-    def _process_swap_item(self, item: Dict) -> Optional[SwapContract]:
-        """Process a single swap item from JSON data.
-        
-        Args:
-            item: Dictionary containing swap data
-            
-        Returns:
-            Processed SwapContract or None if processing failed
-        """
-        try:
-            # Handle nested structures
-            if 'data' in item and isinstance(item['data'], dict):
-                item = {**item, **item.pop('data')}
-                
-            # Convert all keys to lowercase for case-insensitive matching
-            item = {k.lower(): v for k, v in item.items()}
-            
-            # Map fields to expected names
-            field_mapping = {
-                'contract_id': ['contract_id', 'id', 'swap_id', 'contractid'],
-                'counterparty': ['counterparty', 'cp', 'party'],
-                'reference_entity': ['reference_entity', 'reference', 'underlying', 'entity'],
-                'notional_amount': ['notional_amount', 'notional', 'amount', 'size'],
-                'currency': ['currency', 'ccy', 'curr'],
-                'effective_date': ['effective_date', 'start_date', 'trade_date'],
-                'maturity_date': ['maturity_date', 'end_date', 'expiry_date'],
-                'swap_type': ['swap_type', 'type', 'product'],
-                'payment_frequency': ['payment_frequency', 'freq', 'payment'],
-                'fixed_rate': ['fixed_rate', 'rate', 'coupon'],
-                'floating_rate_index': ['floating_rate_index', 'index', 'floating_index'],
-                'floating_rate_spread': ['floating_rate_spread', 'spread', 'margin'],
-                'collateral_terms': ['collateral_terms', 'collateral', 'margin_terms'],
-                'additional_terms': ['additional_terms', 'terms', 'misc']
-            }
-            
-            # Extract values using mapped field names
-            swap_data = {}
-            for field, possible_names in field_mapping.items():
-                for name in possible_names:
-                    if name in item and item[name] is not None:
-                        swap_data[field] = item[name]
-                        break
-            
-            # Skip if required fields are missing
-            required_fields = ['contract_id', 'counterparty', 'reference_entity', 
-                             'notional_amount', 'effective_date', 'maturity_date']
-            if not all(field in swap_data for field in required_fields):
-                logger.warning(f"Skipping swap with missing required fields: {item}")
-                return None
-            
-            # Create and return the swap contract
-            return SwapContract(
-                contract_id=str(swap_data['contract_id']),
-                counterparty=swap_data['counterparty'],
-                reference_entity=swap_data['reference_entity'],
-                notional_amount=float(swap_data['notional_amount']),
-                currency=swap_data.get('currency', 'USD'),
-                effective_date=swap_data['effective_date'],
-                maturity_date=swap_data['maturity_date'],
-                swap_type=swap_data.get('swap_type', SwapType.OTHER),
-                payment_frequency=swap_data.get('payment_frequency', PaymentFrequency.QUARTERLY),
-                fixed_rate=float(swap_data['fixed_rate']) if 'fixed_rate' in swap_data else None,
-                floating_rate_index=swap_data.get('floating_rate_index'),
-                floating_rate_spread=float(swap_data['floating_rate_spread']) 
-                    if 'floating_rate_spread' in swap_data and swap_data['floating_rate_spread'] is not None 
-                    else None,
-                collateral_terms=swap_data.get('collateral_terms', {}),
-                additional_terms=swap_data.get('additional_terms', {})
-            )
-            
-        except Exception as e:
-            logger.error(f"Error processing swap item: {str(e)}", exc_info=True)
-            return None
-    
-    def find_swaps_by_reference_entity(self, entity_name: str, use_db: bool = True) -> List[SwapContract]:
-        """Find all swaps referencing a specific entity.
-        
-        Args:
-            entity_name: Name of the reference entity to search for
-            use_db: Whether to search in the database in addition to in-memory swaps
-            
-        Returns:
-            List of matching SwapContract objects
-        """
-        # Search in-memory swaps
-        in_memory_matches = [
-            swap for swap in self._loaded_swaps 
-            if entity_name.lower() in swap.reference_entity.lower()
-        ]
-        
-        # Search database if requested
-        db_matches = []
-        if use_db:
-            try:
-                db_results = self.db.get_obligations_by_instrument(entity_name)
-                db_matches = [SwapContract.from_dict(s) for s in db_results]
-            except Exception as e:
-                logger.error(f"Error searching swaps in database: {str(e)}")
-        
-        # Combine and deduplicate results
-        all_matches = {swap.contract_id: swap for swap in (in_memory_matches + db_matches)}
-        return list(all_matches.values())
     
     def calculate_exposure(self, entity_name: str) -> Dict[str, Any]:
         """Calculate exposure to a specific reference entity.
@@ -704,9 +63,11 @@ class SwapsAnalyzer:
         Returns:
             Dictionary containing exposure metrics
         """
-        entity_swaps = self.find_swaps_by_reference_entity(entity_name)
-        if not entity_swaps:
+        swap_dicts = self.db.find_swaps_by_reference_entity(entity_name)
+        if not swap_dicts:
             return {}
+
+        entity_swaps = [SwapContract.from_dict(s) for s in swap_dicts]
         
         total_notional = sum(swap.notional_amount for swap in entity_swaps)
         num_contracts = len(entity_swaps)
@@ -737,6 +98,7 @@ class SwapsAnalyzer:
         max_maturity = max(maturities) if maturities else None
 
         return {
+            'swaps': entity_swaps, # Return the list of swaps
             'reference_entity': entity_name,
             'total_notional': total_notional,
             'num_swaps': num_contracts,
@@ -767,7 +129,7 @@ class SwapsAnalyzer:
             return {"error": f"No swaps found for reference entity: {entity_name}"}
 
         today = date.today()
-        entity_swaps = self.find_swaps_by_reference_entity(entity_name)
+        entity_swaps = exposure['swaps']
 
         time_to_maturity = [
             (swap.maturity_date - today).days / 365.25
@@ -956,7 +318,7 @@ class SwapsAnalyzer:
         """
         # Find all swaps with this counterparty
         swaps = [
-            swap for swap in self.swaps 
+            swap for swap in self.get_all_swaps_from_db() 
             if swap.counterparty.lower() == counterparty.lower()
         ]
         
@@ -1034,7 +396,7 @@ class SwapsAnalyzer:
         """
         try:
             if swaps is None:
-                swaps = self.swaps
+                swaps = self.get_all_swaps_from_db()
                 
             if not swaps:
                 logger.warning("No swaps to export")

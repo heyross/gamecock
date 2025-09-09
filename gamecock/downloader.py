@@ -4,6 +4,8 @@ import os
 import sqlite3
 import sys
 import time
+import asyncio
+import aiohttp
 from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Dict, List, Optional, Union
@@ -16,6 +18,7 @@ from rich.progress import Progress, BarColumn, TaskProgressColumn, TextColumn
 
 from .db_handler import DatabaseHandler
 from .swaps_analyzer import SwapsAnalyzer
+from .swaps_processor import SwapsProcessor
 
 logger.remove()  # Remove default handler
 logger.add(sys.stderr, level="DEBUG")  # Add handler with DEBUG level
@@ -49,13 +52,24 @@ class SECDownloader:
         # Initialize database and analyzer
         self.db = db_handler or DatabaseHandler()
         self.swaps_analyzer = swaps_analyzer or SwapsAnalyzer(db_handler=self.db)
+        self.swaps_processor = SwapsProcessor(db_handler=self.db)
         
         # Rate limiting
         self.min_request_interval = 0.1  # seconds between requests
         self.last_request_time = 0
         
         # Initialize session
-        self.session = requests.Session()
+        self.session = None  # Will be initialized in __aenter__
+
+    async def __aenter__(self):
+        """Async context manager entry."""
+        self.session = aiohttp.ClientSession(headers=self.headers)
+        return self
+
+    async def __aexit__(self, exc_type, exc_val, exc_tb):
+        """Async context manager exit."""
+        if self.session:
+            await self.session.close()
         
     def _wait_for_rate_limit(self):
         """Ensure we don't exceed SEC's rate limit."""
@@ -433,11 +447,9 @@ class SECDownloader:
                         
                         if filing_files:
                             downloaded_files[filing["accession_number"]] = list(filing_files.values())
-                            # Analyze any downloaded swap files
+                            # Process all downloaded files for swaps
                             for file_path in filing_files.values():
-                                if file_path.suffix.lower() in ['.csv', '.json']:
-                                    logger.info(f"Found potential swap file: {file_path}. Analyzing...")
-                                    self.swaps_analyzer.load_swaps_from_file(file_path, save_to_db=True)
+                                self.swaps_processor.process_filing(file_path)
                             logger.info(f"Successfully downloaded {len(filing_files)} files for filing {filing['accession_number']}")
                             
                             # Save filing to database

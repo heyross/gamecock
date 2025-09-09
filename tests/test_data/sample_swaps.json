@@ -1,0 +1,24 @@
+[
+    {
+        "contract_id": "SWAP007",
+        "counterparty": "Deutsche Bank",
+        "reference_entity": "DBX",
+        "notional_amount": 3000000,
+        "currency": "EUR",
+        "effective_date": "2023-07-01",
+        "maturity_date": "2033-07-01",
+        "swap_type": "credit_default",
+        "fixed_rate": 1.2
+    },
+    {
+        "contract_id": "SWAP008",
+        "counterparty": "Credit Suisse",
+        "reference_entity": "CSGN",
+        "notional_amount": 750000,
+        "currency": "CHF",
+        "effective_date": "2023-08-01",
+        "maturity_date": "2026-08-01",
+        "swap_type": "interest_rate",
+        "floating_rate_index": "LIBOR"
+    }
+]
