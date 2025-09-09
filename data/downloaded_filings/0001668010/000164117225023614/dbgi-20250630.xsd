@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="US-ASCII" ?>
+    <!-- Field: Doc-Info; Name: Generator; Value: GoFiler Complete; Version: 6.1a -->
+    <!-- Field: Doc-Info; Name: VendorURI; Value: https://www.novaworks.com -->
+    <!-- Field: Doc-Info; Name: Status; Value: 0x00000000 -->
+    <!-- Field: Doc-Info; Name: Misc; Value: 96Mps7xRiXgen8uDanwsWayMqbP9z5Z8WekhvWBzbXn6Dy0hA2dCmiZEArE2wUkG -->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:xbrli="http://www.xbrl.org/2003/instance" xmlns:xbrldt="http://xbrl.org/2005/xbrldt" xmlns:xbrldi="http://xbrl.org/2006/xbrldi" xmlns:dei="http://xbrl.sec.gov/dei/2025" xmlns:us-gaap="http://fasb.org/us-gaap/2025" xmlns:srt="http://fasb.org/srt/2025" xmlns:srt-types="http://fasb.org/srt-types/2025" xmlns:ecd="http://xbrl.sec.gov/ecd/2025" xmlns:dtr-types="http://www.xbrl.org/dtr/type/2022-03-31" xmlns:DBGI="http://ir.digitalbrandsgroup.co/20250630" elementFormDefault="qualified" targetNamespace="http://ir.digitalbrandsgroup.co/20250630">
+    <annotation>
+      <appinfo>
+        <link:roleType roleURI="http://ir.digitalbrandsgroup.co/role/Cover" id="Cover">
+          <link:definition>00000001 - Document - Cover</link:definition>
+          <link:usedOn>link:presentationLink</link:usedOn>
+          <link:usedOn>link:calculationLink</link:usedOn>
+          <link:usedOn>link:definitionLink</link:usedOn>
+        </link:roleType>
+        <link:roleType roleURI="http://ir.digitalbrandsgroup.co/role/BalanceSheets" id="BalanceSheets">
+          <link:definition>00000002 - Statement - Condensed Consolidated Balance Sheets (Unaudited)</link:definition>
+          <link:usedOn>link:presentationLink</link:usedOn>
+          <link:usedOn>link:calculationLink</link:usedOn>
+          <link:usedOn>link:definitionLink</link:usedOn>
+        </link:roleType>
+        <link:roleType roleURI="http://ir.digitalbrandsgroup.co/role/BalanceSheetsParenthetical" id="BalanceSheetsParenthetical">
+          <link:definition>00000003 - Statement - Condensed Consolidated Balance Sheets (Unaudited) (Parenthetical)</link:definition>
+          <link:usedOn>link:presentationLink</link:usedOn>
+          <link:usedOn>link:calculationLink</link:usedOn>
+          <link:usedOn>link:definitionLink</link:usedOn>
+        </link:roleType>
+        <link:roleType roleURI="http://ir.digitalbrandsgroup.co/role/StatementsOfOperations" id="StatementsOfOperations">
+          <link:definition>00000004 - Statement - Condensed Consolidated Statements of Operations (Unaudited)</link:definition>
+          <link:usedOn>link:presentationLink</link:usedOn>
+          <link:usedOn>link:calculationLink</link:usedOn>
+          <link:usedOn>link:definitionLink</link:usedOn>
+        </link:roleType>
+        <link:roleType roleURI="http://ir.digitalbrandsgroup.co/role/StatementsOfStockholdersEquityDeficit" id="StatementsOfStockholdersEquityDeficit">
+          <link:definition>00000005 - Statement - Condensed Consolidated Statements of Stockholders' Equity (Deficit) (Unaudited)</link:definition>
+          <link:usedOn>link:presentationLink</link:usedOn>
+          <link:usedOn>link:calculationLink</link:usedOn>
+          <link:usedOn>link:definitionLink</link:usedOn>
+        </link:roleType>
+        <link:roleType roleURI="http://ir.digitalbrandsgroup.co/role/StatementsOfCashFlows" id="StatementsOfCashFlows">
+          <link:definition>00000006 - Statement - Condensed Consolidated Statements of Cash Flows (Unaudited)</link:definition>
+          <link:usedOn>link:presentationLink</link:usedOn>
+          <link:usedOn>link:calculationLink</link:usedOn>
+          <link:usedOn>link:definitionLink</link:usedOn>
+        </link:roleType>
+        <link:roleType roleURI="http://ir.digitalbrandsgroup.co/role/NatureOfOperations" id="NatureOfOperations">
+          <link:definition>999012 - Disclosure - NATURE OF OPERATIONS</link:definition>
+          <link:usedOn>link:presentationLink</link:usedOn>
+          <link:usedOn>link:calculationLink</link:usedOn>
+          <link:usedOn>link:definitionLink</link:usedOn>
+        </link:roleType>
+        <link:roleType roleURI="http://ir.digitalbrandsgroup.co/role/GoingConcernConsiderations" id="GoingConcernConsiderations">
+          <link:definition>999013 - Disclosure - GOING CONCERN CONSIDERATIONS</link:definition>
+          <link:usedOn>link:presentationLink</link:usedOn>
+          <link:usedOn>link:calculationLink</link:usedOn>
+          <link:usedOn>link:definitionLink</link:usedOn>
+        </link:roleType>
+        <link:roleType roleURI="http://ir.digitalbrandsgroup.co/role/SummaryOfSignificantAccountingPolicies" id="SummaryOfSignificantAccountingPolicies">
+          <link:definition>999014 - Disclosure - SUMMARY OF SIGNIFICANT ACCOUNTING POLICIES</link:definition>
+          <link:usedOn>link:presentationLink</link:usedOn>
+          <link:usedOn>link:calculationLink</link:usedOn>
+          <link:usedOn>link:definitionLink</link:usedOn>
+        </link:roleType>
+        <link:roleType roleURI="http://ir.digitalbrandsgroup.co/role/DueFromFactor" id="DueFromFactor">
+          <link:definition>999015 - Disclosure - DUE FROM FACTOR</link:definition>
+          <link:usedOn>link:presentationLink</link:usedOn>
+          <link:usedOn>link:calculationLink</link:usedOn>
+          <link:usedOn>link:definitionLink</link:usedOn>
+        </link:roleType>
+        <link:roleType roleURI="http://ir.digitalbrandsgroup.co/role/CertainAssets" id="CertainAssets">
+          <link:definition>999016 - Disclosure - CERTAIN ASSETS</link:definition>
+          <link:usedOn>link:presentationLink</link:usedOn>
+          <link:usedOn>link:calculationLink</link:usedOn>
+          <link:usedOn>link:definitionLink</link:usedOn>
+        </link:roleType>
+        <link:roleType roleURI="http://ir.digitalbrandsgroup.co/role/LiabilitiesAndDebt" id="LiabilitiesAndDebt">
+          <link:definition>999017 - Disclosure - LIABILITIES AND DEBT</link:definition>
+          <link:usedOn>link:presentationLink</link:usedOn>
+          <link:usedOn>link:calculationLink</link:usedOn>
+          <link:usedOn>link:definitionLink</link:usedOn>
+        </link:roleType>
+        <link:roleType roleURI="http://ir.digitalbrandsgroup.co/role/StockholdersEquityDeficit" id="StockholdersEquityDeficit">
+          <link:definition>999018 - Disclosure - STOCKHOLDERS&#8217; EQUITY (DEFICIT)</link:definition>
+          <link:usedOn>link:presentationLink</link:usedOn>
+          <link:usedOn>link:calculationLink</link:usedOn>
+          <link:usedOn>link:definitionLink</link:usedOn>
+        </link:roleType>
+        <link:roleType roleURI="http://ir.digitalbrandsgroup.co/role/RelatedPartyTransactions" id="RelatedPartyTransactions">
+          <link:definition>999019 - Disclosure - RELATED PARTY TRANSACTIONS</link:definition>
+          <link:usedOn>link:presentationLink</link:usedOn>
+          <link:usedOn>link:calculationLink</link:usedOn>
+          <link:usedOn>link:definitionLink</link:usedOn>
+        </link:roleType>
+        <link:roleType roleURI="http://ir.digitalbrandsgroup.co/role/Share-basedPayments" id="Share-basedPayments">
+          <link:definition>999020 - Disclosure - SHARE-BASED PAYMENTS</link:definition>
+          <link:usedOn>link:presentationLink</link:usedOn>
+          <link:usedOn>link:calculationLink</link:usedOn>
+          <link:usedOn>link:definitionLink</link:usedOn>
+        </link:roleType>
+        <link:roleType roleURI="http://ir.digitalbrandsgroup.co/role/LeaseObligations" id="LeaseObligations">
+          <link:definition>999021 - Disclosure - LEASE OBLIGATIONS</link:definition>
+          <link:usedOn>link:presentationLink</link:usedOn>
+          <link:usedOn>link:calculationLink</link:usedOn>
+          <link:usedOn>link:definitionLink</link:usedOn>
+        </link:roleType>
+        <link:roleType roleURI="http://ir.digitalbrandsgroup.co/role/Contingencies" id="Contingencies">
+          <link:definition>999022 - Disclosure - CONTINGENCIES</link:definition>
+          <link:usedOn>link:presentationLink</link:usedOn>
+          <link:usedOn>link:calculationLink</link:usedOn>
+          <link:usedOn>link:definitionLink</link:usedOn>
+        </link:roleType>
+        <link:roleType roleURI="http://ir.digitalbrandsgroup.co/role/IncomeTaxes" id="IncomeTaxes">
+          <link:definition>999023 - Disclosure - INCOME TAXES</link:definition>
+          <link:usedOn>link:presentationLink</link:usedOn>
+          <link:usedOn>link:calculationLink</link:usedOn>
+          <link:usedOn>link:definitionLink</link:usedOn>
+        </link:roleType>
+        <link:roleType roleURI="http://ir.digitalbrandsgroup.co/role/SubsequentEvents" id="SubsequentEvents">
+          <link:definition>999024 - Disclosure - SUBSEQUENT EVENTS</link:definition>
+          <link:usedOn>link:presentationLink</link:usedOn>
+          <link:usedOn>link:calculationLink</link:usedOn>
+          <link:usedOn>link:definitionLink</link:usedOn>
+        </link:roleType>
+        <link:roleType roleURI="http://ir.digitalbrandsgroup.co/role/SummaryOfSignificantAccountingPoliciesPolicies" id="SummaryOfSignificantAccountingPoliciesPolicies">
+          <link:definition>999025 - Disclosure - SUMMARY OF SIGNIFICANT ACCOUNTING POLICIES (Policies)</link:definition>
+          <link:usedOn>link:presentationLink</link:usedOn>
+          <link:usedOn>link:calculationLink</link:usedOn>
+          <link:usedOn>link:definitionLink</link:usedOn>
+        </link:roleType>
+        <link:roleType roleURI="http://ir.digitalbrandsgroup.co/role/SummaryOfSignificantAccountingPoliciesTables" id="SummaryOfSignificantAccountingPoliciesTables">
+          <link:definition>999026 - Disclosure - SUMMARY OF SIGNIFICANT ACCOUNTING POLICIES (Tables)</link:definition>
+          <link:usedOn>link:presentationLink</link:usedOn>
+          <link:usedOn>link:calculationLink</link:usedOn>
+          <link:usedOn>link:definitionLink</link:usedOn>
+        </link:roleType>
+        <link:roleType roleURI="http://ir.digitalbrandsgroup.co/role/DueFromFactorTables" id="DueFromFactorTables">
+          <link:definition>999027 - Disclosure - DUE FROM FACTOR (Tables)</link:definition>
+          <link:usedOn>link:presentationLink</link:usedOn>
+          <link:usedOn>link:calculationLink</link:usedOn>
+          <link:usedOn>link:definitionLink</link:usedOn>
+        </link:roleType>
+        <link:roleType roleURI="http://ir.digitalbrandsgroup.co/role/CertainAssetsTables" id="CertainAssetsTables">
+          <link:definition>999028 - Disclosure - CERTAIN ASSETS (Tables)</link:definition>
+          <link:usedOn>link:presentationLink</link:usedOn>
+          <link:usedOn>link:calculationLink</link:usedOn>
+          <link:usedOn>link:definitionLink</link:usedOn>
+        </link:roleType>
+        <link:roleType roleURI="http://ir.digitalbrandsgroup.co/role/LiabilitiesAndDebtTables" id="LiabilitiesAndDebtTables">
+          <link:definition>999029 - Disclosure - LIABILITIES AND DEBT (Tables)</link:definition>
+          <link:usedOn>link:presentationLink</link:usedOn>
+          <link:usedOn>link:calculationLink</link:usedOn>
+          <link:usedOn>link:definitionLink</link:usedOn>
+        </link:roleType>
+        <link:roleType roleURI="http://ir.digitalbrandsgroup.co/role/Share-basedPaymentsTables" id="Share-basedPaymentsTables">
+          <link:definition>999030 - Disclosure - SHARE-BASED PAYMENTS (Tables)</link:definition>
+          <link:usedOn>link:presentationLink</link:usedOn>
+          <link:usedOn>link:calculationLink</link:usedOn>
+          <link:usedOn>link:definitionLink</link:usedOn>
+        </link:roleType>
+        <link:roleType roleURI="http://ir.digitalbrandsgroup.co/role/SubsequentEventsTables" id="SubsequentEventsTables">
+          <link:definition>999031 - Disclosure - SUBSEQUENT EVENTS (Tables)</link:definition>
+          <link:usedOn>link:presentationLink</link:usedOn>
+          <link:usedOn>link:calculationLink</link:usedOn>
+          <link:usedOn>link:definitionLink</link:usedOn>
+        </link:roleType>
+        <link:roleType roleURI="http://ir.digitalbrandsgroup.co/role/NatureOfOperationsDetailsNarrative" id="NatureOfOperationsDetailsNarrative">
+          <link:definition>999032 - Disclosure - NATURE OF OPERATIONS (Details Narrative)</link:definition>
+          <link:usedOn>link:presentationLink</link:usedOn>
+          <link:usedOn>link:calculationLink</link:usedOn>
+          <link:usedOn>link:definitionLink</link:usedOn>
+        </link:roleType>
+        <link:roleType roleURI="http://ir.digitalbrandsgroup.co/role/GoingConcernConsiderationsDetailsNarrative" id="GoingConcernConsiderationsDetailsNarrative">
+          <link:definition>999033 - Disclosure - GOING CONCERN CONSIDERATIONS (Details Narrative)</link:definition>
+          <link:usedOn>link:presentationLink</link:usedOn>
+          <link:usedOn>link:calculationLink</link:usedOn>
+          <link:usedOn>link:definitionLink</link:usedOn>
+        </link:roleType>
+        <link:roleType roleURI="http://ir.digitalbrandsgroup.co/role/ScheduleOfInventoryDetails" id="ScheduleOfInventoryDetails">
+          <link:definition>999034 - Disclosure - SCHEDULE OF INVENTORY (Details)</link:definition>
+          <link:usedOn>link:presentationLink</link:usedOn>
+          <link:usedOn>link:calculationLink</link:usedOn>
+          <link:usedOn>link:definitionLink</link:usedOn>
+        </link:roleType>
+        <link:roleType roleURI="http://ir.digitalbrandsgroup.co/role/ScheduleOfFinite-livedIntangibleAssetsAcquiredAsPartOfBusinessCombinationDetails" id="ScheduleOfFinite-livedIntangibleAssetsAcquiredAsPartOfBusinessCombinationDetails">
+          <link:definition>999035 - Disclosure - SCHEDULE OF FINITE-LIVED INTANGIBLE ASSETS ACQUIRED AS PART OF BUSINESS COMBINATION (Details)</link:definition>
+          <link:usedOn>link:presentationLink</link:usedOn>
+          <link:usedOn>link:calculationLink</link:usedOn>
+          <link:usedOn>link:definitionLink</link:usedOn>
+        </link:roleType>
+        <link:roleType roleURI="http://ir.digitalbrandsgroup.co/role/ScheduleOfPotentiallyDilutiveItemsOutstandingDetails" id="ScheduleOfPotentiallyDilutiveItemsOutstandingDetails">
+          <link:definition>999036 - Disclosure - SCHEDULE OF POTENTIALLY DILUTIVE ITEMS OUTSTANDING (Details)</link:definition>
+          <link:usedOn>link:presentationLink</link:usedOn>
+          <link:usedOn>link:calculationLink</link:usedOn>
+          <link:usedOn>link:definitionLink</link:usedOn>
+        </link:roleType>
+        <link:roleType roleURI="http://ir.digitalbrandsgroup.co/role/SummaryOfSignificantAccountingPoliciesDetailsNarrative" id="SummaryOfSignificantAccountingPoliciesDetailsNarrative">
+          <link:definition>999037 - Disclosure - SUMMARY OF SIGNIFICANT ACCOUNTING POLICIES (Details Narrative)</link:definition>
+          <link:usedOn>link:presentationLink</link:usedOn>
+          <link:usedOn>link:calculationLink</link:usedOn>
+          <link:usedOn>link:definitionLink</link:usedOn>
+        </link:roleType>
+        <link:roleType roleURI="http://ir.digitalbrandsgroup.co/role/ScheduleOfDueToFromFactorDetails" id="ScheduleOfDueToFromFactorDetails">
+          <link:definition>999038 - Disclosure - SCHEDULE OF DUE TO/ FROM FACTOR (Details)</link:definition>
+          <link:usedOn>link:presentationLink</link:usedOn>
+          <link:usedOn>link:calculationLink</link:usedOn>
+          <link:usedOn>link:definitionLink</link:usedOn>
+        </link:roleType>
+        <link:roleType roleURI="http://ir.digitalbrandsgroup.co/role/DueFromFactorDetailsNarrative" id="DueFromFactorDetailsNarrative">
+          <link:definition>999039 - Disclosure - DUE FROM FACTOR (Details Narrative)</link:definition>
+          <link:usedOn>link:presentationLink</link:usedOn>
+          <link:usedOn>link:calculationLink</link:usedOn>
+          <link:usedOn>link:definitionLink</link:usedOn>
+        </link:roleType>
+        <link:roleType roleURI="http://ir.digitalbrandsgroup.co/role/ScheduleOfGoodwillAttributableToEachBusinessCombinationDetails" id="ScheduleOfGoodwillAttributableToEachBusinessCombinationDetails">
+          <link:definition>999040 - Disclosure - SCHEDULE OF GOODWILL ATTRIBUTABLE TO EACH BUSINESS COMBINATION (Details)</link:definition>
+          <link:usedOn>link:presentationLink</link:usedOn>
+          <link:usedOn>link:calculationLink</link:usedOn>
+          <link:usedOn>link:definitionLink</link:usedOn>
+        </link:roleType>
+        <link:roleType roleURI="http://ir.digitalbrandsgroup.co/role/ScheduleOfInformationRelatingToCompanysIdentifiableIntangibleAssetsDetails" id="ScheduleOfInformationRelatingToCompanysIdentifiableIntangibleAssetsDetails">
+          <link:definition>999041 - Disclosure - SCHEDULE OF INFORMATION RELATING TO THE COMPANY&#8217;S IDENTIFIABLE INTANGIBLE ASSETS (Details)</link:definition>
+          <link:usedOn>link:presentationLink</link:usedOn>
+          <link:usedOn>link:calculationLink</link:usedOn>
+          <link:usedOn>link:definitionLink</link:usedOn>
+        </link:roleType>
+        <link:roleType roleURI="http://ir.digitalbrandsgroup.co/role/CertainAssetsDetailsNarrative" id="CertainAssetsDetailsNarrative">
+          <link:definition>999042 - Disclosure - CERTAIN ASSETS (Details Narrative)</link:definition>
+          <link:usedOn>link:presentationLink</link:usedOn>
+          <link:usedOn>link:calculationLink</link:usedOn>
+          <link:usedOn>link:definitionLink</link:usedOn>
+        </link:roleType>
+        <link:roleType roleURI="http://ir.digitalbrandsgroup.co/role/ScheduleOfAccruedExpensesAndOtherLiabilitiesDetails" id="ScheduleOfAccruedExpensesAndOtherLiabilitiesDetails">
+          <link:definition>999043 - Disclosure - SCHEDULE OF ACCRUED EXPENSES AND OTHER LIABILITIES (Details)</link:definition>
+          <link:usedOn>link:presentationLink</link:usedOn>
+          <link:usedOn>link:calculationLink</link:usedOn>
+          <link:usedOn>link:definitionLink</link:usedOn>
+        </link:roleType>
+        <link:roleType roleURI="http://ir.digitalbrandsgroup.co/role/ScheduleOfMerchantAdvancesDetails" id="ScheduleOfMerchantAdvancesDetails">
+          <link:definition>999044 - Disclosure - SCHEDULE OF MERCHANT ADVANCES (Details)</link:definition>
+          <link:usedOn>link:presentationLink</link:usedOn>
+          <link:usedOn>link:calculationLink</link:usedOn>
+          <link:usedOn>link:definitionLink</link:usedOn>
+        </link:roleType>
+        <link:roleType roleURI="http://ir.digitalbrandsgroup.co/role/LiabilitiesAndDebtDetailsNarrative" id="LiabilitiesAndDebtDetailsNarrative">
+          <link:definition>999045 - Disclosure - LIABILITIES AND DEBT (Details Narrative)</link:definition>
+          <link:usedOn>link:presentationLink</link:usedOn>
+          <link:usedOn>link:calculationLink</link:usedOn>
+          <link:usedOn>link:definitionLink</link:usedOn>
+        </link:roleType>
+        <link:roleType roleURI="http://ir.digitalbrandsgroup.co/role/StockholdersEquityDeficitDetailsNarrative" id="StockholdersEquityDeficitDetailsNarrative">
+          <link:definition>999046 - Disclosure - STOCKHOLDERS&#8217; EQUITY (DEFICIT) (Details Narrative)</link:definition>
+          <link:usedOn>link:presentationLink</link:usedOn>
+          <link:usedOn>link:calculationLink</link:usedOn>
+          <link:usedOn>link:definitionLink</link:usedOn>
+        </link:roleType>
+        <link:roleType roleURI="http://ir.digitalbrandsgroup.co/role/RelatedPartyTransactionsDetailsNarrative" id="RelatedPartyTransactionsDetailsNarrative">
+          <link:definition>999047 - Disclosure - RELATED PARTY TRANSACTIONS (Details Narrative)</link:definition>
+          <link:usedOn>link:presentationLink</link:usedOn>
+          <link:usedOn>link:calculationLink</link:usedOn>
+          <link:usedOn>link:definitionLink</link:usedOn>
+        </link:roleType>
+        <link:roleType roleURI="http://ir.digitalbrandsgroup.co/role/ScheduleOfInformationRelatedToCommonStockWarrantsDetails" id="ScheduleOfInformationRelatedToCommonStockWarrantsDetails">
+          <link:definition>999048 - Disclosure - SCHEDULE OF INFORMATION RELATED TO COMMON STOCK WARRANTS (Details)</link:definition>
+          <link:usedOn>link:presentationLink</link:usedOn>
+          <link:usedOn>link:calculationLink</link:usedOn>
+          <link:usedOn>link:definitionLink</link:usedOn>
+        </link:roleType>
+        <link:roleType roleURI="http://ir.digitalbrandsgroup.co/role/Share-basedPaymentsDetailsNarrative" id="Share-basedPaymentsDetailsNarrative">
+          <link:definition>999049 - Disclosure - SHARE-BASED PAYMENTS (Details Narrative)</link:definition>
+          <link:usedOn>link:presentationLink</link:usedOn>
+          <link:usedOn>link:calculationLink</link:usedOn>
+          <link:usedOn>link:definitionLink</link:usedOn>
+        </link:roleType>
+        <link:roleType roleURI="http://ir.digitalbrandsgroup.co/role/LeaseObligationsDetailsNarrative" id="LeaseObligationsDetailsNarrative">
+          <link:definition>999050 - Disclosure - LEASE OBLIGATIONS (Details Narrative)</link:definition>
+          <link:usedOn>link:presentationLink</link:usedOn>
+          <link:usedOn>link:calculationLink</link:usedOn>
+          <link:usedOn>link:definitionLink</link:usedOn>
+        </link:roleType>
+        <link:roleType roleURI="http://ir.digitalbrandsgroup.co/role/ContingenciesDetailsNarrative" id="ContingenciesDetailsNarrative">
+          <link:definition>999051 - Disclosure - CONTINGENCIES (Details Narrative)</link:definition>
+          <link:usedOn>link:presentationLink</link:usedOn>
+          <link:usedOn>link:calculationLink</link:usedOn>
+          <link:usedOn>link:definitionLink</link:usedOn>
+        </link:roleType>
+        <link:roleType roleURI="http://ir.digitalbrandsgroup.co/role/ScheduleOfProFormaCondensedBalanceSheetDetails" id="ScheduleOfProFormaCondensedBalanceSheetDetails">
+          <link:definition>999052 - Disclosure -  SCHEDULE OF PRO FORMA CONDENSED BALANCE SHEET (Details)</link:definition>
+          <link:usedOn>link:presentationLink</link:usedOn>
+          <link:usedOn>link:calculationLink</link:usedOn>
+          <link:usedOn>link:definitionLink</link:usedOn>
+        </link:roleType>
+        <link:roleType roleURI="http://ir.digitalbrandsgroup.co/role/SubsequentEventsDetailsNarrative" id="SubsequentEventsDetailsNarrative">
+          <link:definition>999053 - Disclosure - SUBSEQUENT EVENTS (Details Narrative)</link:definition>
+          <link:usedOn>link:presentationLink</link:usedOn>
+          <link:usedOn>link:calculationLink</link:usedOn>
+          <link:usedOn>link:definitionLink</link:usedOn>
+        </link:roleType>
+        <link:linkbaseRef xlink:type="simple" xlink:href="dbgi-20250630_pre.xml" xlink:role="http://www.xbrl.org/2003/role/presentationLinkbaseRef" xlink:arcrole="http://www.w3.org/1999/xlink/properties/linkbase" xlink:title="Presentation Links" />
+        <link:linkbaseRef xlink:type="simple" xlink:href="dbgi-20250630_lab.xml" xlink:role="http://www.xbrl.org/2003/role/labelLinkbaseRef" xlink:arcrole="http://www.w3.org/1999/xlink/properties/linkbase" xlink:title="Label Links" />
+        <link:linkbaseRef xlink:type="simple" xlink:href="dbgi-20250630_cal.xml" xlink:role="http://www.xbrl.org/2003/role/calculationLinkbaseRef" xlink:arcrole="http://www.w3.org/1999/xlink/properties/linkbase" xlink:title="Calculation Links" />
+        <link:linkbaseRef xlink:type="simple" xlink:href="dbgi-20250630_def.xml" xlink:role="http://www.xbrl.org/2003/role/definitionLinkbaseRef" xlink:arcrole="http://www.w3.org/1999/xlink/properties/linkbase" xlink:title="Definition Links" />
+      </appinfo>
+    </annotation>
+    <import namespace="http://www.xbrl.org/2003/instance" schemaLocation="http://www.xbrl.org/2003/xbrl-instance-2003-12-31.xsd" />
+    <import namespace="http://www.xbrl.org/2003/linkbase" schemaLocation="http://www.xbrl.org/2003/xbrl-linkbase-2003-12-31.xsd" />
+    <import namespace="http://xbrl.sec.gov/dei/2025" schemaLocation="https://xbrl.sec.gov/dei/2025/dei-2025.xsd" />
+    <import namespace="http://fasb.org/us-gaap/2025" schemaLocation="https://xbrl.fasb.org/us-gaap/2025/elts/us-gaap-2025.xsd" />
+    <import namespace="http://fasb.org/us-types/2025" schemaLocation="https://xbrl.fasb.org/us-gaap/2025/elts/us-types-2025.xsd" />
+    <import namespace="http://www.xbrl.org/dtr/type/2022-03-31" schemaLocation="https://www.xbrl.org/dtr/type/2022-03-31/types.xsd" />
+    <import namespace="http://xbrl.sec.gov/ecd/2025" schemaLocation="https://xbrl.sec.gov/ecd/2025/ecd-2025.xsd" />
+    <import namespace="http://xbrl.sec.gov/country/2025" schemaLocation="https://xbrl.sec.gov/country/2025/country-2025.xsd" />
+    <import namespace="http://fasb.org/srt/2025" schemaLocation="https://xbrl.fasb.org/srt/2025/elts/srt-2025.xsd" />
+    <import namespace="http://fasb.org/srt-types/2025" schemaLocation="https://xbrl.fasb.org/srt/2025/elts/srt-types-2025.xsd" />
+    <element id="DBGI_SeriesAConvertiblePreferredStockMember" name="SeriesAConvertiblePreferredStockMember" nillable="true" xbrli:periodType="duration" type="dtr-types:domainItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_SeriesCConvertiblePreferredStockMember" name="SeriesCConvertiblePreferredStockMember" nillable="true" xbrli:periodType="duration" type="dtr-types:domainItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_MosbestLLCMember" name="MosbestLLCMember" nillable="true" xbrli:periodType="duration" type="dtr-types:domainItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_SunnysideLLCMember" name="SunnysideLLCMember" nillable="true" xbrli:periodType="duration" type="dtr-types:domainItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_SeriesDConvertiblePreferredStockMember" name="SeriesDConvertiblePreferredStockMember" nillable="true" xbrli:periodType="duration" type="dtr-types:domainItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_TechnologyAssetsMember" name="TechnologyAssetsMember" nillable="true" xbrli:periodType="duration" type="dtr-types:domainItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_LondonInterbankOfferedRateLibor2Member" name="LondonInterbankOfferedRateLibor2Member" nillable="true" xbrli:periodType="duration" type="dtr-types:domainItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_Bailey44LlcMember" name="Bailey44LlcMember" nillable="true" xbrli:periodType="duration" type="dtr-types:domainItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_MarketingServicesAgreementMember" name="MarketingServicesAgreementMember" nillable="true" xbrli:periodType="duration" type="dtr-types:domainItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_VendorPreFundedWarrantsMember" name="VendorPreFundedWarrantsMember" nillable="true" xbrli:periodType="duration" type="dtr-types:domainItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_LongTermMarketingServiceAgreementMember" name="LongTermMarketingServiceAgreementMember" nillable="true" xbrli:periodType="duration" type="dtr-types:domainItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_AssetPurchaseAgreementMember" name="AssetPurchaseAgreementMember" nillable="true" xbrli:periodType="duration" type="dtr-types:domainItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_TechnologyAssetMember" name="TechnologyAssetMember" nillable="true" xbrli:periodType="duration" type="dtr-types:domainItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_AdvisoryAgreementMember" name="AdvisoryAgreementMember" nillable="true" xbrli:periodType="duration" type="dtr-types:domainItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_SixthStreetDiagonalPromissoryNoteMember" name="SixthStreetDiagonalPromissoryNoteMember" nillable="true" xbrli:periodType="duration" type="dtr-types:domainItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_LoanAgreementMember" name="LoanAgreementMember" nillable="true" xbrli:periodType="duration" type="dtr-types:domainItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_SecondPaycheckProtectionProgramMember" name="SecondPaycheckProtectionProgramMember" nillable="true" xbrli:periodType="duration" type="dtr-types:domainItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_FirstPaycheckProtectionProgramMember" name="FirstPaycheckProtectionProgramMember" nillable="true" xbrli:periodType="duration" type="dtr-types:domainItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_PaycheckProtectionProgramCaresActMember" name="PaycheckProtectionProgramCaresActMember" nillable="true" xbrli:periodType="duration" type="dtr-types:domainItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_SmallBusinessAdministrationMember" name="SmallBusinessAdministrationMember" nillable="true" xbrli:periodType="duration" type="dtr-types:domainItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_MerchantAdvancesMember" name="MerchantAdvancesMember" nillable="true" xbrli:periodType="duration" type="dtr-types:domainItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_PromissoryNotePayableMember" name="PromissoryNotePayableMember" nillable="true" xbrli:periodType="duration" type="dtr-types:domainItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_SecuritiesPurchaseAgreementsMember" name="SecuritiesPurchaseAgreementsMember" nillable="true" xbrli:periodType="duration" type="dtr-types:domainItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_PreFundedWarrantsMember" name="PreFundedWarrantsMember" nillable="true" xbrli:periodType="duration" type="dtr-types:domainItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_SecuritiesPurchaseAgreementMember" name="SecuritiesPurchaseAgreementMember" nillable="true" xbrli:periodType="duration" type="dtr-types:domainItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_CurrentAndFormerExecutivesAndBoardMember" name="CurrentAndFormerExecutivesAndBoardMember" nillable="true" xbrli:periodType="duration" type="dtr-types:domainItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_TrevorPettennudeMember" name="TrevorPettennudeMember" nillable="true" xbrli:periodType="duration" type="dtr-types:domainItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_VendorAgreementMember" name="VendorAgreementMember" nillable="true" xbrli:periodType="duration" type="dtr-types:domainItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_PlacementAgentWarrantsMember" name="PlacementAgentWarrantsMember" nillable="true" xbrli:periodType="duration" type="dtr-types:domainItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_CompanyWarehouseAndDistributionCenterMember" name="CompanyWarehouseAndDistributionCenterMember" nillable="true" xbrli:periodType="duration" type="dtr-types:domainItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_LawsuitAgainstCompanyMember" name="LawsuitAgainstCompanyMember" nillable="true" xbrli:periodType="duration" type="dtr-types:domainItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_LawsuitAgainstBaileyFortyFourRelatedToRetailStoreLeaseMember" name="LawsuitAgainstBaileyFortyFourRelatedToRetailStoreLeaseMember" nillable="true" xbrli:periodType="duration" type="dtr-types:domainItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_VendorMember" name="VendorMember" nillable="true" xbrli:periodType="duration" type="dtr-types:domainItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_TradePayablesMember" name="TradePayablesMember" nillable="true" xbrli:periodType="duration" type="dtr-types:domainItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_MonthlyInstallmentsMember" name="MonthlyInstallmentsMember" nillable="true" xbrli:periodType="duration" type="dtr-types:domainItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_AlabamaAgreementMember" name="AlabamaAgreementMember" nillable="true" xbrli:periodType="duration" type="dtr-types:domainItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_TrafficHoldcoAgreementMember" name="TrafficHoldcoAgreementMember" nillable="true" xbrli:periodType="duration" type="dtr-types:domainItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_AffiliatesMember" name="AffiliatesMember" nillable="true" xbrli:periodType="duration" type="dtr-types:domainItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_AlabamaExclusivePrivateLabelManufacturingAgreementMember" name="AlabamaExclusivePrivateLabelManufacturingAgreementMember" nillable="true" xbrli:periodType="duration" type="dtr-types:domainItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_ExclusivePrivateLabelManufacturingAgreementMember" name="ExclusivePrivateLabelManufacturingAgreementMember" nillable="true" xbrli:periodType="duration" type="dtr-types:domainItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_DistributionExpenses" name="DistributionExpenses" nillable="true" xbrli:periodType="duration" xbrli:balance="debit" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_StockIssuedDuringPeriodValueCommonStockIssuedForCash" name="StockIssuedDuringPeriodValueCommonStockIssuedForCash" nillable="true" xbrli:periodType="duration" xbrli:balance="credit" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_StockIssuedDuringPeriodSharesCommonStockIssuedForCash" name="StockIssuedDuringPeriodSharesCommonStockIssuedForCash" nillable="true" xbrli:periodType="duration" type="xbrli:sharesItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_ChangeInCreditReserve" name="ChangeInCreditReserve" nillable="true" xbrli:periodType="duration" xbrli:balance="credit" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_IncreaseDecreaseInPrepaidExpensesnoncurrent" name="IncreaseDecreaseInPrepaidExpensesnoncurrent" nillable="true" xbrli:periodType="duration" xbrli:balance="credit" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_DueToRelatedParties" name="DueToRelatedParties" nillable="true" xbrli:periodType="duration" xbrli:balance="credit" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_ProceedsFromIssuanceOfLoansAndNotesPayable" name="ProceedsFromIssuanceOfLoansAndNotesPayable" nillable="true" xbrli:periodType="duration" xbrli:balance="debit" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_ProceedsFromIssuanceOfCommonStockAndPrefundedWarrantsPursuantToPrivatePlacementOffering" name="ProceedsFromIssuanceOfCommonStockAndPrefundedWarrantsPursuantToPrivatePlacementOffering" nillable="true" xbrli:periodType="duration" xbrli:balance="debit" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_NoncashPrepaidMarketingExpense" name="NoncashPrepaidMarketingExpense" nillable="true" xbrli:periodType="duration" xbrli:balance="credit" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_SharesIssuedForServicesAndConversionOfAccountsPayable" name="SharesIssuedForServicesAndConversionOfAccountsPayable" nillable="true" xbrli:periodType="duration" xbrli:balance="debit" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_ConversionOfPreferredSharesIntoCommonStock" name="ConversionOfPreferredSharesIntoCommonStock" nillable="true" xbrli:periodType="duration" xbrli:balance="debit" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_NonCashIssuanceOfShares" name="NonCashIssuanceOfShares" nillable="true" xbrli:periodType="duration" xbrli:balance="credit" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_DisclosureLeaseObligationsAbstract" name="DisclosureLeaseObligationsAbstract" abstract="true" nillable="true" xbrli:periodType="duration" type="xbrli:stringItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_ConvertibleInstrumentsPolicyTextBlock" name="ConvertibleInstrumentsPolicyTextBlock" nillable="true" xbrli:periodType="duration" type="dtr-types:textBlockItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_ScheduleOfRelatedPartyDueFromFactorTableTextBlock" name="ScheduleOfRelatedPartyDueFromFactorTableTextBlock" nillable="true" xbrli:periodType="duration" type="dtr-types:textBlockItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_ScheduleOfFiniteLivedAndIndefiniteLivedIntangibleAssetsTableTextBlock" name="ScheduleOfFiniteLivedAndIndefiniteLivedIntangibleAssetsTableTextBlock" nillable="true" xbrli:periodType="duration" type="dtr-types:textBlockItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_ScheduleOfProformaBalanceSheetTextBlock" name="ScheduleOfProformaBalanceSheetTextBlock" nillable="true" xbrli:periodType="duration" type="dtr-types:textBlockItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_WorkingCapitalDeficit" name="WorkingCapitalDeficit" nillable="true" xbrli:periodType="instant" xbrli:balance="credit" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_OutstandingReceivablesAbstract" name="OutstandingReceivablesAbstract" abstract="true" nillable="true" xbrli:periodType="duration" type="xbrli:stringItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_OutstandingReceivablesWithoutRecourseOfFactor" name="OutstandingReceivablesWithoutRecourseOfFactor" nillable="true" xbrli:periodType="instant" xbrli:balance="debit" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_OutstandingReceivablesWithRecourseOfFactor" name="OutstandingReceivablesWithRecourseOfFactor" nillable="true" xbrli:periodType="instant" xbrli:balance="debit" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_MaturedFundsAndDepositsWithRelatedPartiesCurrent" name="MaturedFundsAndDepositsWithRelatedPartiesCurrent" nillable="true" xbrli:periodType="instant" xbrli:balance="debit" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_AdvancesWithRelatedPartiesCurrent" name="AdvancesWithRelatedPartiesCurrent" nillable="true" xbrli:periodType="instant" xbrli:balance="credit" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_MaximumCommissionAndFeesPayable" name="MaximumCommissionAndFeesPayable" nillable="true" xbrli:periodType="instant" xbrli:balance="credit" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_ImpairmentOfIntangibleAssetsIndefinitelived" name="ImpairmentOfIntangibleAssetsIndefinitelived" nillable="true" xbrli:periodType="instant" xbrli:balance="credit" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_IndefiniteLivedIntangibleAssetsAccumulatedAmortization" name="IndefiniteLivedIntangibleAssetsAccumulatedAmortization" nillable="true" xbrli:periodType="instant" xbrli:balance="credit" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_MarketingServicesPeriod" name="MarketingServicesPeriod" nillable="true" xbrli:periodType="duration" type="xbrli:durationItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_RedemptionPercentage" name="RedemptionPercentage" nillable="true" xbrli:periodType="duration" type="dtr-types:percentItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_ShareBasedCompensationArrangementByShareBasedPaymentAwardEquityInstrumentsOtherThanOptionsExercisedInPeriod" name="ShareBasedCompensationArrangementByShareBasedPaymentAwardEquityInstrumentsOtherThanOptionsExercisedInPeriod" nillable="true" xbrli:periodType="duration" type="xbrli:sharesItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_ShareBasedCompensationArrangementByShareBasedPaymentAwardEquityInstrumentsOtherThanOptionsExpiredWeightedAverageGrantDateFairValue" name="ShareBasedCompensationArrangementByShareBasedPaymentAwardEquityInstrumentsOtherThanOptionsExpiredWeightedAverageGrantDateFairValue" nillable="true" xbrli:periodType="duration" type="dtr-types:perShareItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_CashFeeDividedValue" name="CashFeeDividedValue" nillable="true" xbrli:periodType="instant" type="dtr-types:perShareItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_BeneficialOwnershipOfOutstandingSharesPercent" name="BeneficialOwnershipOfOutstandingSharesPercent" nillable="true" xbrli:periodType="instant" type="dtr-types:percentItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_StockholdersEquityOfExceeds" name="StockholdersEquityOfExceeds" nillable="true" xbrli:periodType="instant" xbrli:balance="debit" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_AdjustmentsToAdditionalPaidInCapitalStockIssuedIssuanceCost" name="AdjustmentsToAdditionalPaidInCapitalStockIssuedIssuanceCost" nillable="true" xbrli:periodType="duration" xbrli:balance="debit" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_UndesignatedPreferredStockMember" name="UndesignatedPreferredStockMember" nillable="true" xbrli:periodType="duration" type="dtr-types:domainItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_ProprietaryKnowHowAndDocumentationMember" name="ProprietaryKnowHowAndDocumentationMember" nillable="true" xbrli:periodType="duration" type="dtr-types:domainItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_StrategicRelationshipsMember" name="StrategicRelationshipsMember" nillable="true" xbrli:periodType="duration" type="dtr-types:domainItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_VendorServicesPeriod" name="VendorServicesPeriod" nillable="true" xbrli:periodType="duration" type="xbrli:durationItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_CorporateWarehouseAndDistributionCenterMember" name="CorporateWarehouseAndDistributionCenterMember" nillable="true" xbrli:periodType="duration" type="dtr-types:domainItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_NonCashPurchaseOfIntangibleAssets" name="NonCashPurchaseOfIntangibleAssets" nillable="true" xbrli:periodType="duration" xbrli:balance="credit" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" />
+    <element id="DBGI_ConvertiblePreferredStock" name="ConvertiblePreferredStock" nillable="true" xbrli:periodType="duration" xbrli:balance="debit" type="xbrli:monetaryItemType" substitutionGroup="xbrli:item" />
+</schema>

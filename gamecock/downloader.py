@@ -1,7 +1,6 @@
 """SEC EDGAR filing downloader with rate limiting and progress tracking."""
 import json
 import os
-import sqlite3
 import sys
 import time
 import asyncio
@@ -15,19 +14,20 @@ from dotenv import load_dotenv
 from loguru import logger
 from rich.console import Console
 from rich.progress import Progress, BarColumn, TaskProgressColumn, TextColumn
+from concurrent.futures import ThreadPoolExecutor
+import threading
 
 from .db_handler import DatabaseHandler
 from .swaps_analyzer import SwapsAnalyzer
 from .swaps_processor import SwapsProcessor
 
-logger.remove()  # Remove default handler
-logger.add(sys.stderr, level="DEBUG")  # Add handler with DEBUG level
+# Logging is configured centrally in gamecock.py; this module uses the shared logger
 
 
 class SECDownloader:
     """Downloads SEC filings from EDGAR."""
     
-    def __init__(self, output_dir: Union[str, Path] = None, db_handler: Optional[DatabaseHandler] = None, swaps_analyzer: Optional[SwapsAnalyzer] = None):
+    def __init__(self, output_dir: Union[str, Path] = None, db_handler: Optional[DatabaseHandler] = None, swaps_analyzer: Optional[SwapsAnalyzer] = None, *, process_async: bool = False, max_workers: int = 4):
         """Initialize the downloader."""
         # Load environment variables
         load_dotenv()
@@ -61,6 +61,13 @@ class SECDownloader:
         # Initialize session
         self.session = None  # Will be initialized in __aenter__
 
+        # Optional background processing of files
+        self.process_async = process_async
+        self._executor: Optional[ThreadPoolExecutor] = ThreadPoolExecutor(max_workers=max_workers) if process_async else None
+        self._proc_lock = threading.Lock()
+        self._processing_submitted = 0
+        self._processing_done = 0
+
     async def __aenter__(self):
         """Async context manager entry."""
         self.session = aiohttp.ClientSession(headers=self.headers)
@@ -70,6 +77,8 @@ class SECDownloader:
         """Async context manager exit."""
         if self.session:
             await self.session.close()
+        if self._executor:
+            self._executor.shutdown(wait=True)
         
     def _wait_for_rate_limit(self):
         """Ensure we don't exceed SEC's rate limit."""
@@ -78,6 +87,24 @@ class SECDownloader:
         if time_since_last < self.min_request_interval:
             time.sleep(self.min_request_interval - time_since_last)
         self.last_request_time = time.time()
+
+    def _submit_processing(self, file_path: Path):
+        """Submit a file for background processing or process synchronously."""
+        if self.process_async and self._executor:
+            try:
+                with self._proc_lock:
+                    self._processing_submitted += 1
+                fut = self._executor.submit(self.swaps_processor.process_filing, file_path)
+                def _on_done(_):
+                    with self._proc_lock:
+                        self._processing_done += 1
+                    logger.debug(f"Processing finished for {file_path}")
+                fut.add_done_callback(_on_done)
+            except Exception as e:
+                logger.error(f"Failed to submit processing task for {file_path}: {e}")
+        else:
+            # Synchronous fallback
+            self.swaps_processor.process_filing(file_path)
         
     def _make_request(self, url: str) -> Optional[requests.Response]:
         """Make a request to SEC with proper headers and rate limiting."""
@@ -89,7 +116,11 @@ class SECDownloader:
             self._wait_for_rate_limit()
             
             # Make the request
-            response = self.session.get(url, headers=self.headers)
+            # If a session (e.g., mocked in tests) is available and has get, use it; otherwise fallback to requests.get
+            if self.session is not None and hasattr(self.session, "get"):
+                response = self.session.get(url, headers=self.headers)
+            else:
+                response = requests.get(url, headers=self.headers, timeout=30)
             logger.debug(f"Response status code: {response.status_code}")
             
             if response.status_code == 200:
@@ -447,42 +478,26 @@ class SECDownloader:
                         
                         if filing_files:
                             downloaded_files[filing["accession_number"]] = list(filing_files.values())
-                            # Process all downloaded files for swaps
+                            # Process only likely swap data files to reduce noise
+                            allowed_ext = {'.csv', '.json', '.txt', '.xlsx'}
+                            keywords = ('swap', 'swaps', 'deriv', 'cds', 'isda')
                             for file_path in filing_files.values():
-                                self.swaps_processor.process_filing(file_path)
+                                fp_lower = str(file_path).lower()
+                                if Path(file_path).suffix.lower() in allowed_ext or any(k in fp_lower for k in keywords):
+                                    self._submit_processing(file_path)
                             logger.info(f"Successfully downloaded {len(filing_files)} files for filing {filing['accession_number']}")
                             
-                            # Save filing to database
+                            # Save filing to database via ORM helper
                             try:
                                 logger.info("Saving filing metadata to database...")
-                                self.db.cursor.execute("""
-                                    INSERT INTO filings (company_cik, accession_number, form_type, filing_date, file_path)
-                                    VALUES (?, ?, ?, ?, ?)
-                                """, (
-                                    cik,
-                                    filing["accession_number"],
-                                    filing.get("form_type"),
-                                    filing.get("filing_date"),
-                                    str(filing_dir)
-                                ))
-                                self.db.conn.commit()
-                                logger.info("Successfully saved to database")
-                            except sqlite3.IntegrityError:
-                                # Filing already exists, update it
-                                logger.info("Filing exists in database, updating...")
-                                self.db.cursor.execute("""
-                                    UPDATE filings 
-                                    SET form_type = ?, filing_date = ?, file_path = ?, updated_at = datetime('now')
-                                    WHERE company_cik = ? AND accession_number = ?
-                                """, (
-                                    filing.get("form_type"),
-                                    filing.get("filing_date"),
-                                    str(filing_dir),
-                                    cik,
-                                    filing["accession_number"]
-                                ))
-                                self.db.conn.commit()
-                                logger.info("Successfully updated database")
+                                self.db.upsert_filing(
+                                    company_cik=cik,
+                                    accession_number=filing["accession_number"],
+                                    form_type=filing.get("form_type"),
+                                    filing_date=filing.get("filing_date"),
+                                    file_path=str(filing_dir),
+                                )
+                                logger.info("Successfully saved/updated filing metadata")
                             except Exception as e:
                                 logger.error(f"Failed to save filing to database: {str(e)}")
                         else:
@@ -505,3 +520,22 @@ class SECDownloader:
         except Exception as e:
             logger.error(f"Error downloading company filings: {str(e)}")
             return {}
+
+    def wait_for_processing(self):
+        """Block until all background processing tasks have finished (only if async enabled)."""
+        if self._executor:
+            self._executor.shutdown(wait=True)
+            # Re-create executor for future use after wait
+            self._executor = ThreadPoolExecutor(max_workers=self._executor._max_workers)
+            with self._proc_lock:
+                self._processing_submitted = 0
+                self._processing_done = 0
+
+    def get_processing_progress(self) -> Dict[str, int]:
+        """Return a dict with submitted and completed processing counts."""
+        with self._proc_lock:
+            return {
+                "submitted": self._processing_submitted,
+                "completed": self._processing_done,
+                "pending": max(0, self._processing_submitted - self._processing_done),
+            }

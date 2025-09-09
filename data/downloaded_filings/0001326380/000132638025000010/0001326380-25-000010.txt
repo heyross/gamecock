@@ -1,0 +1,160 @@
+<SEC-DOCUMENT>0001326380-25-000010.txt : 20250106
+<SEC-HEADER>0001326380-25-000010.hdr.sgml : 20250106
+<ACCEPTANCE-DATETIME>20250106191745
+ACCESSION NUMBER:		0001326380-25-000010
+CONFORMED SUBMISSION TYPE:	4
+PUBLIC DOCUMENT COUNT:		1
+CONFORMED PERIOD OF REPORT:	20250103
+FILED AS OF DATE:		20250106
+DATE AS OF CHANGE:		20250106
+
+REPORTING-OWNER:	
+
+	OWNER DATA:	
+		COMPANY CONFORMED NAME:			Robinson Mark Haymond
+		CENTRAL INDEX KEY:			0001981001
+		ORGANIZATION NAME:           	
+
+	FILING VALUES:
+		FORM TYPE:		4
+		SEC ACT:		1934 Act
+		SEC FILE NUMBER:	001-32637
+		FILM NUMBER:		25512980
+
+	MAIL ADDRESS:	
+		STREET 1:		625 WESTPORT PARKWAY
+		CITY:			GRAPEVINE
+		STATE:			TX
+		ZIP:			76051
+
+ISSUER:		
+
+	COMPANY DATA:	
+		COMPANY CONFORMED NAME:			GameStop Corp.
+		CENTRAL INDEX KEY:			0001326380
+		STANDARD INDUSTRIAL CLASSIFICATION:	RETAIL-COMPUTER & COMPUTER SOFTWARE STORES [5734]
+		ORGANIZATION NAME:           	07 Trade & Services
+		IRS NUMBER:				000000000
+		STATE OF INCORPORATION:			DE
+		FISCAL YEAR END:			0201
+
+	BUSINESS ADDRESS:	
+		STREET 1:		625 WESTPORT PARKWAY
+		CITY:			GRAPEVINE
+		STATE:			TX
+		ZIP:			76051
+		BUSINESS PHONE:		817-424-2000
+
+	MAIL ADDRESS:	
+		STREET 1:		625 WESTPORT PARKWAY
+		CITY:			GRAPEVINE
+		STATE:			TX
+		ZIP:			76051
+
+	FORMER COMPANY:	
+		FORMER CONFORMED NAME:	GSC Holdings Corp.
+		DATE OF NAME CHANGE:	20050506
+</SEC-HEADER>
+<DOCUMENT>
+<TYPE>4
+<SEQUENCE>1
+<FILENAME>wk-form4_1736209059.xml
+<DESCRIPTION>FORM 4
+<TEXT>
+<XML>
+<?xml version="1.0"?>
+<ownershipDocument>
+
+    <schemaVersion>X0508</schemaVersion>
+
+    <documentType>4</documentType>
+
+    <periodOfReport>2025-01-03</periodOfReport>
+
+    <notSubjectToSection16>0</notSubjectToSection16>
+
+    <issuer>
+        <issuerCik>0001326380</issuerCik>
+        <issuerName>GameStop Corp.</issuerName>
+        <issuerTradingSymbol>GME</issuerTradingSymbol>
+    </issuer>
+
+    <reportingOwner>
+        <reportingOwnerId>
+            <rptOwnerCik>0001981001</rptOwnerCik>
+            <rptOwnerName>Robinson Mark Haymond</rptOwnerName>
+        </reportingOwnerId>
+        <reportingOwnerAddress>
+            <rptOwnerStreet1>C/O GAMESTOP CORP.</rptOwnerStreet1>
+            <rptOwnerStreet2>625 WESTPORT PARKWAY</rptOwnerStreet2>
+            <rptOwnerCity>GRAPEVINE</rptOwnerCity>
+            <rptOwnerState>TX</rptOwnerState>
+            <rptOwnerZipCode>76051</rptOwnerZipCode>
+            <rptOwnerStateDescription></rptOwnerStateDescription>
+        </reportingOwnerAddress>
+        <reportingOwnerRelationship>
+            <isDirector>0</isDirector>
+            <isOfficer>1</isOfficer>
+            <isTenPercentOwner>0</isTenPercentOwner>
+            <isOther>0</isOther>
+            <officerTitle>General Counsel and Secretary</officerTitle>
+        </reportingOwnerRelationship>
+    </reportingOwner>
+
+    <aff10b5One>0</aff10b5One>
+
+    <nonDerivativeTable>
+        <nonDerivativeTransaction>
+            <securityTitle>
+                <value>Class A Common Stock</value>
+            </securityTitle>
+            <transactionDate>
+                <value>2025-01-03</value>
+            </transactionDate>
+            <transactionCoding>
+                <transactionFormType>4</transactionFormType>
+                <transactionCode>S</transactionCode>
+                <equitySwapInvolved>0</equitySwapInvolved>
+                <footnoteId id="F1"/>
+            </transactionCoding>
+            <transactionAmounts>
+                <transactionShares>
+                    <value>1577</value>
+                </transactionShares>
+                <transactionPricePerShare>
+                    <value>31.068</value>
+                </transactionPricePerShare>
+                <transactionAcquiredDisposedCode>
+                    <value>D</value>
+                </transactionAcquiredDisposedCode>
+            </transactionAmounts>
+            <postTransactionAmounts>
+                <sharesOwnedFollowingTransaction>
+                    <value>42350</value>
+                </sharesOwnedFollowingTransaction>
+            </postTransactionAmounts>
+            <ownershipNature>
+                <directOrIndirectOwnership>
+                    <value>D</value>
+                </directOrIndirectOwnership>
+            </ownershipNature>
+        </nonDerivativeTransaction>
+    </nonDerivativeTable>
+
+    <derivativeTable></derivativeTable>
+
+    <footnotes>
+        <footnote id="F1">Represents shares sold to cover applicable withholding taxes in connection with the vesting of restricted stock units. This sale does not represent a discretionary trade by the Reporting Person.</footnote>
+    </footnotes>
+
+    <remarks></remarks>
+
+    <ownerSignature>
+        <signatureName>/s/ Daniel Moore, as Attorney-in-Fact</signatureName>
+        <signatureDate>2025-01-06</signatureDate>
+    </ownerSignature>
+</ownershipDocument>
+</XML>
+</TEXT>
+</DOCUMENT>
+</SEC-DOCUMENT>

@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='utf-8'?>
+<FilingSummary>
+  <Version>3.24.2.u1</Version>
+  <ProcessingTime/>
+  <ReportFormat>html</ReportFormat>
+  <ContextCount>2</ContextCount>
+  <ElementCount>21</ElementCount>
+  <EntityCount>1</EntityCount>
+  <FootnotesReported>false</FootnotesReported>
+  <SegmentCount>1</SegmentCount>
+  <ScenarioCount>0</ScenarioCount>
+  <TuplesReported>false</TuplesReported>
+  <UnitCount>2</UnitCount>
+  <MyReports>
+    <Report instance="d890703dexfilingfees.htm">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R1.htm</HtmlFileName>
+      <LongName>995210 - Document - Submission</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://xbrl.sec.gov/ffd/role/document/submissionTable</Role>
+      <ShortName>Submission</ShortName>
+      <MenuCategory>Cover</MenuCategory>
+      <Position>1</Position>
+    </Report>
+    <Report instance="d890703dexfilingfees.htm">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R2.htm</HtmlFileName>
+      <LongName>995211 - Document - Offerings</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://xbrl.sec.gov/ffd/role/document/feesOfferingTable</Role>
+      <ShortName>Offerings</ShortName>
+      <MenuCategory>Cover</MenuCategory>
+      <Position>2</Position>
+    </Report>
+    <Report instance="d890703dexfilingfees.htm">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R3.htm</HtmlFileName>
+      <LongName>995215 - Document - Fees Summary</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://xbrl.sec.gov/ffd/role/document/feesSummaryTable</Role>
+      <ShortName>Fees Summary</ShortName>
+      <MenuCategory>Cover</MenuCategory>
+      <Position>3</Position>
+    </Report>
+    <Report>
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <LongName>All Reports</LongName>
+      <ReportType>Book</ReportType>
+      <ShortName>All Reports</ShortName>
+    </Report>
+  </MyReports>
+  <InputFiles>
+    <File doctype="EX-FILING FEES" original="d890703dexfilingfees.htm">d890703dexfilingfees.htm</File>
+  </InputFiles>
+  <SupplementalFiles/>
+  <BaseTaxonomies>
+    <BaseTaxonomy items="2">http://xbrl.sec.gov/dei/2024</BaseTaxonomy>
+    <BaseTaxonomy items="19">http://xbrl.sec.gov/ffd/2024q2</BaseTaxonomy>
+  </BaseTaxonomies>
+  <HasPresentationLinkbase>false</HasPresentationLinkbase>
+  <HasCalculationLinkbase>false</HasCalculationLinkbase>
+</FilingSummary>

@@ -1,0 +1,2345 @@
+{
+ "version": "2.2",
+ "instance": {
+  "d890703dexfilingfees.htm": {
+   "dts": {
+    "inline": {
+     "local": [
+      "d890703dexfilingfees.htm"
+     ]
+    },
+    "schema": {
+     "remote": [
+      "http://www.xbrl.org/2003/xbrl-instance-2003-12-31.xsd",
+      "http://www.xbrl.org/2003/xbrl-linkbase-2003-12-31.xsd",
+      "http://www.xbrl.org/2003/xl-2003-12-31.xsd",
+      "http://www.xbrl.org/2003/xlink-2003-12-31.xsd",
+      "http://www.xbrl.org/2005/xbrldt-2005.xsd",
+      "http://www.xbrl.org/lrr/arcrole/deprecated-2009-12-16.xsd",
+      "https://www.xbrl.org/dtr/type/2022-03-31/types.xsd",
+      "https://xbrl.sec.gov/dei/2024/dei-2024.xsd",
+      "https://xbrl.sec.gov/ffd/2024q2/ffd-2024q2.xsd"
+     ]
+    }
+   },
+   "keyStandard": 21,
+   "keyCustom": 0,
+   "axisStandard": 1,
+   "axisCustom": 0,
+   "memberStandard": 1,
+   "memberCustom": 0,
+   "hidden": {
+    "total": 3,
+    "http://xbrl.sec.gov/ffd/2024q2": 2,
+    "http://xbrl.sec.gov/dei/2024": 1
+   },
+   "contextCount": 2,
+   "entityCount": 1,
+   "segmentCount": 1,
+   "elementCount": 107,
+   "unitCount": 2,
+   "baseTaxonomies": {
+    "http://xbrl.sec.gov/ffd/2024q2": 19,
+    "http://xbrl.sec.gov/dei/2024": 2
+   },
+   "report": {
+    "R1": {
+     "role": "http://xbrl.sec.gov/ffd/role/document/submissionTable",
+     "longName": "995210 - Document - Submission",
+     "shortName": "Submission",
+     "isDefault": "true",
+     "groupType": "Fee_Exhibit",
+     "subGroupType": "",
+     "menuCat": "Cover",
+     "order": "1",
+     "firstAnchor": {
+      "contextRef": "P09_10_2024To09_10_2024",
+      "name": "dei:EntityRegistrantName",
+      "unitRef": null,
+      "xsiNil": "false",
+      "lang": "en-US",
+      "decimals": null,
+      "ancestors": [
+       "div",
+       "div",
+       "div",
+       "div",
+       "div",
+       "div",
+       "body",
+       "html"
+      ],
+      "reportCount": 1,
+      "baseRef": "d890703dexfilingfees.htm",
+      "first": true,
+      "unique": true
+     },
+     "uniqueAnchor": {
+      "contextRef": "P09_10_2024To09_10_2024",
+      "name": "dei:EntityRegistrantName",
+      "unitRef": null,
+      "xsiNil": "false",
+      "lang": "en-US",
+      "decimals": null,
+      "ancestors": [
+       "div",
+       "div",
+       "div",
+       "div",
+       "div",
+       "div",
+       "body",
+       "html"
+      ],
+      "reportCount": 1,
+      "baseRef": "d890703dexfilingfees.htm",
+      "first": true,
+      "unique": true
+     }
+    },
+    "R2": {
+     "role": "http://xbrl.sec.gov/ffd/role/document/feesOfferingTable",
+     "longName": "995211 - Document - Offerings",
+     "shortName": "Offerings",
+     "isDefault": "false",
+     "groupType": "Fee_Exhibit",
+     "subGroupType": "",
+     "menuCat": "Cover",
+     "order": "2",
+     "firstAnchor": {
+      "contextRef": "P09_10_2024To09_10_2024_1TypedMemberffdOfferingAxis",
+      "name": "ffd:PrevslyPdFlg",
+      "unitRef": null,
+      "xsiNil": "false",
+      "lang": "en-US",
+      "decimals": null,
+      "ancestors": [
+       "div",
+       "td",
+       "tr",
+       "table",
+       "div",
+       "div",
+       "div",
+       "div",
+       "body",
+       "html"
+      ],
+      "reportCount": 1,
+      "baseRef": "d890703dexfilingfees.htm",
+      "first": true,
+      "unique": true
+     },
+     "uniqueAnchor": {
+      "contextRef": "P09_10_2024To09_10_2024_1TypedMemberffdOfferingAxis",
+      "name": "ffd:PrevslyPdFlg",
+      "unitRef": null,
+      "xsiNil": "false",
+      "lang": "en-US",
+      "decimals": null,
+      "ancestors": [
+       "div",
+       "td",
+       "tr",
+       "table",
+       "div",
+       "div",
+       "div",
+       "div",
+       "body",
+       "html"
+      ],
+      "reportCount": 1,
+      "baseRef": "d890703dexfilingfees.htm",
+      "first": true,
+      "unique": true
+     }
+    },
+    "R3": {
+     "role": "http://xbrl.sec.gov/ffd/role/document/feesSummaryTable",
+     "longName": "995215 - Document - Fees Summary",
+     "shortName": "Fees Summary",
+     "isDefault": "false",
+     "groupType": "Fee_Exhibit",
+     "subGroupType": "",
+     "menuCat": "Cover",
+     "order": "3",
+     "firstAnchor": {
+      "contextRef": "P09_10_2024To09_10_2024",
+      "name": "ffd:TtlOfferingAmt",
+      "unitRef": "Unit_USD",
+      "xsiNil": "false",
+      "lang": null,
+      "decimals": "2",
+      "ancestors": [
+       "td",
+       "tr",
+       "table",
+       "div",
+       "div",
+       "div",
+       "div",
+       "body",
+       "html"
+      ],
+      "reportCount": 1,
+      "baseRef": "d890703dexfilingfees.htm",
+      "first": true,
+      "unique": true
+     },
+     "uniqueAnchor": {
+      "contextRef": "P09_10_2024To09_10_2024",
+      "name": "ffd:TtlOfferingAmt",
+      "unitRef": "Unit_USD",
+      "xsiNil": "false",
+      "lang": null,
+      "decimals": "2",
+      "ancestors": [
+       "td",
+       "tr",
+       "table",
+       "div",
+       "div",
+       "div",
+       "div",
+       "body",
+       "html"
+      ],
+      "reportCount": 1,
+      "baseRef": "d890703dexfilingfees.htm",
+      "first": true,
+      "unique": true
+     }
+    }
+   },
+   "tag": {
+    "ffd_AggtRedRpPricFsclYr": {
+     "xbrltype": "nonNegative1TMonetary2ItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "AggtRedRpPricFsclYr",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/securities424iTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Aggregate Redeemed or Repurchased Price, Fiscal Year",
+        "terseLabel": "Aggregate Redeemed or Repurchased, FY"
+       }
+      }
+     },
+     "auth_ref": [
+      "r1"
+     ]
+    },
+    "ffd_AggtRedRpPricPrrFsclYr": {
+     "xbrltype": "nonNegative1TMonetary2ItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "AggtRedRpPricPrrFsclYr",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/securities424iTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Aggregate Redeemed or Repurchased Price, Prior Fiscal Year",
+        "terseLabel": "Aggregate Redeemed or Repurchased, Prior FY"
+       }
+      }
+     },
+     "auth_ref": [
+      "r1"
+     ]
+    },
+    "ffd_AggtSalesPricFsclYr": {
+     "xbrltype": "nonNegative1TMonetary2ItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "AggtSalesPricFsclYr",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/securities424iTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Aggregate Sales Price, Fiscal Year",
+        "terseLabel": "Aggregate Sales Price"
+       }
+      }
+     },
+     "auth_ref": [
+      "r1"
+     ]
+    },
+    "ffd_AmtRedCdts": {
+     "xbrltype": "nonNegative1TMonetary2ItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "AmtRedCdts",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/securities424iTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Amount of Redemption Credits",
+        "terseLabel": "Redemption Credits"
+       }
+      }
+     },
+     "auth_ref": [
+      "r1"
+     ]
+    },
+    "ffd_AmtSctiesRcvd": {
+     "xbrltype": "nonNegativeDecimal2ItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "AmtSctiesRcvd",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/feesOfferingTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Amount of Securities Received",
+        "terseLabel": "Amount of Securities Received",
+        "documentation": "Amount of securities to be received by the registrant (or cancelled upon issuance of securities to be registered on the form)"
+       }
+      }
+     },
+     "auth_ref": [
+      "r6"
+     ]
+    },
+    "ffd_AmtSctiesRegd": {
+     "xbrltype": "nonNegativeDecimal2ItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "AmtSctiesRegd",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/feesOfferingTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Amount of Securities Registered",
+        "terseLabel": "Amount Registered",
+        "documentation": "The amount of securities being registered."
+       }
+      }
+     },
+     "auth_ref": [
+      "r1"
+     ]
+    },
+    "ffd_CeasedOprsDt": {
+     "xbrltype": "dateItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "CeasedOprsDt",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/submissionTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Ceased Operations Date",
+        "terseLabel": "Ceased Operations Date"
+       }
+      }
+     },
+     "auth_ref": []
+    },
+    "ffd_CfwdFormTp": {
+     "xbrltype": "formTypeItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "CfwdFormTp",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/feesOfferingTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Carry Forward Form Type",
+        "terseLabel": "Carry Forward Form Type",
+        "documentation": "The Form Type of the prior shelf registration statement from which unsold securities are carried forward under 415(a)(6). This should be an EDGAR submission type (S-3, S-3/A, S-3ASR, etc.), which means there is a fixed set of possible responses. Note that while the XBRL response should be an EDGAR submission type, the human-readable Ex. 107 could include a simpler label (e.g., \"Form S-3\" in the human-readable and \"S-3ASR\" in the XBRL)."
+       }
+      }
+     },
+     "auth_ref": [
+      "r2"
+     ]
+    },
+    "ffd_CfwdPrevslyPdFee": {
+     "xbrltype": "nonNegative1TMonetary2ItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "CfwdPrevslyPdFee",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/feesOfferingTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Carry Forward Previously Paid Fee",
+        "terseLabel": "Filing Fee Previously Paid in Connection with Unsold Securities to be Carried Forward",
+        "documentation": "The fee previously paid in connection with the securities being brought forward from the prior shelf registration statement on which unsold securities are carried forward under 415(a)(6)."
+       }
+      }
+     },
+     "auth_ref": [
+      "r2"
+     ]
+    },
+    "ffd_CfwdPrrFctvDt": {
+     "xbrltype": "dateItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "CfwdPrrFctvDt",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/feesOfferingTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Carry Forward Prior Effective Date",
+        "terseLabel": "Carry Forward Initial Effective Date",
+        "documentation": "The initial effective date of the prior shelf registration statement from which unsold securities are carried forward under 415(a)(6)."
+       }
+      }
+     },
+     "auth_ref": [
+      "r2"
+     ]
+    },
+    "ffd_CfwdPrrFileNb": {
+     "xbrltype": "fileNumberItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "CfwdPrrFileNb",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/feesOfferingTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Carry Forward File Number",
+        "terseLabel": "Carry Forward File Number",
+        "documentation": "The EDGAR File Number of the prior shelf registration statement from which unsold securities are carried forward under 415(a)(6). If the prior registration statement has a Securities Act File Number and an Investment Company Act File Number, the Securities Act File Number should be used."
+       }
+      }
+     },
+     "auth_ref": [
+      "r2"
+     ]
+    },
+    "ffd_CmbndPrspctsItemAxis": {
+     "xbrltype": "stringItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "CmbndPrspctsItemAxis",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/feesByCmbndPrspctsTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Combined Prospectus Item [Axis]",
+        "terseLabel": "Combined Prospectus",
+        "documentation": "A sequence number (1, 2, 3...) used to distinguish different references to earlier prospectuses on a single fee bearing submission."
+       }
+      }
+     },
+     "auth_ref": [
+      "r1"
+     ]
+    },
+    "ffd_CmbndPrspctsLineItems": {
+     "xbrltype": "stringItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "CmbndPrspctsLineItems",
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Combined Prospectus [Line Items]",
+        "terseLabel": "Combined Prospectus:"
+       }
+      }
+     },
+     "auth_ref": [
+      "r1"
+     ]
+    },
+    "ffd_CmbndPrspctsTable": {
+     "xbrltype": "stringItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "CmbndPrspctsTable",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/feesByCmbndPrspctsTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Combined Prospectus [Table]",
+        "terseLabel": "Combined Prospectus Table"
+       }
+      }
+     },
+     "auth_ref": [
+      "r1"
+     ]
+    },
+    "ffd_CombinedProspectusTableNa": {
+     "xbrltype": "naItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "CombinedProspectusTableNa",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/submissionTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Combined Prospectus Table [N/A]",
+        "terseLabel": "Combined Prospectus Table N/A"
+       }
+      }
+     },
+     "auth_ref": []
+    },
+    "ffd_CshPdByRegistrantInTx": {
+     "xbrltype": "nonNegative100TMonetary2ItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "CshPdByRegistrantInTx",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/feesOfferingTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Cash Paid by Registrant in Transaction",
+        "terseLabel": "Cash Consideration Paid",
+        "documentation": "Amount of cash consideration paid by registrant in connection with the exchange or other transaction being registered (in a 457(f) calculation)."
+       }
+      }
+     },
+     "auth_ref": [
+      "r12"
+     ]
+    },
+    "ffd_CshRcvdByRegistrantInTx": {
+     "xbrltype": "nonNegative100TMonetary2ItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "CshRcvdByRegistrantInTx",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/feesOfferingTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Cash Received by Registrant in Transaction",
+        "terseLabel": "Cash Consideration Received",
+        "documentation": "Amount of cash consideration received by registrant in connection with the exchange or other transaction being registered (in a 457(f) calculation)."
+       }
+      }
+     },
+     "auth_ref": [
+      "r12"
+     ]
+    },
+    "dei_EntityCentralIndexKey": {
+     "xbrltype": "centralIndexKeyItemType",
+     "nsuri": "http://xbrl.sec.gov/dei/2024",
+     "localname": "EntityCentralIndexKey",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/submissionTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Entity Central Index Key",
+        "terseLabel": "Central Index Key",
+        "documentation": "A unique 10-digit SEC-issued value to identify entities that have filed disclosures with the SEC. It is commonly abbreviated as CIK."
+       }
+      }
+     },
+     "auth_ref": [
+      "r0"
+     ]
+    },
+    "dei_EntityRegistrantName": {
+     "xbrltype": "normalizedStringItemType",
+     "nsuri": "http://xbrl.sec.gov/dei/2024",
+     "localname": "EntityRegistrantName",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/submissionTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Entity Registrant Name",
+        "terseLabel": "Registrant Name",
+        "documentation": "The exact name of the entity filing the report as specified in its charter, which is required by forms filed with the SEC."
+       }
+      }
+     },
+     "auth_ref": [
+      "r0"
+     ]
+    },
+    "ffd_FeeAmt": {
+     "xbrltype": "nonNegative1TMonetary2ItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "FeeAmt",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/feesOfferingTable",
+      "http://xbrl.sec.gov/ffd/role/document/securities424iTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Fee Amount",
+        "terseLabel": "Amount of Registration Fee",
+        "documentation": "Total amount of registration fee (amount due after offsets)."
+       }
+      }
+     },
+     "auth_ref": [
+      "r1"
+     ]
+    },
+    "ffd_FeeExhibitTp": {
+     "xbrltype": "feeExhibitTypeItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "FeeExhibitTp",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/submissionTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Fee Exhibit Type",
+        "terseLabel": "Fee Exhibit Type"
+       }
+      }
+     },
+     "auth_ref": []
+    },
+    "ffd_FeeIntrstAmt": {
+     "xbrltype": "nonNegative1TMonetary2ItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "FeeIntrstAmt",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/feesSummaryTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Fee Interest Amount",
+        "terseLabel": "Interest Amount"
+       }
+      }
+     },
+     "auth_ref": [
+      "r1"
+     ]
+    },
+    "ffd_FeeNote": {
+     "xbrltype": "textBlockItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "FeeNote",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/securities424iTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Fee Note",
+        "terseLabel": "Fee Note"
+       }
+      }
+     },
+     "auth_ref": [
+      "r1"
+     ]
+    },
+    "ffd_FeeNoteMaxAggtOfferingPric": {
+     "xbrltype": "nonNegative100TMonetary2ItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "FeeNoteMaxAggtOfferingPric",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/feesOfferingTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Fee Note Maximum Aggregate Offering Price",
+        "terseLabel": "Fee Note MAOP"
+       }
+      }
+     },
+     "auth_ref": [
+      "r1"
+     ]
+    },
+    "ffd_FeeRate": {
+     "xbrltype": "percentItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "FeeRate",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/feesOfferingTable",
+      "http://xbrl.sec.gov/ffd/role/document/securities424iTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Fee Rate",
+        "terseLabel": "Fee Rate",
+        "documentation": "The rate per dollar of fees that public companies and other issuers pay to register their securities with the Commission."
+       }
+      }
+     },
+     "auth_ref": [
+      "r1"
+     ]
+    },
+    "ffd_FeesOthrRuleFlg": {
+     "xbrltype": "booleanItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "FeesOthrRuleFlg",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/feesOfferingTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Fees, Other Rule [Flag]",
+        "terseLabel": "Other Rule",
+        "documentation": "Checkbox indicating whether filer is using a rule other than 457(a), 457(o), or 457(f) to calculate the registration fee due."
+       }
+      }
+     },
+     "auth_ref": [
+      "r1"
+     ]
+    },
+    "ffd_FeesSummaryLineItems": {
+     "xbrltype": "stringItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "FeesSummaryLineItems",
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Fees Summary [Line Items]",
+        "terseLabel": "Fees Summary:"
+       }
+      }
+     },
+     "auth_ref": [
+      "r1"
+     ]
+    },
+    "ffd_FnlPrspctsFlg": {
+     "xbrltype": "booleanItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "FnlPrspctsFlg",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/feesSummaryTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Final Prospectus [Flag]",
+        "terseLabel": "Final Prospectus"
+       }
+      }
+     },
+     "auth_ref": [
+      "r1"
+     ]
+    },
+    "ffd_FormTp": {
+     "xbrltype": "submissionTypeItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "FormTp",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/submissionTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Form Type",
+        "terseLabel": "Form Type"
+       }
+      }
+     },
+     "auth_ref": []
+    },
+    "ffd_GnlInstrIIhiFlg": {
+     "xbrltype": "booleanItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "GnlInstrIIhiFlg",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/feesOfferingTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "General Instruction II.H,I [Flag]",
+        "terseLabel": "General Instruction II.H,I"
+       }
+      }
+     },
+     "auth_ref": []
+    },
+    "ffd_IssrBizAdrCity": {
+     "xbrltype": "stringItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "IssrBizAdrCity",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/submissionTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Issuer Business Address, City",
+        "terseLabel": "City"
+       }
+      }
+     },
+     "auth_ref": []
+    },
+    "ffd_IssrBizAdrStatOrCtryCd": {
+     "xbrltype": "stateOrCountryCodeItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "IssrBizAdrStatOrCtryCd",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/submissionTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Issuer Business Address, State or Country Code",
+        "terseLabel": "State or Country Code"
+       }
+      }
+     },
+     "auth_ref": []
+    },
+    "ffd_IssrBizAdrStrt1": {
+     "xbrltype": "stringItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "IssrBizAdrStrt1",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/submissionTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Issuer Business Address, Street 1",
+        "terseLabel": "Street 1"
+       }
+      }
+     },
+     "auth_ref": []
+    },
+    "ffd_IssrBizAdrStrt2": {
+     "xbrltype": "stringItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "IssrBizAdrStrt2",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/submissionTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Issuer Business Address, Street 2",
+        "terseLabel": "Street 2"
+       }
+      }
+     },
+     "auth_ref": []
+    },
+    "ffd_IssrBizAdrZipCd": {
+     "xbrltype": "stringItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "IssrBizAdrZipCd",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/submissionTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Issuer Business Address, Zip Code",
+        "terseLabel": "Zip Code"
+       }
+      }
+     },
+     "auth_ref": []
+    },
+    "ffd_IssrNm": {
+     "xbrltype": "stringItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "IssrNm",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/submissionTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Issuer Name",
+        "terseLabel": "Issuer Name"
+       }
+      }
+     },
+     "auth_ref": []
+    },
+    "ffd_MaxAggtOfferingPric": {
+     "xbrltype": "nonNegative100TMonetary2ItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "MaxAggtOfferingPric",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/feesOfferingTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Maximum Aggregate Offering Price",
+        "terseLabel": "Maximum Aggregate Offering Price",
+        "documentation": "The maximum aggregate offering price for the offering that is being registered."
+       }
+      }
+     },
+     "auth_ref": [
+      "r1"
+     ]
+    },
+    "ffd_MaxOfferingPricPerScty": {
+     "xbrltype": "nonNegativeDecimal4lItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "MaxOfferingPricPerScty",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/feesOfferingTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Maximum Offering Price per Security",
+        "terseLabel": "Proposed Maximum Offering Price per Unit",
+        "documentation": "The maximum offering price per share/unit being registered."
+       }
+      }
+     },
+     "auth_ref": [
+      "r1"
+     ]
+    },
+    "ffd_NetFeeAmt": {
+     "xbrltype": "monetaryItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "NetFeeAmt",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/feesSummaryTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Net Fee Amount",
+        "terseLabel": "Net Fee"
+       }
+      }
+     },
+     "auth_ref": [
+      "r1"
+     ]
+    },
+    "ffd_NetSalesAmt": {
+     "xbrltype": "nonNegative1TMonetary2ItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "NetSalesAmt",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/securities424iTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Net Sales Amount",
+        "terseLabel": "Net Sales"
+       }
+      }
+     },
+     "auth_ref": [
+      "r1"
+     ]
+    },
+    "ffd_NrrtvDsclsr": {
+     "xbrltype": "textBlockItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "NrrtvDsclsr",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/feesSummaryTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Narrative Disclosure",
+        "terseLabel": "Narrative Disclosure"
+       }
+      }
+     },
+     "auth_ref": [
+      "r1"
+     ]
+    },
+    "ffd_NrrtvMaxAggtAmt": {
+     "xbrltype": "nonNegativeDecimal2ItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "NrrtvMaxAggtAmt",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/feesSummaryTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Narrative Disclosure, Maximum Aggregate Offering Amount",
+        "terseLabel": "Narrative - Max Aggregate Offering Amount"
+       }
+      }
+     },
+     "auth_ref": [
+      "r1"
+     ]
+    },
+    "ffd_NrrtvMaxAggtOfferingPric": {
+     "xbrltype": "nonNegative100TMonetary2ItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "NrrtvMaxAggtOfferingPric",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/feesSummaryTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Narrative Disclosure, Maximum Aggregate Offering Price",
+        "terseLabel": "Narrative - Max Aggregate Offering Price"
+       }
+      }
+     },
+     "auth_ref": [
+      "r1"
+     ]
+    },
+    "ffd_OfferingAxis": {
+     "xbrltype": "stringItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "OfferingAxis",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/feesOfferingTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Offering [Axis]",
+        "terseLabel": "Offering",
+        "documentation": "A sequence number (1, 2, 3...) used to distinguish different security offerings on a single fee bearing submission."
+       }
+      }
+     },
+     "auth_ref": []
+    },
+    "ffd_OfferingLineItems": {
+     "xbrltype": "stringItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "OfferingLineItems",
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Offering [Line Items]",
+        "terseLabel": "Offering:"
+       }
+      }
+     },
+     "auth_ref": []
+    },
+    "ffd_OfferingNote": {
+     "xbrltype": "textBlockItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "OfferingNote",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/feesOfferingTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Offering Note",
+        "terseLabel": "Offering Note"
+       }
+      }
+     },
+     "auth_ref": [
+      "r1"
+     ]
+    },
+    "ffd_OfferingSctyTitl": {
+     "xbrltype": "securityTitleItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "OfferingSctyTitl",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/feesOfferingTable",
+      "http://xbrl.sec.gov/ffd/role/document/securities424iTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Offering Security Title",
+        "terseLabel": "Security Class Title",
+        "documentation": "The title of the class of securities being registered (for each class being registered)."
+       }
+      }
+     },
+     "auth_ref": [
+      "r1"
+     ]
+    },
+    "ffd_OfferingSctyTp": {
+     "xbrltype": "securityTypeItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "OfferingSctyTp",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/feesOfferingTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Offering Security Type",
+        "terseLabel": "Security Type",
+        "documentation": "Type of securities: \"Asset-backed Securities\", \"ADRs/ADSs\", \"Debt\", \"Debt Convertible into Equity\", \"Equity\", \"Face Amount Certificates\", \"Limited Partnership Interests\", \"Mortgage Backed Securities\", \"Non-Convertible Debt\", \"Unallocated (Universal) Shelf\", \"Exchange Traded Vehicle Securities\", \"Other\""
+       }
+      }
+     },
+     "auth_ref": [
+      "r1"
+     ]
+    },
+    "ffd_OfferingTable": {
+     "xbrltype": "stringItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "OfferingTable",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/feesOfferingTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Offering [Table]",
+        "terseLabel": "Offering:"
+       }
+      }
+     },
+     "auth_ref": []
+    },
+    "ffd_OfferingTableNa": {
+     "xbrltype": "naItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "OfferingTableNa",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/submissionTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Offering Table [N/A]",
+        "terseLabel": "Offering Table N/A"
+       }
+      }
+     },
+     "auth_ref": []
+    },
+    "ffd_OffsetAxis": {
+     "xbrltype": "stringItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "OffsetAxis",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/feesOffsetTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Offset [Axis]",
+        "terseLabel": "Offset",
+        "documentation": "A sequence number (1, 2, 3...) used to distinguish different offsets as applied to a fee bearing submission."
+       }
+      }
+     },
+     "auth_ref": [
+      "r1"
+     ]
+    },
+    "ffd_OffsetClmInitlFilgDt": {
+     "xbrltype": "dateItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "OffsetClmInitlFilgDt",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/feesOffsetTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Offset Claim Initial Filing Date",
+        "terseLabel": "Initial Filing Date",
+        "documentation": "The initial filing date of the earlier registration statement with which the earlier (offsetting) fee was paid for a claimed offset. If the offset fee was paid with an amendment, do not provide the amendment date under this element; instead, provide the date of the initial filing (i.e. the \"parent\" filing) ."
+       }
+      }
+     },
+     "auth_ref": [
+      "r5",
+      "r8"
+     ]
+    },
+    "ffd_OffsetClmdAmt": {
+     "xbrltype": "nonNegative1TMonetary2ItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "OffsetClmdAmt",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/feesOffsetTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Offset Claimed Amount",
+        "terseLabel": "Fee Offset Claimed",
+        "documentation": "The amount of offsetting fees being claimed."
+       }
+      }
+     },
+     "auth_ref": [
+      "r5",
+      "r8"
+     ]
+    },
+    "ffd_OffsetClmdInd": {
+     "xbrltype": "booleanItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "OffsetClmdInd",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/feesOffsetTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Offset Claimed Indicator",
+        "terseLabel": "Offset Claimed"
+       }
+      }
+     },
+     "auth_ref": [
+      "r1"
+     ]
+    },
+    "ffd_OffsetExpltnForClmdAmt": {
+     "xbrltype": "textBlockItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "OffsetExpltnForClmdAmt",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/feesOffsetTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Offset Explanation for Claimed Amount",
+        "terseLabel": "Explanation for Claimed Amount"
+       }
+      }
+     },
+     "auth_ref": [
+      "r1"
+     ]
+    },
+    "ffd_OffsetLineItems": {
+     "xbrltype": "stringItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "OffsetLineItems",
+     "lang": {
+      "en-us": {
+       "role": {
+        "terseLabel": "Offset:",
+        "label": "Offset [Line Items]"
+       }
+      }
+     },
+     "auth_ref": [
+      "r1"
+     ]
+    },
+    "ffd_OffsetNote": {
+     "xbrltype": "textBlockItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "OffsetNote",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/feesOffsetTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Offset Note",
+        "terseLabel": "Offset Note"
+       }
+      }
+     },
+     "auth_ref": [
+      "r1"
+     ]
+    },
+    "ffd_OffsetPrrFeeAmt": {
+     "xbrltype": "nonNegative1TMonetary2ItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "OffsetPrrFeeAmt",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/feesOffsetTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Offset Prior Fee Amount",
+        "terseLabel": "Fee Paid with Fee Offset Source",
+        "documentation": "The fee prevoiusly paid from which an offset is being derived."
+       }
+      }
+     },
+     "auth_ref": [
+      "r5",
+      "r8"
+     ]
+    },
+    "ffd_OffsetPrrFileNb": {
+     "xbrltype": "fileNumberItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "OffsetPrrFileNb",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/feesOffsetTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Offset Prior File Number",
+        "terseLabel": "File Number",
+        "documentation": "The EDGAR File Number of the earlier registration statement with which the earlier (offsetting) fee was paid. If the offset filing for the offset has a Securities Act File Number and an Investment Company Act File Number, the Securities Act File Number should be used."
+       }
+      }
+     },
+     "auth_ref": [
+      "r5",
+      "r8"
+     ]
+    },
+    "ffd_OffsetPrrFilerNm": {
+     "xbrltype": "filerNameItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "OffsetPrrFilerNm",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/feesOffsetTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Offset Prior Filer Name",
+        "terseLabel": "Registrant or Filer Name",
+        "documentation": "The name of the registrant that filed the earlier registration statement with which the earlier (offsetting) fee was paid."
+       }
+      }
+     },
+     "auth_ref": [
+      "r5",
+      "r8"
+     ]
+    },
+    "ffd_OffsetPrrFormTp": {
+     "xbrltype": "formTypeItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "OffsetPrrFormTp",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/feesOffsetTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Offset Prior Form Type",
+        "terseLabel": "Form or Filing Type",
+        "documentation": "The Form Type of the offset filing."
+       }
+      }
+     },
+     "auth_ref": [
+      "r5",
+      "r8"
+     ]
+    },
+    "ffd_OffsetPrrNbOfUnsoldScties": {
+     "xbrltype": "nonNegativeIntegerItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "OffsetPrrNbOfUnsoldScties",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/feesOffsetTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Offset Prior Unsold Number of Securities",
+        "terseLabel": "Unsold Securities Associated with Fee Offset Claimed",
+        "documentation": "The number of unsold securities registered on the prior registration statement that are associated with the claimed offset."
+       }
+      }
+     },
+     "auth_ref": [
+      "r5",
+      "r8"
+     ]
+    },
+    "ffd_OffsetPrrSctyTitl": {
+     "xbrltype": "securityTitleItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "OffsetPrrSctyTitl",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/feesOffsetTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Offset Prior Security Title",
+        "terseLabel": "Security Title Associated with Fee Offset Claimed",
+        "documentation": "The title of the class of securities from which offset fees were derived."
+       }
+      }
+     },
+     "auth_ref": [
+      "r5",
+      "r8"
+     ]
+    },
+    "ffd_OffsetPrrSctyTp": {
+     "xbrltype": "securityTypeItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "OffsetPrrSctyTp",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/feesOffsetTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Offset Prior Security Type",
+        "terseLabel": "Security Type Associated with Fee Offset Claimed",
+        "documentation": "Type of securities: \"Asset-backed Securities\", \"ADRs/ADSs\", \"Debt\", \"Debt Convertible into Equity\", \"Equity\", \"Face Amount Certificates\", \"Limited Partnership Interests\", \"Mortgage Backed Securities\", \"Non-Convertible Debt\", \"Unallocated (Universal) Shelf\", \"Exchange Traded Vehicle Securities\", \"Other\""
+       }
+      }
+     },
+     "auth_ref": [
+      "r5",
+      "r8"
+     ]
+    },
+    "ffd_OffsetPrrUnsoldOfferingAmt": {
+     "xbrltype": "nonNegative1TMonetary2ItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "OffsetPrrUnsoldOfferingAmt",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/feesOffsetTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Offset Prior Unsold Offering Amount",
+        "terseLabel": "Unsold Aggregate Offering Amount Associated with Fee Offset Claimed",
+        "documentation": "The aggregate offering amount of unsold securities registered on the prior registration statement that are associated with the claimed offset."
+       }
+      }
+     },
+     "auth_ref": [
+      "r5",
+      "r8"
+     ]
+    },
+    "ffd_OffsetSrcFilgDt": {
+     "xbrltype": "dateItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "OffsetSrcFilgDt",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/feesOffsetTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Offset Source Filing Date",
+        "terseLabel": "Filing Date",
+        "documentation": "The filing date of the earlier registration statement with which the earlier (offsetting) fee was paid in an offset."
+       }
+      }
+     },
+     "auth_ref": [
+      "r5",
+      "r8"
+     ]
+    },
+    "ffd_OffsetTable": {
+     "xbrltype": "stringItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "OffsetTable",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/feesOffsetTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "terseLabel": "Offset Payment:",
+        "label": "Offset [Table]"
+       }
+      }
+     },
+     "auth_ref": [
+      "r1"
+     ]
+    },
+    "ffd_OffsetTableNa": {
+     "xbrltype": "naItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "OffsetTableNa",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/submissionTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Offset Table [N/A]",
+        "terseLabel": "Offset Table N/A"
+       }
+      }
+     },
+     "auth_ref": []
+    },
+    "ffd_PrevslyPdFlg": {
+     "xbrltype": "booleanItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "PrevslyPdFlg",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/feesOfferingTable",
+      "http://xbrl.sec.gov/ffd/role/document/securities424iTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Fee Previously Paid [Flag]",
+        "terseLabel": "Fee Previously Paid"
+       }
+      }
+     },
+     "auth_ref": []
+    },
+    "ffd_RegnFileNb": {
+     "xbrltype": "fileNumberItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "RegnFileNb",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/submissionTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Registration File Number",
+        "terseLabel": "Registration File Number"
+       }
+      }
+     },
+     "auth_ref": []
+    },
+    "ffd_RptgFsclYrEndDt": {
+     "xbrltype": "dateItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "RptgFsclYrEndDt",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/submissionTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Reporting Fiscal Year End Date",
+        "terseLabel": "Reporting FY End Date"
+       }
+      }
+     },
+     "auth_ref": []
+    },
+    "ffd_Rule011Flg": {
+     "xbrltype": "booleanItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "Rule011Flg",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/feesOfferingTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Rule 0-11 [Flag]",
+        "terseLabel": "Rule 0-11"
+       }
+      }
+     },
+     "auth_ref": []
+    },
+    "ffd_Rule011a2OffsetFlg": {
+     "xbrltype": "booleanItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "Rule011a2OffsetFlg",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/feesOffsetTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "terseLabel": "Rule 0-11(a)(2) Offset",
+        "label": "Rule 0-11(a)(2) Offset [Flag]"
+       }
+      }
+     },
+     "auth_ref": []
+    },
+    "ffd_Rule415a6Flg": {
+     "xbrltype": "booleanItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "Rule415a6Flg",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/feesOfferingTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Rule 415(a)(6) [Flag]",
+        "terseLabel": "Rule 415(a)(6)",
+        "documentation": "Checkbox indicating whether filer is claiming a 415(a)(6) carryforward."
+       }
+      }
+     },
+     "auth_ref": [
+      "r2"
+     ]
+    },
+    "ffd_Rule429AggtOfferingAmt": {
+     "xbrltype": "nonNegative100TMonetary2ItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "Rule429AggtOfferingAmt",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/feesByCmbndPrspctsTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Rule 429 Aggregate Offering Amount",
+        "terseLabel": "Maximum Aggregate Offering Price of Securities Previously Registered",
+        "documentation": "The maximum aggregate offering amount of unsold securities registered on the prior registration statement that are carried forward under Rule 429. Only applicable if 457(o) was used in the fee calculation for the prior registration statement."
+       }
+      }
+     },
+     "auth_ref": [
+      "r3"
+     ]
+    },
+    "ffd_Rule429CmbndPrspctsFlg": {
+     "xbrltype": "booleanItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "Rule429CmbndPrspctsFlg",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/feesByCmbndPrspctsTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Rule 429 Combined Prospectus [Flag]",
+        "terseLabel": "Rule 429",
+        "documentation": "Checkbox indicating whether filer is using a combined prospectus under Rule 429."
+       }
+      }
+     },
+     "auth_ref": [
+      "r3"
+     ]
+    },
+    "ffd_Rule429EarlierFileNb": {
+     "xbrltype": "fileNumberItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "Rule429EarlierFileNb",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/feesByCmbndPrspctsTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Rule 429 Earlier File Number",
+        "terseLabel": "File Number",
+        "documentation": "The Securities Act File Number of the earlier effective registration statement(s) from which securities may be offered and sold using the combined prospectus pursuant to Rule 429."
+       }
+      }
+     },
+     "auth_ref": [
+      "r3"
+     ]
+    },
+    "ffd_Rule429EarlierFormTp": {
+     "xbrltype": "formTypeItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "Rule429EarlierFormTp",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/feesByCmbndPrspctsTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Rule 429 Earlier Form Type",
+        "terseLabel": "Form Type",
+        "documentation": "The Form Type of the earlier registration statement from which unsold securities are carried forward under Rule 429. This should be an EDGAR submission type (S-3, S-3/A, S-3ASR, etc.), which means there is a fixed set of possible responses. Note that while the XBRL response should be an EDGAR submission type, the human-readable Ex. 107 could include a simpler label (e.g., \"Form S-3\" in the human-readable and \"S-3ASR\" in the XBRL)."
+       }
+      }
+     },
+     "auth_ref": [
+      "r3"
+     ]
+    },
+    "ffd_Rule429InitlFctvDt": {
+     "xbrltype": "dateItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "Rule429InitlFctvDt",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/feesByCmbndPrspctsTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Rule 429 Initial Effective Date",
+        "terseLabel": "Initial Effective Date",
+        "documentation": "The filing date of the earlier registration statement from which unsold securities are carried forward under Rule 429."
+       }
+      }
+     },
+     "auth_ref": [
+      "r3"
+     ]
+    },
+    "ffd_Rule429NbOfUnsoldScties": {
+     "xbrltype": "nonNegativeDecimal2ItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "Rule429NbOfUnsoldScties",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/feesByCmbndPrspctsTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Rule 429 Number Of Unsold Securities",
+        "terseLabel": "Amount of Securities Previously Registered",
+        "documentation": "The number of securities registered on the prior registration statement that are carried forward under Rule 429."
+       }
+      }
+     },
+     "auth_ref": [
+      "r3"
+     ]
+    },
+    "ffd_Rule429PrspctsNote": {
+     "xbrltype": "textBlockItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "Rule429PrspctsNote",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/feesByCmbndPrspctsTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Rule 429 Prospectus Note",
+        "terseLabel": "Combined Prospectus Note"
+       }
+      }
+     },
+     "auth_ref": [
+      "r1"
+     ]
+    },
+    "ffd_Rule429SctyTitl": {
+     "xbrltype": "securityTitleItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "Rule429SctyTitl",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/feesByCmbndPrspctsTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Rule 429 Security Title",
+        "terseLabel": "Security Class Title"
+       }
+      }
+     },
+     "auth_ref": [
+      "r1"
+     ]
+    },
+    "ffd_Rule429SctyTp": {
+     "xbrltype": "securityTypeItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "Rule429SctyTp",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/feesByCmbndPrspctsTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Rule 429 Security Type",
+        "terseLabel": "Security Type"
+       }
+      }
+     },
+     "auth_ref": [
+      "r1"
+     ]
+    },
+    "ffd_Rule457aFlg": {
+     "xbrltype": "booleanItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "Rule457aFlg",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/feesOfferingTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Rule 457(a) [Flag]",
+        "terseLabel": "Rule 457(a)",
+        "documentation": "Checkbox indicating whether filer is using Rule 457(a) to calculate the registration fee due."
+       }
+      }
+     },
+     "auth_ref": [
+      "r4"
+     ]
+    },
+    "ffd_Rule457bOffsetFlg": {
+     "xbrltype": "booleanItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "Rule457bOffsetFlg",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/feesOffsetTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Rule 457(b) Offset [Flag]",
+        "terseLabel": "Rule 457(b) Offset",
+        "documentation": "Checkbox indicating whether filer is claiming an offset under Rule 457(b) or 0-11(a)(2)."
+       }
+      }
+     },
+     "auth_ref": [
+      "r5"
+     ]
+    },
+    "ffd_Rule457fFlg": {
+     "xbrltype": "booleanItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "Rule457fFlg",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/feesOfferingTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Rule 457(f) [Flag]",
+        "terseLabel": "Rule 457(f)",
+        "documentation": "Checkbox indicating whether filer is using Rule 457(f) to calculate the registration fee due."
+       }
+      }
+     },
+     "auth_ref": [
+      "r6"
+     ]
+    },
+    "ffd_Rule457oFlg": {
+     "xbrltype": "booleanItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "Rule457oFlg",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/feesOfferingTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Rule 457(o) [Flag]",
+        "terseLabel": "Rule 457(o)",
+        "documentation": "Checkbox indicating whether filer is using Rule 457(o) to calculate the registration fee due."
+       }
+      }
+     },
+     "auth_ref": [
+      "r7"
+     ]
+    },
+    "ffd_Rule457pOffsetFlg": {
+     "xbrltype": "booleanItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "Rule457pOffsetFlg",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/feesOffsetTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Rule 457(p) Offset [Flag]",
+        "terseLabel": "Rule 457(p) Offset",
+        "documentation": "Checkbox indicating whether filer is claiming an offset under Rule 457(p)."
+       }
+      }
+     },
+     "auth_ref": [
+      "r8"
+     ]
+    },
+    "ffd_Rule457rFlg": {
+     "xbrltype": "booleanItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "Rule457rFlg",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/feesOfferingTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Rule 457(r) [Flag]",
+        "terseLabel": "Rule 457(r)"
+       }
+      }
+     },
+     "auth_ref": [
+      "r9"
+     ]
+    },
+    "ffd_Rule457sFlg": {
+     "xbrltype": "booleanItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "Rule457sFlg",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/feesOfferingTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Rule 457(s) Flag",
+        "terseLabel": "Rule 457(s)"
+       }
+      }
+     },
+     "auth_ref": [
+      "r10"
+     ]
+    },
+    "ffd_Rule457uFlg": {
+     "xbrltype": "booleanItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "Rule457uFlg",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/feesOfferingTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Rule 457(u) [Flag]",
+        "terseLabel": "Rule 457(u)",
+        "documentation": "Checkbox indicating whether filer is using Rule 457(u) to calculate the registration fee due."
+       }
+      }
+     },
+     "auth_ref": [
+      "r11"
+     ]
+    },
+    "ffd_Scties424iAxis": {
+     "xbrltype": "stringItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "Scties424iAxis",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/securities424iTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Securities, 424I [Axis]",
+        "terseLabel": "Securities, 424I"
+       }
+      }
+     },
+     "auth_ref": [
+      "r1"
+     ]
+    },
+    "ffd_Scties424iLineItems": {
+     "xbrltype": "stringItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "Scties424iLineItems",
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Securities, 424I [Line Items]",
+        "terseLabel": "Securities, 424I:"
+       }
+      }
+     },
+     "auth_ref": [
+      "r1"
+     ]
+    },
+    "ffd_Scties424iTable": {
+     "xbrltype": "stringItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "Scties424iTable",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/securities424iTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Securities, 424I [Table]",
+        "terseLabel": "Securities, 424I Table"
+       }
+      }
+     },
+     "auth_ref": [
+      "r1"
+     ]
+    },
+    "ffd_Securities424iTableNa": {
+     "xbrltype": "naItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "Securities424iNa",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/submissionTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Securities 424I [N/A]",
+        "terseLabel": "Securities 424I N/A"
+       }
+      }
+     },
+     "auth_ref": []
+    },
+    "ffd_SubmissionLineItems": {
+     "xbrltype": "stringItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "SubmissionLineItems",
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Submission [Line Items]",
+        "terseLabel": "Items"
+       }
+      }
+     },
+     "auth_ref": []
+    },
+    "ffd_SubmissnTp": {
+     "xbrltype": "submissionTypeItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "SubmissnTp",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/submissionTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Submission Type",
+        "terseLabel": "Submission Type"
+       }
+      }
+     },
+     "auth_ref": []
+    },
+    "ffd_TermntnCmpltnWdrwl": {
+     "xbrltype": "textBlockItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "TermntnCmpltnWdrwl",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/feesOffsetTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Termination / Completion / Withdrawal Statement",
+        "terseLabel": "Termination / Withdrawal Statement"
+       }
+      }
+     },
+     "auth_ref": []
+    },
+    "ffd_TtlFeeAmt": {
+     "xbrltype": "nonNegative1TMonetary2ItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "TtlFeeAmt",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/feesSummaryTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Total Fee Amount",
+        "terseLabel": "Total Fee Amount"
+       }
+      }
+     },
+     "auth_ref": [
+      "r1"
+     ]
+    },
+    "ffd_TtlFeeAndIntrstAmt": {
+     "xbrltype": "nonNegativeDecimal2ItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "TtlFeeAndIntrstAmt",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/feesSummaryTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Total Fee and Interest Amount",
+        "terseLabel": "Total Fee and Interest Amount"
+       }
+      }
+     },
+     "auth_ref": [
+      "r1"
+     ]
+    },
+    "ffd_TtlOfferingAmt": {
+     "xbrltype": "nonNegative1TMonetary2ItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "TtlOfferingAmt",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/feesSummaryTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Total Offering Amount",
+        "terseLabel": "Total Offering"
+       }
+      }
+     },
+     "auth_ref": [
+      "r1"
+     ]
+    },
+    "ffd_TtlOffsetAmt": {
+     "xbrltype": "nonNegative1TMonetary2ItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "TtlOffsetAmt",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/feesSummaryTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Total Offset Amount",
+        "terseLabel": "Total Offset Amount"
+       }
+      }
+     },
+     "auth_ref": [
+      "r1"
+     ]
+    },
+    "ffd_TtlPrevslyPdAmt": {
+     "xbrltype": "nonNegative1TMonetary2ItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "TtlPrevslyPdAmt",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/feesSummaryTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Total Previously Paid Amount",
+        "terseLabel": "Previously Paid Amount"
+       }
+      }
+     },
+     "auth_ref": [
+      "r1"
+     ]
+    },
+    "ffd_TtlTxValtn": {
+     "xbrltype": "nonNegative100TMonetary2ItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "TtlTxValtn",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/feesSummaryTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Total Transaction Valuation",
+        "terseLabel": "Total Transaction Valuation"
+       }
+      }
+     },
+     "auth_ref": [
+      "r1"
+     ]
+    },
+    "ffd_TxValtn": {
+     "xbrltype": "nonNegative100TMonetary2ItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "TxValtn",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/feesOfferingTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Transaction Valuation",
+        "terseLabel": "Transaction Valuation"
+       }
+      }
+     },
+     "auth_ref": []
+    },
+    "ffd_ValSctiesRcvd": {
+     "xbrltype": "nonNegative100TMonetary2ItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "ValSctiesRcvd",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/feesOfferingTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Value of Securities Received",
+        "terseLabel": "Value of Securities Received",
+        "documentation": "Value of securities to be received by the registrant (or cancelled upon issuance of securities to be registered on the form)"
+       }
+      }
+     },
+     "auth_ref": [
+      "r6"
+     ]
+    },
+    "ffd_ValSctiesRcvdPerShr": {
+     "xbrltype": "nonNegativeDecimal4lItemType",
+     "nsuri": "http://xbrl.sec.gov/ffd/2024q2",
+     "localname": "ValSctiesRcvdPerShr",
+     "presentation": [
+      "http://xbrl.sec.gov/ffd/role/document/feesOfferingTable"
+     ],
+     "lang": {
+      "en-us": {
+       "role": {
+        "label": "Value of Securities Received, Per Share",
+        "terseLabel": "Value of Securities Received, Per Share",
+        "documentation": "Value per share of securities to be received by the registrant (or cancelled upon issuance of securities to be registered on the form). This is included in the explanation of 457(f) fee calculation."
+       }
+      }
+     },
+     "auth_ref": [
+      "r6"
+     ]
+    }
+   }
+  }
+ },
+ "std_ref": {
+  "r0": {
+   "role": "http://www.xbrl.org/2003/role/presentationRef",
+   "Publisher": "SEC",
+   "Name": "Exchange Act",
+   "Number": "240",
+   "Section": "12",
+   "Subsection": "b-2"
+  },
+  "r1": {
+   "role": "http://www.xbrl.org/2003/role/presentationRef",
+   "Publisher": "SEC",
+   "Name": "Securities Act",
+   "Number": "230"
+  },
+  "r2": {
+   "role": "http://www.xbrl.org/2003/role/presentationRef",
+   "Publisher": "SEC",
+   "Name": "Securities Act",
+   "Number": "230",
+   "Section": "415",
+   "Subsection": "a"
+  },
+  "r3": {
+   "role": "http://www.xbrl.org/2003/role/presentationRef",
+   "Publisher": "SEC",
+   "Name": "Securities Act",
+   "Number": "230",
+   "Section": "429"
+  },
+  "r4": {
+   "role": "http://www.xbrl.org/2003/role/presentationRef",
+   "Publisher": "SEC",
+   "Name": "Securities Act",
+   "Number": "230",
+   "Section": "457"
+  },
+  "r5": {
+   "role": "http://www.xbrl.org/2003/role/presentationRef",
+   "Publisher": "SEC",
+   "Name": "Securities Act",
+   "Number": "230",
+   "Section": "457",
+   "Subsection": "b"
+  },
+  "r6": {
+   "role": "http://www.xbrl.org/2003/role/presentationRef",
+   "Publisher": "SEC",
+   "Name": "Securities Act",
+   "Number": "230",
+   "Section": "457",
+   "Subsection": "f"
+  },
+  "r7": {
+   "role": "http://www.xbrl.org/2003/role/presentationRef",
+   "Publisher": "SEC",
+   "Name": "Securities Act",
+   "Number": "230",
+   "Section": "457",
+   "Subsection": "o"
+  },
+  "r8": {
+   "role": "http://www.xbrl.org/2003/role/presentationRef",
+   "Publisher": "SEC",
+   "Name": "Securities Act",
+   "Number": "230",
+   "Section": "457",
+   "Subsection": "p"
+  },
+  "r9": {
+   "role": "http://www.xbrl.org/2003/role/presentationRef",
+   "Publisher": "SEC",
+   "Name": "Securities Act",
+   "Number": "230",
+   "Section": "457",
+   "Subsection": "r"
+  },
+  "r10": {
+   "role": "http://www.xbrl.org/2003/role/presentationRef",
+   "Publisher": "SEC",
+   "Name": "Securities Act",
+   "Number": "230",
+   "Section": "457",
+   "Subsection": "s"
+  },
+  "r11": {
+   "role": "http://www.xbrl.org/2003/role/presentationRef",
+   "Publisher": "SEC",
+   "Name": "Securities Act",
+   "Number": "230",
+   "Section": "457",
+   "Subsection": "u"
+  },
+  "r12": {
+   "role": "http://www.xbrl.org/2003/role/presentationRef",
+   "Publisher": "SEC",
+   "Name": "Securities Act",
+   "Number": "230",
+   "Subsection": "f",
+   "Section": "457"
+  }
+ }
+}

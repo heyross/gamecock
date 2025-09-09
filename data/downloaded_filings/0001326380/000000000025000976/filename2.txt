@@ -1,0 +1,99 @@
+<DOCUMENT>
+<TYPE>TEXT-EXTRACT
+<SEQUENCE>2
+<FILENAME>filename2.txt
+<TEXT>
+                                                            January 29, 2025
+
+Ryan Cohen
+Chief Executive Officer
+GameStop Corp.
+625 Westport Parkway
+Grapevine, TX 76051
+
+       Re: GameStop Corp.
+           Form 10-K for Fiscal Year Ended February 3, 2024
+           File No. 001-32637
+Dear Ryan Cohen:
+
+       We have reviewed your filing and have the following comment(s).
+
+       Please respond to this letter within ten business days by providing the
+requested
+information or advise us as soon as possible when you will respond. If you do
+not believe a
+comment applies to your facts and circumstances, please tell us why in your
+response.
+
+       After reviewing your response to this letter, we may have additional
+comments.
+
+Form 10-K for Fiscal Year Ended February 3, 2024
+Risk Factors
+Risks Related to our Investment Policy and Securities, page 11
+
+1.     We note your disclosure that "[d]epending on certain market conditions
+and various
+       risk factors, Mr. Cohen or other members of the Investment Committee,
+each in their
+       personal capacity or through affiliated investment vehicles, may at
+times invest in the
+       same securities in which the Company invests." Please elaborate on the
+risks related
+       to this aspect of your Investment Policy, including the potential
+conflicts of interest
+       that may arise. If applicable, please update your related party
+transaction disclosure,
+       including for any currently proposed transaction(s). Refer to Item 404
+of Regulation
+       S-K.
+General
+
+2.     We note your disclosure in your Form 10-Q for the quarter ended August
+3, 2024,
+       filed on September 10, 2024, as amended on October 25, 2024, and your
+Form 10-Q
+       for the quarter ended November 2, 2024, filed on December 10, 2024,
+regarding your
+       At-The-Market Equity Offering Program. You state that aggregate gross
+proceeds
+       from such offerings totaled approximately $3.5 billion and you intend to
+use the net
+ January 29, 2025
+Page 2
+
+       proceeds from such offerings    for general corporate purposes, which
+may include
+       acquisitions and investments in a manner consistent with our investment
+policy.
+       However, we also note your disclosure that "[t]he Company   s
+investments must
+       conform to guidelines set forth in the revised Investment Policy or be
+approved by
+       either the Investment Committee, by unanimous vote, or the full Board,
+by majority
+       vote." Please revise to clarify the guidelines of your Investment Policy
+and
+       accordingly, the manner in which the net proceeds from your ATM
+Offerings may be
+       used and/or approved for use.
+        We remind you that the company and its management are responsible for
+the accuracy
+and adequacy of their disclosures, notwithstanding any review, comments, action
+or absence
+of action by the staff.
+
+       Please contact Alyssa Wall at 202-551-8106 or Cara Wirth at 202-551-7127
+with any
+questions.
+
+
+
+                                                         Sincerely,
+
+                                                         Division of
+Corporation Finance
+                                                         Office of Trade &
+Services
+</TEXT>
+</DOCUMENT>

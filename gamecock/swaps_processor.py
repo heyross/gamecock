@@ -41,9 +41,51 @@ class SwapsProcessor:
 
             logger.info(f"Processing swaps from {file_path}")
 
-            if file_path.suffix.lower() == '.csv' or file_path.suffix.lower() == '.txt':
+            suffix = file_path.suffix.lower()
+            if suffix == '.csv':
+                # Standard CSV
                 df = pd.read_csv(file_path)
                 loaded_swaps = self._process_dataframe(df)
+            elif suffix == '.xlsx':
+                # Excel support
+                df = pd.read_excel(file_path)
+                loaded_swaps = self._process_dataframe(df)
+            elif suffix == '.txt':
+                # Robust TXT strategy: try several delimiters and fallback to fixed-width
+                df = None
+                # 1) Try pandas engine guessing
+                try:
+                    df = pd.read_csv(file_path, sep=None, engine='python')
+                except Exception:
+                    pass
+                # 2) Try tab
+                if df is None:
+                    try:
+                        df = pd.read_csv(file_path, sep='\t')
+                    except Exception:
+                        pass
+                # 3) Try pipe
+                if df is None:
+                    try:
+                        df = pd.read_csv(file_path, sep='|')
+                    except Exception:
+                        pass
+                # 4) Try comma with quoting
+                if df is None:
+                    try:
+                        df = pd.read_csv(file_path, sep=',', engine='python')
+                    except Exception:
+                        pass
+                # 5) Fixed width fallback
+                if df is None:
+                    try:
+                        df = pd.read_fwf(file_path)
+                    except Exception:
+                        pass
+                if df is not None and not df.empty:
+                    loaded_swaps = self._process_dataframe(df)
+                else:
+                    logger.warning(f"TXT file could not be parsed as a table: {file_path}")
             elif file_path.suffix.lower() == '.json':
                 with open(file_path, 'r', encoding='utf-8') as f:
                     data = json.load(f)
@@ -84,6 +126,7 @@ class SwapsProcessor:
     def _process_dataframe(self, df: pd.DataFrame) -> List[SwapContract]:
         """Process swaps data from a pandas DataFrame."""
         swaps = []
+        skipped_invalid_date = 0
         df.columns = df.columns.str.lower()
         
         column_mapping = {
@@ -119,7 +162,7 @@ class SwapsProcessor:
                 maturity_date_dt = pd.to_datetime(swap_data.get('maturity_date'), errors='coerce')
 
                 if pd.isna(effective_date_dt) or pd.isna(maturity_date_dt):
-                    logger.warning(f"Skipping record with invalid or missing date. Contract ID: {swap_data.get('contract_id', 'N/A')}")
+                    skipped_invalid_date += 1
                     continue
 
                 try:
@@ -160,6 +203,11 @@ class SwapsProcessor:
                 if len(error_message) > 500:
                     error_message = error_message[:500] + "... (truncated)"
                 logger.error(f"Error processing swap record: {error_message}", exc_info=True)
+        
+        if skipped_invalid_date:
+            logger.warning(f"Skipped {skipped_invalid_date} record(s) with invalid or missing date.")
+        if swaps:
+            logger.info(f"Parsed {len(swaps)} swap record(s) from dataframe.")
         
         return swaps
 

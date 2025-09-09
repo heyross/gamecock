@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='utf-8'?>
+<FilingSummary>
+  <Version>3.25.1</Version>
+  <ProcessingTime/>
+  <ReportFormat>html</ReportFormat>
+  <ContextCount>36</ContextCount>
+  <ElementCount>32</ElementCount>
+  <EntityCount>1</EntityCount>
+  <FootnotesReported>false</FootnotesReported>
+  <SegmentCount>13</SegmentCount>
+  <ScenarioCount>0</ScenarioCount>
+  <TuplesReported>false</TuplesReported>
+  <UnitCount>1</UnitCount>
+  <MyReports>
+    <Report instance="d894376ddef14a.htm">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R1.htm</HtmlFileName>
+      <LongName>995100 - Document - Cover</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://xbrl.sec.gov/dei/role/document/Cover</Role>
+      <ShortName>Cover</ShortName>
+      <MenuCategory>Cover</MenuCategory>
+      <Position>1</Position>
+    </Report>
+    <Report instance="d894376ddef14a.htm">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R2.htm</HtmlFileName>
+      <LongName>995410 - Disclosure - Pay vs Performance Disclosure</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://xbrl.sec.gov/ecd/role/PvpDisclosure</Role>
+      <ShortName>Pay vs Performance Disclosure</ShortName>
+      <MenuCategory>Notes</MenuCategory>
+      <Position>2</Position>
+    </Report>
+    <Report instance="d894376ddef14a.htm">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R3.htm</HtmlFileName>
+      <LongName>995443 - Disclosure - Award Timing Disclosure</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://xbrl.sec.gov/ecd/role/AwardTimingDisclosure</Role>
+      <ShortName>Award Timing Disclosure</ShortName>
+      <MenuCategory>Notes</MenuCategory>
+      <Position>3</Position>
+    </Report>
+    <Report instance="d894376ddef14a.htm">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R4.htm</HtmlFileName>
+      <LongName>995447 - Disclosure - Insider Trading Policies and Procedures</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://xbrl.sec.gov/ecd/role/InsiderTradingPoliciesProc</Role>
+      <ShortName>Insider Trading Policies and Procedures</ShortName>
+      <MenuCategory>Notes</MenuCategory>
+      <Position>4</Position>
+    </Report>
+    <Report>
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <LongName>All Reports</LongName>
+      <ReportType>Book</ReportType>
+      <ShortName>All Reports</ShortName>
+    </Report>
+  </MyReports>
+  <InputFiles>
+    <File doctype="DEF 14A" isProxy="true" isUsgaap="true" original="d894376ddef14a.htm">d894376ddef14a.htm</File>
+    <File>gme-20250201.xsd</File>
+    <File>gme-20250201_def.xml</File>
+    <File>gme-20250201_lab.xml</File>
+    <File>gme-20250201_pre.xml</File>
+  </InputFiles>
+  <SupplementalFiles>
+    <File>g894376dsp001.jpg</File>
+    <File>g894376dsp002.jpg</File>
+    <File>g894376g01m01.jpg</File>
+    <File>g894376g02v01.jpg</File>
+    <File>g894376g06h08.jpg</File>
+    <File>g894376g06h09.jpg</File>
+    <File>g894376g06h10.jpg</File>
+    <File>g894376g07k02.jpg</File>
+    <File>g894376g85t00.jpg</File>
+  </SupplementalFiles>
+  <BaseTaxonomies>
+    <BaseTaxonomy items="9">http://fasb.org/us-gaap/2024</BaseTaxonomy>
+    <BaseTaxonomy items="4">http://xbrl.sec.gov/dei/2024</BaseTaxonomy>
+    <BaseTaxonomy items="107">http://xbrl.sec.gov/ecd/2024</BaseTaxonomy>
+  </BaseTaxonomies>
+  <HasPresentationLinkbase>true</HasPresentationLinkbase>
+  <HasCalculationLinkbase>false</HasCalculationLinkbase>
+</FilingSummary>

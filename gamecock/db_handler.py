@@ -5,7 +5,7 @@ from loguru import logger
 from datetime import datetime
 
 from .data_structures import CompanyInfo, EntityIdentifiers
-from sqlalchemy import create_engine, Column, Integer, String, Float, Date, DateTime, Text, ForeignKey, JSON, Boolean, func, text
+from sqlalchemy import create_engine, Column, Integer, String, Float, Date, DateTime, Text, ForeignKey, JSON, Boolean, func, text, UniqueConstraint
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, relationship, Session
 from sqlalchemy.orm.exc import NoResultFound
@@ -223,6 +223,22 @@ class ObligationTrigger(Base):
         }
 
 
+class Filing(Base):
+    """Metadata for downloaded filings for stats and navigation."""
+    __tablename__ = 'filings'
+    __table_args__ = (
+        UniqueConstraint('company_cik', 'accession_number', name='uix_company_accession'),
+    )
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    company_cik = Column(String, nullable=False)
+    accession_number = Column(String, nullable=False)
+    form_type = Column(String, nullable=True)
+    filing_date = Column(String, nullable=True)
+    file_path = Column(Text, nullable=True)
+    created_at = Column(DateTime, server_default=func.now())
+    updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now())
+
 class Company(Base):
     __tablename__ = 'companies'
     cik = Column(String, primary_key=True)
@@ -276,6 +292,7 @@ class DatabaseHandler:
         # Initialize all tables
         Base.metadata.create_all(self.engine)
         self._create_view()
+
 
 
 
@@ -338,6 +355,51 @@ class DatabaseHandler:
             logger.error(f"Error creating view: {str(e)}")
         finally:
             session.close()
+
+    def get_all_companies(self) -> List[CompanyInfo]:
+        """Return all saved companies as CompanyInfo objects.
+
+        This supports menu_system browsing and download flows which expect
+        structured CompanyInfo with primary identifiers and related entities.
+        """
+        session = self.Session()
+        companies: List[CompanyInfo] = []
+        try:
+            rows = session.query(Company).order_by(Company.name).all()
+            for row in rows:
+                # Build tickers list
+                tickers = []
+                for t in row.alt_tickers:
+                    tickers.append({
+                        'symbol': t.symbol,
+                        'exchange': t.exchange,
+                        'security_type': t.security_type,
+                    })
+
+                primary = EntityIdentifiers(
+                    name=row.name,
+                    cik=row.cik,
+                    description=row.description,
+                    tickers=tickers,
+                )
+
+                related_list = []
+                for r in row.related_entities:
+                    related_list.append(
+                        EntityIdentifiers(
+                            name=r.name,
+                            cik=r.cik,
+                            description=r.description,
+                            relationship_type=r.relationship_type,
+                        )
+                    )
+
+                companies.append(CompanyInfo(name=row.name, primary_identifiers=primary, related_entities=related_list))
+        except SQLAlchemyError as e:
+            logger.error(f"Error retrieving companies: {str(e)}")
+        finally:
+            session.close()
+        return companies
 
     def get_or_create_counterparty(self, name: str) -> Counterparty:
         """Get an existing counterparty or create a new one."""
@@ -742,6 +804,50 @@ class DatabaseHandler:
         finally:
             session.close()
 
+    # Filings helpers (ORM-based)
+    def upsert_filing(self, company_cik: str, accession_number: str, form_type: Optional[str], filing_date: Optional[str], file_path: Optional[str]) -> None:
+        """Insert or update a filing record using SQLAlchemy."""
+        session = self.Session()
+        try:
+            filing = session.query(Filing).filter_by(company_cik=company_cik, accession_number=accession_number).first()
+            if filing:
+                filing.form_type = form_type
+                filing.filing_date = filing_date
+                filing.file_path = file_path
+                filing.updated_at = datetime.utcnow()
+            else:
+                filing = Filing(
+                    company_cik=company_cik,
+                    accession_number=accession_number,
+                    form_type=form_type,
+                    filing_date=filing_date,
+                    file_path=file_path,
+                )
+                session.add(filing)
+            session.commit()
+        except SQLAlchemyError as e:
+            session.rollback()
+            logger.error(f"Error upserting filing {company_cik}/{accession_number}: {str(e)}")
+        finally:
+            session.close()
+
+    def get_filings_stats(self) -> Dict[str, Any]:
+        """Return basic statistics for filings for menu display."""
+        session = self.Session()
+        stats: Dict[str, Any] = {"total_filings": 0, "total_companies": 0, "latest_filing": None, "types": []}
+        try:
+            stats["total_filings"] = session.query(func.count(Filing.id)).scalar() or 0
+            stats["total_companies"] = session.query(func.count(func.distinct(Filing.company_cik))).scalar() or 0
+            stats["latest_filing"] = session.query(func.max(Filing.filing_date)).scalar()
+            # types breakdown
+            rows = session.query(Filing.form_type, func.count(Filing.id)).group_by(Filing.form_type).all()
+            stats["types"] = [(ft or "Unknown", cnt) for ft, cnt in rows]
+        except SQLAlchemyError as e:
+            logger.error(f"Error getting filings stats: {str(e)}")
+        finally:
+            session.close()
+        return stats
+
     def get_swaps_by_counterparty_id(self, counterparty_id: int) -> List[Dict[str, Any]]:
         """Get all swaps for a specific counterparty by their ID."""
         session = self.Session()
@@ -818,6 +924,3 @@ class DatabaseHandler:
             return False
         finally:
             session.close()
-
-            logger.error(f"Error retrieving company: {str(e)}")
-            return None

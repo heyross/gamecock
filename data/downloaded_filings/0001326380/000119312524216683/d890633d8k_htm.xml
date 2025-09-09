@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xbrl
+  xmlns="http://www.xbrl.org/2003/instance"
+  xmlns:dei="http://xbrl.sec.gov/dei/2023"
+  xmlns:link="http://www.xbrl.org/2003/linkbase"
+  xmlns:xlink="http://www.w3.org/1999/xlink">
+    <link:schemaRef xlink:href="gme-20240910.xsd" xlink:type="simple"/>
+    <context id="duration_2024-09-10_to_2024-09-10">
+        <entity>
+            <identifier scheme="http://www.sec.gov/CIK">0001326380</identifier>
+        </entity>
+        <period>
+            <startDate>2024-09-10</startDate>
+            <endDate>2024-09-10</endDate>
+        </period>
+    </context>
+    <dei:AmendmentFlag contextRef="duration_2024-09-10_to_2024-09-10" id="ixv-300">false</dei:AmendmentFlag>
+    <dei:EntityCentralIndexKey
+      contextRef="duration_2024-09-10_to_2024-09-10"
+      id="Hidden_dei_EntityCentralIndexKey">0001326380</dei:EntityCentralIndexKey>
+    <dei:DocumentType contextRef="duration_2024-09-10_to_2024-09-10" id="ixv-311">8-K</dei:DocumentType>
+    <dei:DocumentPeriodEndDate contextRef="duration_2024-09-10_to_2024-09-10" id="ixv-312">2024-09-10</dei:DocumentPeriodEndDate>
+    <dei:EntityRegistrantName contextRef="duration_2024-09-10_to_2024-09-10" id="ixv-313">GameStop Corp.</dei:EntityRegistrantName>
+    <dei:EntityIncorporationStateCountryCode contextRef="duration_2024-09-10_to_2024-09-10" id="ixv-314">DE</dei:EntityIncorporationStateCountryCode>
+    <dei:EntityFileNumber contextRef="duration_2024-09-10_to_2024-09-10" id="ixv-315">1-32637</dei:EntityFileNumber>
+    <dei:EntityTaxIdentificationNumber contextRef="duration_2024-09-10_to_2024-09-10" id="ixv-316">20-2733559</dei:EntityTaxIdentificationNumber>
+    <dei:EntityAddressAddressLine1 contextRef="duration_2024-09-10_to_2024-09-10" id="ixv-317">625 Westport Parkway</dei:EntityAddressAddressLine1>
+    <dei:EntityAddressCityOrTown contextRef="duration_2024-09-10_to_2024-09-10" id="ixv-318">Grapevine</dei:EntityAddressCityOrTown>
+    <dei:EntityAddressStateOrProvince contextRef="duration_2024-09-10_to_2024-09-10" id="ixv-319">TX</dei:EntityAddressStateOrProvince>
+    <dei:EntityAddressPostalZipCode contextRef="duration_2024-09-10_to_2024-09-10" id="ixv-320">76051</dei:EntityAddressPostalZipCode>
+    <dei:CityAreaCode contextRef="duration_2024-09-10_to_2024-09-10" id="ixv-321">817</dei:CityAreaCode>
+    <dei:LocalPhoneNumber contextRef="duration_2024-09-10_to_2024-09-10" id="ixv-322">424-2000</dei:LocalPhoneNumber>
+    <dei:WrittenCommunications contextRef="duration_2024-09-10_to_2024-09-10" id="ixv-323">false</dei:WrittenCommunications>
+    <dei:SolicitingMaterial contextRef="duration_2024-09-10_to_2024-09-10" id="ixv-324">false</dei:SolicitingMaterial>
+    <dei:PreCommencementTenderOffer contextRef="duration_2024-09-10_to_2024-09-10" id="ixv-325">false</dei:PreCommencementTenderOffer>
+    <dei:PreCommencementIssuerTenderOffer contextRef="duration_2024-09-10_to_2024-09-10" id="ixv-326">false</dei:PreCommencementIssuerTenderOffer>
+    <dei:Security12bTitle contextRef="duration_2024-09-10_to_2024-09-10" id="ixv-327">Class&#160;A Common Stock</dei:Security12bTitle>
+    <dei:TradingSymbol contextRef="duration_2024-09-10_to_2024-09-10" id="ixv-328">GME</dei:TradingSymbol>
+    <dei:SecurityExchangeName contextRef="duration_2024-09-10_to_2024-09-10" id="ixv-329">NYSE</dei:SecurityExchangeName>
+    <dei:EntityEmergingGrowthCompany contextRef="duration_2024-09-10_to_2024-09-10" id="ixv-330">false</dei:EntityEmergingGrowthCompany>
+</xbrl>

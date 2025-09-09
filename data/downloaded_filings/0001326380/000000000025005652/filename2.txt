@@ -1,0 +1,84 @@
+<DOCUMENT>
+<TYPE>TEXT-EXTRACT
+<SEQUENCE>2
+<FILENAME>filename2.txt
+<TEXT>
+                                                           May 29, 2025
+
+Ryan Cohen
+Chief Executive Officer
+GameStop Corp.
+625 Westport Parkway
+Grapevine, TX 76051
+
+       Re: GameStop Corp.
+           Form 10-K for Fiscal Year Ended February 1, 2025
+           Response dated March 25, 2025
+           File No. 001-32637
+Dear Ryan Cohen:
+
+       We have reviewed your filing and have the following comment.
+
+       Please respond to this letter within ten business days by providing the
+requested
+information or advise us as soon as possible when you will respond. If you do
+not believe a
+comment applies to your facts and circumstances, please tell us why in your
+response.
+
+       After reviewing your response to this letter, we may have additional
+comments.
+
+Form 10-K for the Fiscal Year Ended February 1, 2025
+Item 1A. Risk Factors
+Risks Related to Our Investment Policy and Investment Portfolio
+If we are deemed to be an investment company under the Investment Company Act
+..., page 7
+
+1.     We note your risk factor that you may be deemed to be an investment
+company under
+       the Investment Company Act of 1940. Please revise to include the
+specific facts and
+       characteristics of your business that you considered in this analysis,
+including your
+       levels of cash and cash equivalents as well as the implementation and
+execution of
+       your Investment Policy. Further, we note your statements that if you are
+regulated as
+       an investment company under the Investment Company Act of 1940, your
+activities
+       may be restricted and burdensome requirements may be imposed upon you.
+Please
+       revise to elaborate on such restrictions and requirements, including a
+description of
+       your plan of operations under such, and the potential negative effects
+on your holdings
+       and the market value of your Class A Common Stock.
+ May 29, 2025
+Page 2
+
+        We remind you that the company and its management are responsible for
+the accuracy
+and adequacy of their disclosures, notwithstanding any review, comments, action
+or absence
+of action by the staff.
+
+       Please contact Scott Stringer at 202-551-3272 or Joel Parker at
+202-551-3651 if you
+have questions regarding comments on the financial statements and related
+matters. Please
+contact Alyssa Wall at 202-551-8106 or Cara Wirth at 202-551-7127 with any
+other
+questions.
+
+
+
+                                                          Sincerely,
+
+                                                          Division of
+Corporation Finance
+                                                          Office of Trade &
+Services
+cc:   Erica Hogan
+</TEXT>
+</DOCUMENT>

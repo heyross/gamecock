@@ -1,0 +1,36 @@
+<DOCUMENT>
+<TYPE>TEXT-EXTRACT
+<SEQUENCE>2
+<FILENAME>filename2.txt
+<TEXT>
+                                                        July 22, 2025
+
+Ryan Cohen
+Chief Executive Officer
+GameStop Corp.
+625 Westport Parkway
+Grapevine, TX 76051
+
+       Re: GameStop Corp.
+           Form 10-K for Fiscal Year Ended February 3, 2024
+           Form 10-K for Fiscal Year Ended February 1, 2025
+           File No. 001-32637
+Dear Ryan Cohen:
+
+       We have completed our review of your filings. We remind you that the
+company and
+its management are responsible for the accuracy and adequacy of their
+disclosures,
+notwithstanding any review, comments, action or absence of action by the staff.
+
+
+
+                                                        Sincerely,
+
+                                                        Division of Corporation
+Finance
+                                                        Office of Trade &
+Services
+cc:   Erica Hogan
+</TEXT>
+</DOCUMENT>

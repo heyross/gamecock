@@ -1,0 +1,2020 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xbrl
+  xmlns="http://www.xbrl.org/2003/instance"
+  xmlns:dei="http://xbrl.sec.gov/dei/2024"
+  xmlns:ecd="http://xbrl.sec.gov/ecd/2024"
+  xmlns:gme="http://www.gamestop.com/20250201"
+  xmlns:iso4217="http://www.xbrl.org/2003/iso4217"
+  xmlns:link="http://www.xbrl.org/2003/linkbase"
+  xmlns:us-gaap="http://fasb.org/us-gaap/2024"
+  xmlns:xbrldi="http://xbrl.org/2006/xbrldi"
+  xmlns:xlink="http://www.w3.org/1999/xlink">
+    <link:schemaRef xlink:href="gme-20250201.xsd" xlink:type="simple"/>
+    <context id="P02_04_2024To02_01_2025">
+        <entity>
+            <identifier scheme="http://www.sec.gov/CIK">0001326380</identifier>
+        </entity>
+        <period>
+            <startDate>2024-02-04</startDate>
+            <endDate>2025-02-01</endDate>
+        </period>
+    </context>
+    <context id="P01_29_2023To02_03_2024">
+        <entity>
+            <identifier scheme="http://www.sec.gov/CIK">0001326380</identifier>
+        </entity>
+        <period>
+            <startDate>2023-01-29</startDate>
+            <endDate>2024-02-03</endDate>
+        </period>
+    </context>
+    <context id="P01_30_2022To01_28_2023">
+        <entity>
+            <identifier scheme="http://www.sec.gov/CIK">0001326380</identifier>
+        </entity>
+        <period>
+            <startDate>2022-01-30</startDate>
+            <endDate>2023-01-28</endDate>
+        </period>
+    </context>
+    <context id="P01_31_2021To01_29_2022">
+        <entity>
+            <identifier scheme="http://www.sec.gov/CIK">0001326380</identifier>
+        </entity>
+        <period>
+            <startDate>2021-01-31</startDate>
+            <endDate>2022-01-29</endDate>
+        </period>
+    </context>
+    <context id="P02_02_2020To01_30_2021">
+        <entity>
+            <identifier scheme="http://www.sec.gov/CIK">0001326380</identifier>
+        </entity>
+        <period>
+            <startDate>2020-02-02</startDate>
+            <endDate>2021-01-30</endDate>
+        </period>
+    </context>
+    <context id="P02_04_2024To02_01_2025_GeorgeEShermanMemberecdIndividualAxis">
+        <entity>
+            <identifier scheme="http://www.sec.gov/CIK">0001326380</identifier>
+            <segment>
+                <xbrldi:explicitMember dimension="ecd:IndividualAxis">gme:GeorgeE.ShermanMember</xbrldi:explicitMember>
+            </segment>
+        </entity>
+        <period>
+            <startDate>2024-02-04</startDate>
+            <endDate>2025-02-01</endDate>
+        </period>
+    </context>
+    <context id="P02_04_2024To02_01_2025_RyanCohenMemberecdIndividualAxis">
+        <entity>
+            <identifier scheme="http://www.sec.gov/CIK">0001326380</identifier>
+            <segment>
+                <xbrldi:explicitMember dimension="ecd:IndividualAxis">gme:RyanCohenMember</xbrldi:explicitMember>
+            </segment>
+        </entity>
+        <period>
+            <startDate>2024-02-04</startDate>
+            <endDate>2025-02-01</endDate>
+        </period>
+    </context>
+    <context id="P02_04_2024To02_01_2025_MarkRobinsonMemberecdIndividualAxis">
+        <entity>
+            <identifier scheme="http://www.sec.gov/CIK">0001326380</identifier>
+            <segment>
+                <xbrldi:explicitMember dimension="ecd:IndividualAxis">gme:MarkRobinsonMember</xbrldi:explicitMember>
+            </segment>
+        </entity>
+        <period>
+            <startDate>2024-02-04</startDate>
+            <endDate>2025-02-01</endDate>
+        </period>
+    </context>
+    <context id="P02_04_2024To02_01_2025_MatthewFurlongMemberecdIndividualAxis">
+        <entity>
+            <identifier scheme="http://www.sec.gov/CIK">0001326380</identifier>
+            <segment>
+                <xbrldi:explicitMember dimension="ecd:IndividualAxis">gme:MatthewFurlongMember</xbrldi:explicitMember>
+            </segment>
+        </entity>
+        <period>
+            <startDate>2024-02-04</startDate>
+            <endDate>2025-02-01</endDate>
+        </period>
+    </context>
+    <context id="P02_04_2024To02_01_2025_NonPeoNeoMemberecdExecutiveCategoryAxis_YrEndFrValOfEqtyAwrdsGrntdInCvrdYrOutsdngAndUnvstdMemberecdAdjToCompAxis">
+        <entity>
+            <identifier scheme="http://www.sec.gov/CIK">0001326380</identifier>
+            <segment>
+                <xbrldi:explicitMember dimension="ecd:AdjToCompAxis">ecd:YrEndFrValOfEqtyAwrdsGrntdInCvrdYrOutsdngAndUnvstdMember</xbrldi:explicitMember>
+                <xbrldi:explicitMember dimension="ecd:ExecutiveCategoryAxis">ecd:NonPeoNeoMember</xbrldi:explicitMember>
+            </segment>
+        </entity>
+        <period>
+            <startDate>2024-02-04</startDate>
+            <endDate>2025-02-01</endDate>
+        </period>
+    </context>
+    <context id="P02_04_2024To02_01_2025_ChngInFrValAsOfVstngDtOfPrrYrEqtyAwrdsVstdInCvrdYrMemberecdAdjToCompAxis_NonPeoNeoMemberecdExecutiveCategoryAxis">
+        <entity>
+            <identifier scheme="http://www.sec.gov/CIK">0001326380</identifier>
+            <segment>
+                <xbrldi:explicitMember dimension="ecd:AdjToCompAxis">ecd:ChngInFrValAsOfVstngDtOfPrrYrEqtyAwrdsVstdInCvrdYrMember</xbrldi:explicitMember>
+                <xbrldi:explicitMember dimension="ecd:ExecutiveCategoryAxis">ecd:NonPeoNeoMember</xbrldi:explicitMember>
+            </segment>
+        </entity>
+        <period>
+            <startDate>2024-02-04</startDate>
+            <endDate>2025-02-01</endDate>
+        </period>
+    </context>
+    <context id="P02_04_2024To02_01_2025_ChngInFrValOfOutsdngAndUnvstdEqtyAwrdsGrntdInPrrYrsMemberecdAdjToCompAxis_NonPeoNeoMemberecdExecutiveCategoryAxis">
+        <entity>
+            <identifier scheme="http://www.sec.gov/CIK">0001326380</identifier>
+            <segment>
+                <xbrldi:explicitMember dimension="ecd:AdjToCompAxis">ecd:ChngInFrValOfOutsdngAndUnvstdEqtyAwrdsGrntdInPrrYrsMember</xbrldi:explicitMember>
+                <xbrldi:explicitMember dimension="ecd:ExecutiveCategoryAxis">ecd:NonPeoNeoMember</xbrldi:explicitMember>
+            </segment>
+        </entity>
+        <period>
+            <startDate>2024-02-04</startDate>
+            <endDate>2025-02-01</endDate>
+        </period>
+    </context>
+    <context id="P02_04_2024To02_01_2025_NonPeoNeoMemberecdExecutiveCategoryAxis_VstngDtFrValOfEqtyAwrdsGrntdAndVstdInCvrdYrMemberecdAdjToCompAxis">
+        <entity>
+            <identifier scheme="http://www.sec.gov/CIK">0001326380</identifier>
+            <segment>
+                <xbrldi:explicitMember dimension="ecd:AdjToCompAxis">ecd:VstngDtFrValOfEqtyAwrdsGrntdAndVstdInCvrdYrMember</xbrldi:explicitMember>
+                <xbrldi:explicitMember dimension="ecd:ExecutiveCategoryAxis">ecd:NonPeoNeoMember</xbrldi:explicitMember>
+            </segment>
+        </entity>
+        <period>
+            <startDate>2024-02-04</startDate>
+            <endDate>2025-02-01</endDate>
+        </period>
+    </context>
+    <context id="P02_04_2024To02_01_2025_EqtyAwrdsAdjsMemberecdAdjToCompAxis_NonPeoNeoMemberecdExecutiveCategoryAxis">
+        <entity>
+            <identifier scheme="http://www.sec.gov/CIK">0001326380</identifier>
+            <segment>
+                <xbrldi:explicitMember dimension="ecd:AdjToCompAxis">ecd:EqtyAwrdsAdjsMember</xbrldi:explicitMember>
+                <xbrldi:explicitMember dimension="ecd:ExecutiveCategoryAxis">ecd:NonPeoNeoMember</xbrldi:explicitMember>
+            </segment>
+        </entity>
+        <period>
+            <startDate>2024-02-04</startDate>
+            <endDate>2025-02-01</endDate>
+        </period>
+    </context>
+    <context id="P02_04_2024To02_01_2025_EqtyAwrdsInSummryCompstnTblForAplblYrMemberecdAdjToCompAxis_PeoMemberecdExecutiveCategoryAxis">
+        <entity>
+            <identifier scheme="http://www.sec.gov/CIK">0001326380</identifier>
+            <segment>
+                <xbrldi:explicitMember dimension="ecd:AdjToCompAxis">ecd:EqtyAwrdsInSummryCompstnTblForAplblYrMember</xbrldi:explicitMember>
+                <xbrldi:explicitMember dimension="ecd:ExecutiveCategoryAxis">ecd:PeoMember</xbrldi:explicitMember>
+            </segment>
+        </entity>
+        <period>
+            <startDate>2024-02-04</startDate>
+            <endDate>2025-02-01</endDate>
+        </period>
+    </context>
+    <context id="P02_04_2024To02_01_2025_PeoMemberecdExecutiveCategoryAxis_YrEndFrValOfEqtyAwrdsGrntdInCvrdYrOutsdngAndUnvstdMemberecdAdjToCompAxis">
+        <entity>
+            <identifier scheme="http://www.sec.gov/CIK">0001326380</identifier>
+            <segment>
+                <xbrldi:explicitMember dimension="ecd:AdjToCompAxis">ecd:YrEndFrValOfEqtyAwrdsGrntdInCvrdYrOutsdngAndUnvstdMember</xbrldi:explicitMember>
+                <xbrldi:explicitMember dimension="ecd:ExecutiveCategoryAxis">ecd:PeoMember</xbrldi:explicitMember>
+            </segment>
+        </entity>
+        <period>
+            <startDate>2024-02-04</startDate>
+            <endDate>2025-02-01</endDate>
+        </period>
+    </context>
+    <context id="P02_04_2024To02_01_2025_ChngInFrValAsOfVstngDtOfPrrYrEqtyAwrdsVstdInCvrdYrMemberecdAdjToCompAxis_PeoMemberecdExecutiveCategoryAxis">
+        <entity>
+            <identifier scheme="http://www.sec.gov/CIK">0001326380</identifier>
+            <segment>
+                <xbrldi:explicitMember dimension="ecd:AdjToCompAxis">ecd:ChngInFrValAsOfVstngDtOfPrrYrEqtyAwrdsVstdInCvrdYrMember</xbrldi:explicitMember>
+                <xbrldi:explicitMember dimension="ecd:ExecutiveCategoryAxis">ecd:PeoMember</xbrldi:explicitMember>
+            </segment>
+        </entity>
+        <period>
+            <startDate>2024-02-04</startDate>
+            <endDate>2025-02-01</endDate>
+        </period>
+    </context>
+    <context id="P02_04_2024To02_01_2025_ChngInFrValOfOutsdngAndUnvstdEqtyAwrdsGrntdInPrrYrsMemberecdAdjToCompAxis_PeoMemberecdExecutiveCategoryAxis">
+        <entity>
+            <identifier scheme="http://www.sec.gov/CIK">0001326380</identifier>
+            <segment>
+                <xbrldi:explicitMember dimension="ecd:AdjToCompAxis">ecd:ChngInFrValOfOutsdngAndUnvstdEqtyAwrdsGrntdInPrrYrsMember</xbrldi:explicitMember>
+                <xbrldi:explicitMember dimension="ecd:ExecutiveCategoryAxis">ecd:PeoMember</xbrldi:explicitMember>
+            </segment>
+        </entity>
+        <period>
+            <startDate>2024-02-04</startDate>
+            <endDate>2025-02-01</endDate>
+        </period>
+    </context>
+    <context id="P02_04_2024To02_01_2025_EqtyAwrdsInSummryCompstnTblForAplblYrMemberecdAdjToCompAxis_NonPeoNeoMemberecdExecutiveCategoryAxis">
+        <entity>
+            <identifier scheme="http://www.sec.gov/CIK">0001326380</identifier>
+            <segment>
+                <xbrldi:explicitMember dimension="ecd:AdjToCompAxis">ecd:EqtyAwrdsInSummryCompstnTblForAplblYrMember</xbrldi:explicitMember>
+                <xbrldi:explicitMember dimension="ecd:ExecutiveCategoryAxis">ecd:NonPeoNeoMember</xbrldi:explicitMember>
+            </segment>
+        </entity>
+        <period>
+            <startDate>2024-02-04</startDate>
+            <endDate>2025-02-01</endDate>
+        </period>
+    </context>
+    <context id="P02_04_2024To02_01_2025_1TypedMemberecdMeasureAxis">
+        <entity>
+            <identifier scheme="http://www.sec.gov/CIK">0001326380</identifier>
+            <segment>
+                <xbrldi:typedMember dimension="ecd:MeasureAxis">
+                    <ecd:MeasureAxis.domain>1</ecd:MeasureAxis.domain>
+                </xbrldi:typedMember>
+            </segment>
+        </entity>
+        <period>
+            <startDate>2024-02-04</startDate>
+            <endDate>2025-02-01</endDate>
+        </period>
+    </context>
+    <context id="P02_02_2020To01_30_2021_RyanCohenMemberecdIndividualAxis">
+        <entity>
+            <identifier scheme="http://www.sec.gov/CIK">0001326380</identifier>
+            <segment>
+                <xbrldi:explicitMember dimension="ecd:IndividualAxis">gme:RyanCohenMember</xbrldi:explicitMember>
+            </segment>
+        </entity>
+        <period>
+            <startDate>2020-02-02</startDate>
+            <endDate>2021-01-30</endDate>
+        </period>
+    </context>
+    <context id="P02_02_2020To01_30_2021_MarkRobinsonMemberecdIndividualAxis">
+        <entity>
+            <identifier scheme="http://www.sec.gov/CIK">0001326380</identifier>
+            <segment>
+                <xbrldi:explicitMember dimension="ecd:IndividualAxis">gme:MarkRobinsonMember</xbrldi:explicitMember>
+            </segment>
+        </entity>
+        <period>
+            <startDate>2020-02-02</startDate>
+            <endDate>2021-01-30</endDate>
+        </period>
+    </context>
+    <context id="P02_02_2020To01_30_2021_MatthewFurlongMemberecdIndividualAxis">
+        <entity>
+            <identifier scheme="http://www.sec.gov/CIK">0001326380</identifier>
+            <segment>
+                <xbrldi:explicitMember dimension="ecd:IndividualAxis">gme:MatthewFurlongMember</xbrldi:explicitMember>
+            </segment>
+        </entity>
+        <period>
+            <startDate>2020-02-02</startDate>
+            <endDate>2021-01-30</endDate>
+        </period>
+    </context>
+    <context id="P02_02_2020To01_30_2021_GeorgeEShermanMemberecdIndividualAxis">
+        <entity>
+            <identifier scheme="http://www.sec.gov/CIK">0001326380</identifier>
+            <segment>
+                <xbrldi:explicitMember dimension="ecd:IndividualAxis">gme:GeorgeE.ShermanMember</xbrldi:explicitMember>
+            </segment>
+        </entity>
+        <period>
+            <startDate>2020-02-02</startDate>
+            <endDate>2021-01-30</endDate>
+        </period>
+    </context>
+    <context id="P01_31_2021To01_29_2022_MarkRobinsonMemberecdIndividualAxis">
+        <entity>
+            <identifier scheme="http://www.sec.gov/CIK">0001326380</identifier>
+            <segment>
+                <xbrldi:explicitMember dimension="ecd:IndividualAxis">gme:MarkRobinsonMember</xbrldi:explicitMember>
+            </segment>
+        </entity>
+        <period>
+            <startDate>2021-01-31</startDate>
+            <endDate>2022-01-29</endDate>
+        </period>
+    </context>
+    <context id="P01_31_2021To01_29_2022_MatthewFurlongMemberecdIndividualAxis">
+        <entity>
+            <identifier scheme="http://www.sec.gov/CIK">0001326380</identifier>
+            <segment>
+                <xbrldi:explicitMember dimension="ecd:IndividualAxis">gme:MatthewFurlongMember</xbrldi:explicitMember>
+            </segment>
+        </entity>
+        <period>
+            <startDate>2021-01-31</startDate>
+            <endDate>2022-01-29</endDate>
+        </period>
+    </context>
+    <context id="P01_31_2021To01_29_2022_RyanCohenMemberecdIndividualAxis">
+        <entity>
+            <identifier scheme="http://www.sec.gov/CIK">0001326380</identifier>
+            <segment>
+                <xbrldi:explicitMember dimension="ecd:IndividualAxis">gme:RyanCohenMember</xbrldi:explicitMember>
+            </segment>
+        </entity>
+        <period>
+            <startDate>2021-01-31</startDate>
+            <endDate>2022-01-29</endDate>
+        </period>
+    </context>
+    <context id="P01_31_2021To01_29_2022_GeorgeEShermanMemberecdIndividualAxis">
+        <entity>
+            <identifier scheme="http://www.sec.gov/CIK">0001326380</identifier>
+            <segment>
+                <xbrldi:explicitMember dimension="ecd:IndividualAxis">gme:GeorgeE.ShermanMember</xbrldi:explicitMember>
+            </segment>
+        </entity>
+        <period>
+            <startDate>2021-01-31</startDate>
+            <endDate>2022-01-29</endDate>
+        </period>
+    </context>
+    <context id="P01_30_2022To01_28_2023_MarkRobinsonMemberecdIndividualAxis">
+        <entity>
+            <identifier scheme="http://www.sec.gov/CIK">0001326380</identifier>
+            <segment>
+                <xbrldi:explicitMember dimension="ecd:IndividualAxis">gme:MarkRobinsonMember</xbrldi:explicitMember>
+            </segment>
+        </entity>
+        <period>
+            <startDate>2022-01-30</startDate>
+            <endDate>2023-01-28</endDate>
+        </period>
+    </context>
+    <context id="P01_30_2022To01_28_2023_GeorgeEShermanMemberecdIndividualAxis">
+        <entity>
+            <identifier scheme="http://www.sec.gov/CIK">0001326380</identifier>
+            <segment>
+                <xbrldi:explicitMember dimension="ecd:IndividualAxis">gme:GeorgeE.ShermanMember</xbrldi:explicitMember>
+            </segment>
+        </entity>
+        <period>
+            <startDate>2022-01-30</startDate>
+            <endDate>2023-01-28</endDate>
+        </period>
+    </context>
+    <context id="P01_30_2022To01_28_2023_MatthewFurlongMemberecdIndividualAxis">
+        <entity>
+            <identifier scheme="http://www.sec.gov/CIK">0001326380</identifier>
+            <segment>
+                <xbrldi:explicitMember dimension="ecd:IndividualAxis">gme:MatthewFurlongMember</xbrldi:explicitMember>
+            </segment>
+        </entity>
+        <period>
+            <startDate>2022-01-30</startDate>
+            <endDate>2023-01-28</endDate>
+        </period>
+    </context>
+    <context id="P01_30_2022To01_28_2023_RyanCohenMemberecdIndividualAxis">
+        <entity>
+            <identifier scheme="http://www.sec.gov/CIK">0001326380</identifier>
+            <segment>
+                <xbrldi:explicitMember dimension="ecd:IndividualAxis">gme:RyanCohenMember</xbrldi:explicitMember>
+            </segment>
+        </entity>
+        <period>
+            <startDate>2022-01-30</startDate>
+            <endDate>2023-01-28</endDate>
+        </period>
+    </context>
+    <context id="P01_29_2023To02_03_2024_MarkRobinsonMemberecdIndividualAxis">
+        <entity>
+            <identifier scheme="http://www.sec.gov/CIK">0001326380</identifier>
+            <segment>
+                <xbrldi:explicitMember dimension="ecd:IndividualAxis">gme:MarkRobinsonMember</xbrldi:explicitMember>
+            </segment>
+        </entity>
+        <period>
+            <startDate>2023-01-29</startDate>
+            <endDate>2024-02-03</endDate>
+        </period>
+    </context>
+    <context id="P01_29_2023To02_03_2024_MatthewFurlongMemberecdIndividualAxis">
+        <entity>
+            <identifier scheme="http://www.sec.gov/CIK">0001326380</identifier>
+            <segment>
+                <xbrldi:explicitMember dimension="ecd:IndividualAxis">gme:MatthewFurlongMember</xbrldi:explicitMember>
+            </segment>
+        </entity>
+        <period>
+            <startDate>2023-01-29</startDate>
+            <endDate>2024-02-03</endDate>
+        </period>
+    </context>
+    <context id="P01_29_2023To02_03_2024_RyanCohenMemberecdIndividualAxis">
+        <entity>
+            <identifier scheme="http://www.sec.gov/CIK">0001326380</identifier>
+            <segment>
+                <xbrldi:explicitMember dimension="ecd:IndividualAxis">gme:RyanCohenMember</xbrldi:explicitMember>
+            </segment>
+        </entity>
+        <period>
+            <startDate>2023-01-29</startDate>
+            <endDate>2024-02-03</endDate>
+        </period>
+    </context>
+    <context id="P01_29_2023To02_03_2024_GeorgeEShermanMemberecdIndividualAxis">
+        <entity>
+            <identifier scheme="http://www.sec.gov/CIK">0001326380</identifier>
+            <segment>
+                <xbrldi:explicitMember dimension="ecd:IndividualAxis">gme:GeorgeE.ShermanMember</xbrldi:explicitMember>
+            </segment>
+        </entity>
+        <period>
+            <startDate>2023-01-29</startDate>
+            <endDate>2024-02-03</endDate>
+        </period>
+    </context>
+    <unit id="Unit_USD">
+        <measure>iso4217:USD</measure>
+    </unit>
+    <dei:DocumentType contextRef="P02_04_2024To02_01_2025" id="hidden139752420">DEF 14A</dei:DocumentType>
+    <dei:AmendmentFlag contextRef="P02_04_2024To02_01_2025" id="ixv-9926">false</dei:AmendmentFlag>
+    <dei:EntityCentralIndexKey contextRef="P02_04_2024To02_01_2025" id="ixv-9927">0001326380</dei:EntityCentralIndexKey>
+    <dei:EntityRegistrantName contextRef="P02_04_2024To02_01_2025" id="ixv-10222">GameStop Corp.</dei:EntityRegistrantName>
+    <ecd:InsiderTrdPoliciesProcAdoptedFlag contextRef="P02_04_2024To02_01_2025" id="ixv-10226">true</ecd:InsiderTrdPoliciesProcAdoptedFlag>
+    <ecd:PvpTableTextBlock contextRef="P02_04_2024To02_01_2025" id="ixv-7884">&lt;div id="toc894376_30" style="margin-top: 0pt; margin-bottom: 0pt; font-size: 12pt; font-family: ARIAL;"&gt;&lt;div style="font-weight:bold;display:inline;"&gt;Pay Versus Performance &lt;/div&gt;&lt;/div&gt;&lt;div style="line-height:4.0pt;margin-top:0pt;margin-bottom:2pt;border-bottom:1px solid #e2231a"&gt;&#160;&lt;/div&gt;&lt;div style="margin-top:6pt; margin-bottom:0pt; font-size:9pt; font-family:ARIAL;text-align:justify"&gt;The following table provides information for the fiscal years 2020 through 2024 with respect to the compensation, as calculated under SEC rules, of our principal executive officers (&#x201c;PEOs&#x201d;), which includes both our current and former CEOs, the average compensation of our other NEOs, and certain performance measures specified under SEC rules. &lt;/div&gt;&lt;div style="font-size:12pt;margin-top:0pt;margin-bottom:0pt"&gt;&#160;&lt;/div&gt;
+&lt;table cellpadding="0" cellspacing="0" style="text-align:start; BORDER-COLLAPSE:COLLAPSE; font-family:ARIAL; font-size:8pt;width:100%;border-spacing:0;margin:0 auto"&gt;
+&lt;tr&gt;
+&lt;td style="width:27%"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom;width:0%"&gt;&lt;/td&gt;
+&lt;td style="width:30pt;white-space:nowrap"&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td style="width:30pt;white-space:nowrap"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom;width:0%"&gt;&lt;/td&gt;
+&lt;td style="width:30pt;white-space:nowrap"&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td style="width:30pt;white-space:nowrap"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom;width:0%"&gt;&lt;/td&gt;
+&lt;td style="width:30pt;white-space:nowrap"&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td style="width:30pt;white-space:nowrap"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom;width:0%"&gt;&lt;/td&gt;
+&lt;td style="width:30pt;white-space:nowrap"&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td style="width:30pt;white-space:nowrap"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom;width:0%"&gt;&lt;/td&gt;
+&lt;td style="width:30pt;white-space:nowrap"&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td style="width:30pt;white-space:nowrap"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom;width:0%"&gt;&lt;/td&gt;
+&lt;td style="width:30pt;white-space:nowrap"&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td style="width:30pt;white-space:nowrap"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom;width:0%"&gt;&lt;/td&gt;
+&lt;td style="width:30pt;white-space:nowrap"&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td style="width:30pt;white-space:nowrap"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom;width:0%"&gt;&lt;/td&gt;
+&lt;td style="width:30pt;white-space:nowrap"&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td style="width:30pt;white-space:nowrap"&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="font-size:1pt;background-color:#e2231a"&gt;
+&lt;td style="height:1.5pt"&gt;&lt;/td&gt;
+&lt;td colspan="40" style="height:1.5pt"&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="page-break-inside:avoid ; font-family:ARIAL; font-size:8pt;background-color:#e2231a"&gt;
+&lt;td rowspan="3" style="padding-bottom:3pt ;vertical-align:bottom"&gt;&lt;div style="margin-top: 0pt; margin-bottom: 0pt; font-size: 8pt; font-family: ARIAL; line-height: normal;"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;&lt;div style="display:inline;"&gt;&lt;div style="font-weight:bold;display:inline;"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;&#x2002;Fiscal&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div style="margin-top: 0pt; margin-bottom: 1pt; font-size: 8pt; font-family: ARIAL; line-height: normal;"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;&lt;div style="display:inline;"&gt;&lt;div style="font-weight:bold;display:inline;"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;&#x2002;Year&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/td&gt;
+&lt;td style=" BORDER-BOTTOM:0.75pt solid #ffffff;vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td colspan="39" style="padding-bottom:3pt ;BORDER-BOTTOM:0.75pt solid #ffffff;vertical-align:bottom;text-align:center"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;&lt;div style="display:inline;"&gt;&lt;div style="font-weight:bold;display:inline;"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;Principal Executive Officers (&#x201c;PEO&#x201d;)&lt;/div&gt;&lt;div style="font-size:75%; vertical-align:top;display:inline;font-size:6.6px"&gt;(1)&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="page-break-inside:avoid ; font-family:ARIAL; font-size:8pt;background-color:#e2231a"&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td colspan="4" style="padding-bottom:2pt ;vertical-align:bottom;text-align:center"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;&lt;div style="display:inline;"&gt;&lt;div style="font-weight:bold;display:inline;"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;Cohen&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td colspan="4" style="padding-bottom:2pt ;vertical-align:bottom;text-align:center"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;&lt;div style="display:inline;"&gt;&lt;div style="font-weight:bold;display:inline;"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;Robinson&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td colspan="4" style="padding-bottom:2pt ;vertical-align:bottom;text-align:center"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;&lt;div style="display:inline;"&gt;&lt;div style="font-weight:bold;display:inline;"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;Furlong&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td colspan="4" style="padding-bottom:2pt ;vertical-align:bottom;text-align:center"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;&lt;div style="display:inline;"&gt;&lt;div style="font-weight:bold;display:inline;"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;Sherman&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td colspan="4" style="padding-bottom:2pt ;vertical-align:bottom;text-align:center"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;&lt;div style="display:inline;"&gt;&lt;div style="font-weight:bold;display:inline;"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;Cohen&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td colspan="4" style="padding-bottom:2pt ;vertical-align:bottom;text-align:center"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;&lt;div style="display:inline;"&gt;&lt;div style="font-weight:bold;display:inline;"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;Robinson&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td colspan="4" style="padding-bottom:2pt ;vertical-align:bottom;text-align:center"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;&lt;div style="display:inline;"&gt;&lt;div style="font-weight:bold;display:inline;"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;Furlong&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td colspan="4" style="padding-bottom:2pt ;vertical-align:bottom;text-align:center"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;&lt;div style="display:inline;"&gt;&lt;div style="font-weight:bold;display:inline;"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;Sherman&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="page-break-inside:avoid ; font-family:ARIAL; font-size:8pt;background-color:#e2231a"&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td colspan="4" style="padding-bottom:2pt ;vertical-align:bottom;text-align:center"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;&lt;div style="display:inline;"&gt;&lt;div style="font-weight:bold;display:inline;"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;SCT&lt;br/&gt; Total&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td colspan="4" style="padding-bottom:2pt ;vertical-align:bottom;text-align:center"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;&lt;div style="display:inline;"&gt;&lt;div style="font-weight:bold;display:inline;"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;SCT&lt;br/&gt; Total&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td colspan="4" style="padding-bottom:2pt ;vertical-align:bottom;text-align:center"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;&lt;div style="display:inline;"&gt;&lt;div style="font-weight:bold;display:inline;"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;SCT Total&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td colspan="4" style="padding-bottom:2pt ;vertical-align:bottom;text-align:center"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;&lt;div style="display:inline;"&gt;&lt;div style="font-weight:bold;display:inline;"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;SCT Total&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td colspan="4" style="padding-bottom:2pt ;vertical-align:bottom;text-align:center"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;&lt;div style="display:inline;"&gt;&lt;div style="font-weight:bold;display:inline;"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;Compensation&lt;br/&gt; Actually&#160;Paid&lt;/div&gt;&lt;div style="font-size:75%; vertical-align:top;display:inline;font-size:6.6px"&gt;(2)&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td colspan="4" style="padding-bottom:2pt ;vertical-align:bottom;text-align:center"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;&lt;div style="display:inline;"&gt;&lt;div style="font-weight:bold;display:inline;"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;Compensation&lt;br/&gt; Actually&#160;Paid&lt;/div&gt;&lt;div style="font-size:75%; vertical-align:top;display:inline;font-size:6.6px"&gt;(2)&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td colspan="4" style="padding-bottom:2pt ;vertical-align:bottom;text-align:center"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;&lt;div style="display:inline;"&gt;&lt;div style="font-weight:bold;display:inline;"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;Compensation&lt;br/&gt; Actually&#160;Paid&lt;/div&gt;&lt;div style="font-size:75%; vertical-align:top;display:inline;font-size:6.6px"&gt;(2)&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td colspan="4" style="padding-bottom:2pt ;vertical-align:bottom;text-align:center"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;&lt;div style="display:inline;"&gt;&lt;div style="font-weight:bold;display:inline;"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;Compensation&lt;br/&gt; Actually&#160;Paid&lt;/div&gt;&lt;div style="font-size:75%; vertical-align:top;display:inline;font-size:6.6px"&gt;(2)&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="font-size:1pt;background-color:#d6d6d6"&gt;
+&lt;td style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="page-break-inside:avoid ; font-family:ARIAL; font-size:8pt;background-color:#d6d6d6"&gt;
+&lt;td style="padding-bottom:3pt ;vertical-align:top"&gt;&lt;div style="margin-top: 0pt; margin-bottom: 0pt; margin-left: 1em; text-indent: -1em; font-size: 8pt; font-family: ARIAL; line-height: normal;"&gt;&#x2002;2024&lt;/div&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;$&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;268,553&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;$&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;&#x2014;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;$&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;&#x2014;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;$&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;&#x2014;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;$&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;268,553&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;$&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;&#x2014;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;$&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;&#x2014;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;$&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;&#x2014;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="font-size:1pt"&gt;
+&lt;td style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="page-break-inside:avoid ; font-family:ARIAL; font-size:8pt"&gt;
+&lt;td style="padding-bottom:3pt ;vertical-align:top"&gt;&lt;div style="margin-top: 0pt; margin-bottom: 0pt; margin-left: 1em; text-indent: -1em; font-size: 8pt; font-family: ARIAL; line-height: normal;"&gt;&#x2002;2023&lt;/div&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&#160;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;&#x2014;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&#160;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;563,647&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&#160;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;1,090,198&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&#160;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;&#x2014;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&#160;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;&#x2014;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&#160;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;(93,436&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;)&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&#160;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;(4,169,658&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;)&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&#160;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;&#x2014;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="font-size:1pt;background-color:#d6d6d6"&gt;
+&lt;td style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="page-break-inside:avoid ; font-family:ARIAL; font-size:8pt;background-color:#d6d6d6"&gt;
+&lt;td style="padding-bottom:3pt ;vertical-align:top"&gt;&lt;div style="margin-top: 0pt; margin-bottom: 0pt; margin-left: 1em; text-indent: -1em; font-size: 8pt; font-family: ARIAL; line-height: normal;"&gt;&#x2002;2022&lt;/div&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&#160;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;&#x2014;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&#160;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;&#x2014;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&#160;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;2,482,709&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&#160;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;&#x2014;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&#160;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;&#x2014;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&#160;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;&#x2014;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&#160;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;2,117,619&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&#160;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;&#x2014;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="font-size:1pt"&gt;
+&lt;td style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="page-break-inside:avoid ; font-family:ARIAL; font-size:8pt"&gt;
+&lt;td style="padding-bottom:3pt ;vertical-align:top"&gt;&lt;div style="margin-top: 0pt; margin-bottom: 0pt; margin-left: 1em; text-indent: -1em; font-size: 8pt; font-family: ARIAL; line-height: normal;"&gt;&#x2002;2021&lt;/div&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&#160;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;&#x2014;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&#160;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;&#x2014;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&#160;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;16,812,934&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&#160;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;652,306&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&#160;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;&#x2014;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&#160;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;&#x2014;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&#160;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;9,076,361&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&#160;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;(132,010,993&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="font-size:1pt;background-color:#d6d6d6"&gt;
+&lt;td style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="page-break-inside:avoid ; font-family:ARIAL; font-size:8pt;background-color:#d6d6d6"&gt;
+&lt;td style="padding-bottom:3pt ;vertical-align:top"&gt;&lt;div style="margin-top: 0pt; margin-bottom: 0pt; margin-left: 1em; text-indent: -1em; font-size: 8pt; font-family: ARIAL; line-height: normal;"&gt;&#x2002;2020&lt;/div&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&#160;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;&#x2014;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&#160;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;&#x2014;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&#160;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;&#x2014;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&#160;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;7,174,243&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&#160;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;&#x2014;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&#160;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;&#x2014;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&#160;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;&#x2014;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&#160;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;427,832,874&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;div style="font-size:12pt;margin-top:0pt;margin-bottom:0pt"&gt;&#160;&lt;/div&gt;
+&lt;table cellpadding="0" cellspacing="0" style="text-align:start; BORDER-COLLAPSE:COLLAPSE; font-family:ARIAL; font-size:8pt;width:100%;border-spacing:0;margin:0 auto"&gt;
+&lt;tr&gt;
+&lt;td style="width:15%"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom;width:0%"&gt;&lt;/td&gt;
+&lt;td style="width:30pt;white-space:nowrap"&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td style="width:30pt;white-space:nowrap"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom;width:0%"&gt;&lt;/td&gt;
+&lt;td style="width:30pt;white-space:nowrap"&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td style="width:30pt;white-space:nowrap"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom;width:0%"&gt;&lt;/td&gt;
+&lt;td style="width:30pt;white-space:nowrap"&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td style="width:30pt;white-space:nowrap"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom;width:0%"&gt;&lt;/td&gt;
+&lt;td style="width:30pt;white-space:nowrap"&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td style="width:30pt;white-space:nowrap"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom;width:0%"&gt;&lt;/td&gt;
+&lt;td style="width:30pt;white-space:nowrap"&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td style="width:30pt;white-space:nowrap"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom;width:0%"&gt;&lt;/td&gt;
+&lt;td style="width:30pt;white-space:nowrap"&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td style="width:30pt;white-space:nowrap"&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="page-break-inside:avoid ; font-family:ARIAL; font-size:8pt"&gt;
+&lt;td rowspan="2" style="padding-bottom:2pt ;vertical-align:bottom;background-color:#e2231a"&gt;&lt;div style="margin-top: 0pt; margin-bottom: 0pt; font-size: 8pt; font-family: ARIAL; line-height: normal;"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;&lt;div style="display:inline;"&gt;&lt;div style="font-weight:bold;display:inline;"&gt;&#x2002;Fiscal&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div style="margin-top: 0pt; margin-bottom: 1pt; font-size: 8pt; font-family: ARIAL; line-height: normal;"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;&lt;div style="display:inline;"&gt;&lt;div style="font-weight:bold;display:inline;"&gt;&#x2002;Year&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/td&gt;
+&lt;td rowspan="2" style="vertical-align: bottom; background-color: rgb(226, 35, 26); padding-bottom: 0.375pt;"&gt;&lt;/td&gt;
+&lt;td colspan="4" rowspan="2" style="padding-bottom:2pt ;vertical-align:bottom;background-color:#e2231a;text-align:center"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;&lt;div style="display:inline;"&gt;&lt;div style="font-weight:bold;display:inline;"&gt;Average&#160;SCT&#160;Total&#160;for&lt;br/&gt; &lt;div style="white-space: nowrap; letter-spacing: 0px; top: 0px;display:inline;"&gt;Non-PEO&lt;/div&gt; NEOs&lt;div style="font-size:75%; vertical-align:top;display:inline;font-size:6.6px"&gt;(3)&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/td&gt;
+&lt;td rowspan="2" style="vertical-align: bottom; background-color: rgb(226, 35, 26); padding-bottom: 0.375pt;"&gt;&lt;/td&gt;
+&lt;td colspan="4" rowspan="2" style="padding-bottom:2pt ;vertical-align:bottom;background-color:#e2231a;text-align:center"&gt;&lt;div style="margin-top: 0pt; margin-bottom: 0pt; font-size: 8pt; font-family: ARIAL; text-align: center; line-height: normal;"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;&lt;div style="display:inline;"&gt;&lt;div style="font-weight:bold;display:inline;"&gt;Average&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div style="margin-top: 0pt; margin-bottom: 0pt; font-size: 8pt; font-family: ARIAL; text-align: center; line-height: normal;"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;&lt;div style="display:inline;"&gt;&lt;div style="font-weight:bold;display:inline;"&gt;Compensation&lt;br/&gt; &lt;div style="white-space: nowrap; letter-spacing: 0px; top: 0px;display:inline;"&gt;Actually&#160;Paid&#160;to&#160;Non-&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div style="margin-top: 0pt; margin-bottom: 1pt; font-size: 8pt; font-family: ARIAL; text-align: center; line-height: normal;"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;&lt;div style="display:inline;"&gt;&lt;div style="font-weight:bold;display:inline;"&gt;PEO NEOs&lt;div style="font-size:75%; vertical-align:top;display:inline;font-size:6.6px"&gt;(2)&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/td&gt;
+&lt;td style=" BORDER-BOTTOM:0.75pt solid #ffffff;vertical-align:bottom;background-color:#e2231a"&gt;&lt;/td&gt;
+&lt;td colspan="9" style="padding-bottom:2pt ;BORDER-BOTTOM:0.75pt solid #ffffff;vertical-align:bottom;background-color:#e2231a;text-align:center"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;&lt;div style="display:inline;"&gt;&lt;div style="font-weight:bold;display:inline;"&gt;Value&#160;of&#160;Initial&#160;Fixed&#160;$100&#160;Investment&#160;Based&#160;on:&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/td&gt;
+&lt;td rowspan="2" style="vertical-align: bottom; background-color: rgb(226, 35, 26); padding-bottom: 0.375pt;"&gt;&lt;/td&gt;
+&lt;td colspan="4" rowspan="2" style="padding-bottom:2pt ;vertical-align:bottom;background-color:#e2231a;text-align:center"&gt;&lt;div style="margin-top: 0pt; margin-bottom: 0pt; font-size: 8pt; font-family: ARIAL; text-align: center; line-height: normal;"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;&lt;div style="display:inline;"&gt;&lt;div style="font-weight:bold;display:inline;"&gt;Net&#160;Income&lt;div style="font-size:75%; vertical-align:top;display:inline;font-size:6.6px"&gt;(5)&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div style="margin-top: 0pt; margin-bottom: 1pt; font-size: 8pt; font-family: ARIAL; text-align: center; line-height: normal;"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;&lt;div style="display:inline;"&gt;&lt;div style="font-weight:bold;display:inline;"&gt;($MM)&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/td&gt;
+&lt;td rowspan="2" style="vertical-align: bottom; background-color: rgb(226, 35, 26); padding-bottom: 0.375pt;"&gt;&lt;/td&gt;
+&lt;td colspan="4" rowspan="2" style="padding-bottom:2pt ;vertical-align:bottom;background-color:#e2231a;text-align:center"&gt;&lt;div style="margin-top: 0pt; margin-bottom: 0pt; font-size: 8pt; font-family: ARIAL; text-align: center; line-height: normal;"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;&lt;div style="display:inline;"&gt;&lt;div style="font-weight:bold;display:inline;"&gt;United&#160;States&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div style="margin-top: 0pt; margin-bottom: 1pt; font-size: 8pt; font-family: ARIAL; text-align: center; line-height: normal;"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;&lt;div style="display:inline;"&gt;&lt;div style="font-weight:bold;display:inline;"&gt;Operating&#160;Profit&lt;br/&gt; (excluding&lt;br/&gt; royalties)&lt;br/&gt; ($MM)&lt;div style="font-size:75%; vertical-align:top;display:inline;font-size:6.6px"&gt;(6)&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="page-break-inside:avoid ; font-family:ARIAL; font-size:8pt"&gt;
+&lt;td style="vertical-align:bottom;background-color:#e2231a"&gt;&lt;/td&gt;
+&lt;td colspan="4" style="vertical-align:bottom;background-color:#e2231a;text-align:center"&gt;&lt;div style="margin-top: 0pt; margin-bottom: 0pt; font-size: 8pt; font-family: ARIAL; text-align: center; line-height: normal;"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;&lt;div style="display:inline;"&gt;&lt;div style="font-weight:bold;display:inline;"&gt;Company&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div style="margin-top: 0pt; margin-bottom: 1pt; font-size: 8pt; font-family: ARIAL; text-align: center; line-height: normal;"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;&lt;div style="display:inline;"&gt;&lt;div style="font-weight:bold;display:inline;"&gt;TSR&lt;div style="font-size:75%; vertical-align:top;display:inline;font-size:6.6px"&gt;(4)&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom;background-color:#e2231a"&gt;&lt;/td&gt;
+&lt;td colspan="4" style="vertical-align:bottom;background-color:#e2231a;text-align:center"&gt;&lt;div style="margin-top: 0pt; margin-bottom: 0pt; font-size: 8pt; font-family: ARIAL; text-align: center; line-height: normal;"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;&lt;div style="display:inline;"&gt;&lt;div style="font-weight:bold;display:inline;"&gt;Peer Group&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div style="margin-top: 0pt; margin-bottom: 1pt; font-size: 8pt; font-family: ARIAL; text-align: center; line-height: normal;"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;&lt;div style="display:inline;"&gt;&lt;div style="font-weight:bold;display:inline;"&gt;TSR&lt;div style="font-size:75%; vertical-align:top;display:inline;font-size:6.6px"&gt;(4)&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="font-size:1pt;background-color:#d6d6d6"&gt;
+&lt;td style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="page-break-inside:avoid ; font-family:ARIAL; font-size:8pt;background-color:#d6d6d6"&gt;
+&lt;td style="padding-bottom:3pt ;vertical-align:top"&gt;&lt;div style="margin-top: 0pt; margin-bottom: 0pt; margin-left: 1em; text-indent: -1em; font-size: 8pt; font-family: ARIAL; line-height: normal;"&gt;&#x2002;2024&lt;/div&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;$&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;553,815&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;$&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;&lt;div style="letter-spacing: 0px; top: 0px;display:inline;"&gt;(3,088,467&lt;/div&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;)&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&#160;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;2,802&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&#160;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;235&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&#160;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;131&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&#160;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;&lt;div style="letter-spacing: 0px; top: 0px;display:inline;"&gt;24&lt;/div&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="font-size:1pt"&gt;
+&lt;td style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="page-break-inside:avoid ; font-family:ARIAL; font-size:8pt"&gt;
+&lt;td style="padding-bottom:3pt ;vertical-align:top"&gt;&lt;div style="margin-top: 0pt; margin-bottom: 0pt; margin-left: 1em; text-indent: -1em; font-size: 8pt; font-family: ARIAL; line-height: normal;"&gt;&#x2002;2023&lt;/div&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&#160;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;1,051,102&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&#160;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;(1,802,812&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;)&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&#160;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;1,534&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&#160;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;161&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&#160;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;7&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&#160;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;&lt;div style="letter-spacing: 0px; top: 0px;display:inline;"&gt;(65&lt;/div&gt;&lt;div style="letter-spacing: 0px; top: 0px;display:inline;"&gt;&lt;/div&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="font-size:1pt;background-color:#d6d6d6"&gt;
+&lt;td style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="page-break-inside:avoid ; font-family:ARIAL; font-size:8pt;background-color:#d6d6d6"&gt;
+&lt;td style="padding-bottom:3pt ;vertical-align:top"&gt;&lt;div style="margin-top: 0pt; margin-bottom: 0pt; margin-left: 1em; text-indent: -1em; font-size: 8pt; font-family: ARIAL; line-height: normal;"&gt;&#x2002;2022&lt;/div&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&#160;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;13,692,562&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&#160;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;8,874,616&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&#160;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;2,377&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&#160;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;135&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&#160;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;(313&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;)&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&#160;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;&lt;div style="letter-spacing: 0px; top: 0px;display:inline;"&gt;(328&lt;/div&gt;&lt;div style="letter-spacing: 0px; top: 0px;display:inline;"&gt;&lt;/div&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="font-size:1pt"&gt;
+&lt;td style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="page-break-inside:avoid ; font-family:ARIAL; font-size:8pt"&gt;
+&lt;td style="padding-bottom:3pt ;vertical-align:top"&gt;&lt;div style="margin-top: 0pt; margin-bottom: 0pt; margin-left: 1em; text-indent: -1em; font-size: 8pt; font-family: ARIAL; line-height: normal;"&gt;&#x2002;2021&lt;/div&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&#160;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;6,299,738&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&#160;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;(9,396,932&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;)&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&#160;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;2,550&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&#160;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;135&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&#160;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;(381&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;)&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&#160;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;&lt;div style="letter-spacing: 0px; top: 0px;display:inline;"&gt;(358&lt;/div&gt;&lt;div style="letter-spacing: 0px; top: 0px;display:inline;"&gt;&lt;/div&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="font-size:1pt;background-color:#d6d6d6"&gt;
+&lt;td style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="page-break-inside:avoid ; font-family:ARIAL; font-size:8pt;background-color:#d6d6d6"&gt;
+&lt;td style="padding-bottom:3pt ;vertical-align:top"&gt;&lt;div style="margin-top: 0pt; margin-bottom: 0pt; margin-left: 1em; text-indent: -1em; font-size: 8pt; font-family: ARIAL; line-height: normal;"&gt;&#x2002;2020&lt;/div&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&#160;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;2,732,872&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&#160;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;66,526,448&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&#160;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;8,464&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&#160;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;141&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&#160;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;(215&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;)&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&#160;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;&lt;div style="letter-spacing: 0px; top: 0px;display:inline;"&gt;(211&lt;/div&gt;&lt;div style="letter-spacing: 0px; top: 0px;display:inline;"&gt;&lt;/div&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;)&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;div style="line-height:10.0pt;margin-top:0pt;margin-bottom:2pt;border-bottom:1px solid #000000;width:20%"&gt;&#160;&lt;/div&gt;&lt;div style="font-size:3pt;margin-top:0pt;margin-bottom:0pt"&gt;&#160;&lt;/div&gt;
+&lt;table cellpadding="0" cellspacing="0" style="text-align:start; BORDER-COLLAPSE:COLLAPSE; font-family:ARIAL; font-size:8pt;border-spacing:0;width:100%"&gt;
+&lt;tr style="page-break-inside:avoid"&gt;
+&lt;td style="width:2%"&gt;&#160;&lt;/td&gt;
+&lt;td style="width:4%;vertical-align:top;text-align:left"&gt;(1)&lt;/td&gt;
+&lt;td style="vertical-align:top;text-align:left"&gt;&lt;div style="margin-top: 0pt; margin-bottom: 0pt; font-size: 8pt; font-family: ARIAL; text-align: justify; line-height: normal;"&gt;For fiscal 2024, our PEO was our current CEO &lt;div style="letter-spacing: 0px; top: 0px;display:inline;"&gt;&lt;div style="display:inline;"&gt;Ryan Cohen&lt;/div&gt;&lt;/div&gt;. For fiscal 2023, our PEOs included Ryan Cohen, former PEO Mark Robinson, and former CEO &lt;div style="letter-spacing: 0px; top: 0px;display:inline;"&gt;Matthew Furlong&lt;/div&gt;. For fiscal 2022, our PEO was Matthew Furlong. For fiscal 2021, our PEOs included both Matthew Furlong and former CEO George E. Sherman. For fiscal 2020, our PEO was George E. Sherman. &lt;/div&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;div style="font-size:3pt;margin-top:0pt;margin-bottom:0pt"&gt;&#160;&lt;/div&gt;
+&lt;table cellpadding="0" cellspacing="0" style="text-align:start; BORDER-COLLAPSE:COLLAPSE; font-family:ARIAL; font-size:8pt;border-spacing:0;width:100%"&gt;
+&lt;tr style="page-break-inside:avoid"&gt;
+&lt;td style="width:2%"&gt;&#160;&lt;/td&gt;
+&lt;td style="width:4%;vertical-align:top;text-align:left"&gt;(2)&lt;/td&gt;
+&lt;td style="vertical-align:top;text-align:left"&gt;&lt;div style="margin-top: 0pt; margin-bottom: 0pt; font-size: 8pt; font-family: ARIAL; text-align: justify; line-height: normal;"&gt;In calculating the &#x201c;Compensation Actually Paid&#x201d; or &#x201c;CAP&#x201d; amounts reflected in these columns, the fair value or change in fair value, as applicable, of the equity award adjustments included in such calculations were computed in accordance with FASB ASC Topic 718. Time-vested restricted stock/unit grant date fair values are calculated using the closing stock price as of date of grant. Adjustments have been made using the stock price as of fiscal &lt;div style="white-space: nowrap; letter-spacing: 0px; top: 0px;display:inline;"&gt;year-end&lt;/div&gt; and as of each date of vest. Performance-vested restricted stock fair values are valued at zero at each respective measurement date, given all outstanding performance-vested restricted stock were accrued at and estimated to be earned below threshold (i.e., all shares forfeited) as of each respective measurement date. The assumptions used to calculate the fair value for purposes of determining the &#x201c;Compensation Actually Paid&#x201d; are consistent with the methodology used for calculating the grant date fair value for financial reporting purposes. &lt;/div&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;div style="font-size:3pt;margin-top:0pt;margin-bottom:0pt"&gt;&#160;&lt;/div&gt;
+&lt;table cellpadding="0" cellspacing="0" style="text-align:start; BORDER-COLLAPSE:COLLAPSE; font-family:ARIAL; font-size:8pt;border-spacing:0;width:100%"&gt;
+&lt;tr style="page-break-inside:avoid"&gt;
+&lt;td style="width:2%"&gt;&#160;&lt;/td&gt;
+&lt;td style="width:4%;vertical-align:top;text-align:left"&gt;(3)&lt;/td&gt;
+&lt;td style="vertical-align:top;text-align:left"&gt;&lt;div style="margin-top: 0pt; margin-bottom: 0pt; font-size: 8pt; font-family: ARIAL; text-align: justify; line-height: normal;"&gt;For fiscal 2024, our &lt;div style="white-space: nowrap; letter-spacing: 0px; top: 0px;display:inline;"&gt;non-PEO&lt;/div&gt; NEOs were Mark Robinson, Nir Patel, and Daniel Moore. For fiscal 2023, our &lt;div style="white-space: nowrap; letter-spacing: 0px; top: 0px;display:inline;"&gt;non-PEO&lt;/div&gt; NEOs were Diana Saadeh-Jajeh, Nir Patel and Dan Moore. For fiscal 2022, our &lt;div style="white-space: nowrap; letter-spacing: 0px; top: 0px;display:inline;"&gt;non-PEO&lt;/div&gt; NEOs were Diana Saadeh-Jajeh, Nir Patel, and Michael Recupero. For fiscal 2021, our &lt;div style="white-space: nowrap; letter-spacing: 0px; top: 0px;display:inline;"&gt;non-PEO&lt;/div&gt; NEOs were Michael Recupero, Diana Saadeh-Jajeh, James A. Bell, Frank M. Hamlin, Chris R. Homeister, and Daniel J. Kaufman. For fiscal 2020, our &lt;div style="white-space: nowrap; letter-spacing: 0px; top: 0px;display:inline;"&gt;non-PEO&lt;/div&gt; NEOs were James A. Bell, Frank M. Hamlin, Chris R. Homeister, and Daniel J. Kaufman. &lt;/div&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;div style="font-size:3pt;margin-top:0pt;margin-bottom:0pt"&gt;&#160;&lt;/div&gt;
+&lt;table cellpadding="0" cellspacing="0" style="text-align:start; BORDER-COLLAPSE:COLLAPSE; font-family:ARIAL; font-size:8pt;border-spacing:0;width:100%"&gt;
+&lt;tr style="page-break-inside:avoid"&gt;
+&lt;td style="width:2%"&gt;&#160;&lt;/td&gt;
+&lt;td style="width:4%;vertical-align:top;text-align:left"&gt;(4)&lt;/td&gt;
+&lt;td style="vertical-align:top;text-align:left"&gt;&lt;div style="margin-top: 0pt; margin-bottom: 0pt; font-size: 8pt; font-family: ARIAL; text-align: justify; line-height: normal;"&gt;The Company Total Shareholder Return (&#x201c;TSR&#x201d;) and the Company&#x2019;s Peer Group TSR reflected in these columns for each applicable fiscal year is calculated based on a fixed investment of $100 at the applicable measurement point on the same cumulative basis as is used in Item 201(e) of Regulation &lt;div style="white-space: nowrap; letter-spacing: 0px; top: 0px;display:inline;"&gt;S-K,&lt;/div&gt; assuming an initial investment date of January&#160;31, 2020. The peer group used to determine the Company&#x2019;s Peer Group TSR for each applicable fiscal year is the Dow Jones Specialty Retailers Index. &lt;/div&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;div style="font-size:3pt;margin-top:0pt;margin-bottom:0pt"&gt;&#160;&lt;/div&gt;
+&lt;table cellpadding="0" cellspacing="0" style="text-align:start; BORDER-COLLAPSE:COLLAPSE; font-family:ARIAL; font-size:8pt;border-spacing:0;width:100%"&gt;
+&lt;tr style="page-break-inside:avoid"&gt;
+&lt;td style="width:2%"&gt;&#160;&lt;/td&gt;
+&lt;td style="width:4%;vertical-align:top;text-align:left"&gt;(5)&lt;/td&gt;
+&lt;td style="vertical-align:top;text-align:left"&gt;&lt;div style="margin-top: 0pt; margin-bottom: 0pt; font-size: 8pt; font-family: ARIAL; text-align: justify; line-height: normal;"&gt;Represents the amount of net income (&lt;div style="letter-spacing: 0px; top: 0px;display:inline;"&gt;loss&lt;/div&gt;), as reflected in the Company&#x2019;s audited financial statements for the fiscal year indicated. &lt;/div&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;div style="font-size:3pt;margin-top:0pt;margin-bottom:0pt"&gt;&#160;&lt;/div&gt;
+&lt;table cellpadding="0" cellspacing="0" style="text-align:start; BORDER-COLLAPSE:COLLAPSE; font-family:ARIAL; font-size:8pt;border-spacing:0;width:100%"&gt;
+&lt;tr style="page-break-inside:avoid"&gt;
+&lt;td style="width:2%"&gt;&#160;&lt;/td&gt;
+&lt;td style="width:4%;vertical-align:top;text-align:left"&gt;(6)&lt;/td&gt;
+&lt;td style="vertical-align:top;text-align:left"&gt;&lt;div style="margin-top: 0pt; margin-bottom: 0pt; font-size: 8pt; font-family: ARIAL; text-align: justify; line-height: normal;"&gt;For purposes of this table, United States Operating Profit (excluding royalties), which was first used as a measure in our executive compensation program for fiscal 2024 and tracked by the Company beginning in fiscal 2022, is defined as operating earnings (loss) for the United States segment less deductions for intercompany and other items, including intercompany royalties and foreign currency translation adjustments, and additions for certain &lt;div style="white-space: nowrap; letter-spacing: 0px; top: 0px;display:inline;"&gt;non-cash&lt;/div&gt; and &lt;div style="white-space: nowrap; letter-spacing: 0px; top: 0px;display:inline;"&gt;one-time&lt;/div&gt; items, including asset impairment charges. For fiscal 2021 and 2020, amounts in this table reflect United States operating earnings (loss) as reported in the Company&#x2019;s Form &lt;div style="white-space: nowrap; letter-spacing: 0px; top: 0px;display:inline;"&gt;10-K.&lt;/div&gt; &lt;/div&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;div style="margin-top:0pt;margin-bottom:0pt ; font-size:8pt"&gt;&#160;&lt;/div&gt;&lt;div style="margin-top:0pt; margin-bottom:0pt; font-size:9pt; font-family:ARIAL;text-align:justify"&gt;In the calculation of CAP presented in the table above, the following amounts were deducted and added: &lt;/div&gt;&lt;div style="margin-top:12pt; margin-bottom:0pt; font-size:11pt; font-family:ARIAL"&gt;&lt;div style="color: rgb(226, 35, 26); letter-spacing: 0px; top: 0px;display:inline;"&gt;&lt;div style="display:inline;"&gt;&lt;div style="font-weight:bold;display:inline;"&gt;Reconciliation of SCT Total to CAP &lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div style="font-size:12pt;margin-top:0pt;margin-bottom:0pt"&gt;&#160;&lt;/div&gt;
+&lt;table cellpadding="0" cellspacing="0" style="text-align:start; BORDER-COLLAPSE:COLLAPSE; font-family:ARIAL; font-size:8pt;width:100%;border-spacing:0;margin:0 auto"&gt;
+&lt;tr&gt;
+&lt;td style="width:80%"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom;width:0%"&gt;&lt;/td&gt;
+&lt;td style="width:20pt;white-space:nowrap"&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td style="width:20pt;white-space:nowrap"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom;width:0%"&gt;&lt;/td&gt;
+&lt;td style="width:20pt;white-space:nowrap"&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td style="width:20pt;white-space:nowrap"&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="page-break-inside:avoid ; font-family:ARIAL; font-size:8pt;background-color:#e2231a"&gt;
+&lt;td style="vertical-align: bottom; padding-bottom: 0.375pt;"&gt;&#160;&lt;/td&gt;
+&lt;td style=" BORDER-BOTTOM:0.75pt solid #ffffff;vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td colspan="9" style="padding-bottom:2pt ;BORDER-BOTTOM:0.75pt solid #ffffff;vertical-align:bottom;text-align:center"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;&lt;div style="display:inline;"&gt;&lt;div style="font-weight:bold;display:inline;"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;FY2024&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="page-break-inside:avoid ; font-family:ARIAL; font-size:8pt;background-color:#e2231a"&gt;
+&lt;td style="padding-bottom:2pt ;vertical-align:bottom"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;&lt;div style="display:inline;"&gt;&lt;div style="font-weight:bold;display:inline;"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;&#x2002;Description of Elements Added / Subtracted to SCT Total to Calculate CAP&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td colspan="4" style="padding-bottom:2pt ;vertical-align:bottom;text-align:center"&gt;&lt;div style="margin-top: 0pt; margin-bottom: 0pt; font-size: 8pt; font-family: ARIAL; text-align: center; line-height: normal;"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;&lt;div style="display:inline;"&gt;&lt;div style="font-weight:bold;display:inline;"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;Current&#160;PEO&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div style="margin-top: 0pt; margin-bottom: 1pt; font-size: 8pt; font-family: ARIAL; text-align: center; line-height: normal;"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;&lt;div style="display:inline;"&gt;&lt;div style="font-weight:bold;display:inline;"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;Cohen&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td colspan="4" style="padding-bottom:2pt ;vertical-align:bottom;text-align:center"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;&lt;div style="display:inline;"&gt;&lt;div style="font-weight:bold;display:inline;"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;Average&lt;br/&gt; Other&#160;NEOs&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="font-size:1pt"&gt;
+&lt;td style="height:3pt;background-color:#000000"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt;background-color:#000000"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt;background-color:#000000"&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="page-break-inside:avoid ; font-family:ARIAL; font-size:8pt"&gt;
+&lt;td style="padding-bottom:3pt ;vertical-align:top;background-color:#000000"&gt;&lt;div style="margin-top: 0pt; margin-bottom: 0pt; margin-left: 1em; text-indent: -1em; font-size: 8pt; font-family: ARIAL; line-height: normal;"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;&#x2002;SCT Total&lt;/div&gt;&lt;/div&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom;background-color:#000000"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom;background-color:#000000"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;background-color:#000000"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;$&lt;/div&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;background-color:#000000;text-align:right"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;268,553&lt;/div&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;background-color:#000000"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom;background-color:#000000"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom;background-color:#000000"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;background-color:#000000"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;$&lt;/div&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;background-color:#000000;text-align:right"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;553,815&lt;/div&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;background-color:#000000"&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="font-size:1pt;background-color:#d6d6d6"&gt;
+&lt;td style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="page-break-inside:avoid ; font-family:ARIAL; font-size:8pt;background-color:#d6d6d6"&gt;
+&lt;td style="padding-bottom:3pt ;vertical-align:top"&gt;&lt;div style="margin-top: 0pt; margin-bottom: 0pt; margin-left: 1em; text-indent: -1em; font-size: 8pt; font-family: ARIAL; line-height: normal;"&gt;&#x2002;(Minus) Grant Date Fair Value of Awards Granted During the Year&lt;/div&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&#160;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;&#x2014;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;$&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;(293,958&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="font-size:1pt"&gt;
+&lt;td style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="page-break-inside:avoid ; font-family:ARIAL; font-size:8pt"&gt;
+&lt;td style="padding-bottom:3pt ;vertical-align:top"&gt;&lt;div style="margin-top: 0pt; margin-bottom: 0pt; margin-left: 1em; text-indent: -1em; font-size: 8pt; font-family: ARIAL; line-height: normal;"&gt;&#x2002;Plus Fair Value as of Awards Granted During the Year and Unvested as of &lt;div style="white-space: nowrap; letter-spacing: 0px; top: 0px;display:inline;"&gt;Year-End&lt;/div&gt;&lt;/div&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&#160;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;&#x2014;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;$&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;232,712&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="font-size:1pt;background-color:#d6d6d6"&gt;
+&lt;td style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="page-break-inside:avoid ; font-family:ARIAL; font-size:8pt;background-color:#d6d6d6"&gt;
+&lt;td style="padding-bottom:3pt ;vertical-align:top"&gt;&lt;div style="margin-top: 0pt; margin-bottom: 0pt; margin-left: 1em; text-indent: -1em; font-size: 8pt; font-family: ARIAL; line-height: normal;"&gt;&#x2002;Plus (Minus) Change from Prior &lt;div style="white-space: nowrap; letter-spacing: 0px; top: 0px;display:inline;"&gt;Year-End&lt;/div&gt; in Fair Value of Awards That Vested During the Year&lt;/div&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&#160;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;&#x2014;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;$&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;(49,462&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="font-size:1pt"&gt;
+&lt;td style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="page-break-inside:avoid ; font-family:ARIAL; font-size:8pt"&gt;
+&lt;td style="padding-bottom:3pt ;vertical-align:top"&gt;&lt;div style="margin-top: 0pt; margin-bottom: 0pt; margin-left: 1em; text-indent: -1em; font-size: 8pt; font-family: ARIAL; line-height: normal;"&gt;&#x2002;Plus (Minus) Year-over-Year Change in Fair Value of Unvested Awards Granted in Prior Years&lt;/div&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&#160;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;&#x2014;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;$&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;103,112&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="font-size:1pt;background-color:#d6d6d6"&gt;
+&lt;td style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="page-break-inside:avoid ; font-family:ARIAL; font-size:8pt;background-color:#d6d6d6"&gt;
+&lt;td style="padding-bottom:3pt ;vertical-align:top"&gt;&lt;div style="margin-top: 0pt; margin-bottom: 0pt; margin-left: 1em; text-indent: -1em; font-size: 8pt; font-family: ARIAL; line-height: normal;"&gt;&#x2002;Plus (Minus) Fair Value of Awards Granted During the Year and Vested During the Year&lt;/div&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;$&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;105,262&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="font-size:1pt"&gt;
+&lt;td style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="page-break-inside:avoid ; font-family:ARIAL; font-size:8pt"&gt;
+&lt;td style="padding-bottom:3pt ;vertical-align:top"&gt;&lt;div style="margin-top: 0pt; margin-bottom: 0pt; margin-left: 1em; text-indent: -1em; font-size: 8pt; font-family: ARIAL; line-height: normal;"&gt;&#x2002;(Minus) Grant Date Fair Value of Awards Granted During the Year&lt;/div&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;$&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;(3,739,947&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="font-size:1pt"&gt;
+&lt;td style="height:3pt;background-color:#000000"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt;background-color:#000000"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt;background-color:#000000"&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="page-break-inside:avoid ; font-family:ARIAL; font-size:8pt"&gt;
+&lt;td style="padding-bottom:3pt ;vertical-align:top;background-color:#000000"&gt;&lt;div style="margin-top: 0pt; margin-bottom: 0pt; margin-left: 1em; text-indent: -1em; font-size: 8pt; font-family: ARIAL; line-height: normal;"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;&#x2002;CAP Total&lt;/div&gt;&lt;/div&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom;background-color:#000000"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom;background-color:#000000"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;background-color:#000000"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;$&lt;/div&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;background-color:#000000;text-align:right"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;268,553&lt;/div&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;background-color:#000000"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom;background-color:#000000"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom;background-color:#000000"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;background-color:#000000"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;$&lt;/div&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;background-color:#000000;text-align:right"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;(3,088,467&lt;/div&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;background-color:#000000"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;)&lt;/div&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</ecd:PvpTableTextBlock>
+    <ecd:PeoTotalCompAmt
+      contextRef="P02_04_2024To02_01_2025_RyanCohenMemberecdIndividualAxis"
+      decimals="0"
+      id="ixv-10230"
+      unitRef="Unit_USD">268553</ecd:PeoTotalCompAmt>
+    <ecd:PeoTotalCompAmt
+      contextRef="P02_04_2024To02_01_2025_MarkRobinsonMemberecdIndividualAxis"
+      decimals="0"
+      id="ixv-10231"
+      unitRef="Unit_USD">0</ecd:PeoTotalCompAmt>
+    <ecd:PeoTotalCompAmt
+      contextRef="P02_04_2024To02_01_2025_MatthewFurlongMemberecdIndividualAxis"
+      decimals="0"
+      id="ixv-10232"
+      unitRef="Unit_USD">0</ecd:PeoTotalCompAmt>
+    <ecd:PeoTotalCompAmt
+      contextRef="P02_04_2024To02_01_2025_GeorgeEShermanMemberecdIndividualAxis"
+      decimals="0"
+      id="ixv-10233"
+      unitRef="Unit_USD">0</ecd:PeoTotalCompAmt>
+    <ecd:PeoActuallyPaidCompAmt
+      contextRef="P02_04_2024To02_01_2025_RyanCohenMemberecdIndividualAxis"
+      decimals="0"
+      id="ixv-10234"
+      unitRef="Unit_USD">268553</ecd:PeoActuallyPaidCompAmt>
+    <ecd:PeoActuallyPaidCompAmt
+      contextRef="P02_04_2024To02_01_2025_MarkRobinsonMemberecdIndividualAxis"
+      decimals="0"
+      id="ixv-10235"
+      unitRef="Unit_USD">0</ecd:PeoActuallyPaidCompAmt>
+    <ecd:PeoActuallyPaidCompAmt
+      contextRef="P02_04_2024To02_01_2025_MatthewFurlongMemberecdIndividualAxis"
+      decimals="0"
+      id="ixv-10236"
+      unitRef="Unit_USD">0</ecd:PeoActuallyPaidCompAmt>
+    <ecd:PeoActuallyPaidCompAmt
+      contextRef="P02_04_2024To02_01_2025_GeorgeEShermanMemberecdIndividualAxis"
+      decimals="0"
+      id="ixv-10237"
+      unitRef="Unit_USD">0</ecd:PeoActuallyPaidCompAmt>
+    <ecd:PeoTotalCompAmt
+      contextRef="P01_29_2023To02_03_2024_RyanCohenMemberecdIndividualAxis"
+      decimals="0"
+      id="ixv-10238"
+      unitRef="Unit_USD">0</ecd:PeoTotalCompAmt>
+    <ecd:PeoTotalCompAmt
+      contextRef="P01_29_2023To02_03_2024_MarkRobinsonMemberecdIndividualAxis"
+      decimals="0"
+      id="ixv-10239"
+      unitRef="Unit_USD">563647</ecd:PeoTotalCompAmt>
+    <ecd:PeoTotalCompAmt
+      contextRef="P01_29_2023To02_03_2024_MatthewFurlongMemberecdIndividualAxis"
+      decimals="0"
+      id="ixv-10240"
+      unitRef="Unit_USD">1090198</ecd:PeoTotalCompAmt>
+    <ecd:PeoTotalCompAmt
+      contextRef="P01_29_2023To02_03_2024_GeorgeEShermanMemberecdIndividualAxis"
+      decimals="0"
+      id="ixv-10241"
+      unitRef="Unit_USD">0</ecd:PeoTotalCompAmt>
+    <ecd:PeoActuallyPaidCompAmt
+      contextRef="P01_29_2023To02_03_2024_RyanCohenMemberecdIndividualAxis"
+      decimals="0"
+      id="ixv-10242"
+      unitRef="Unit_USD">0</ecd:PeoActuallyPaidCompAmt>
+    <ecd:PeoActuallyPaidCompAmt
+      contextRef="P01_29_2023To02_03_2024_MarkRobinsonMemberecdIndividualAxis"
+      decimals="0"
+      id="ixv-10243"
+      unitRef="Unit_USD">-93436</ecd:PeoActuallyPaidCompAmt>
+    <ecd:PeoActuallyPaidCompAmt
+      contextRef="P01_29_2023To02_03_2024_MatthewFurlongMemberecdIndividualAxis"
+      decimals="0"
+      id="ixv-10244"
+      unitRef="Unit_USD">-4169658</ecd:PeoActuallyPaidCompAmt>
+    <ecd:PeoActuallyPaidCompAmt
+      contextRef="P01_29_2023To02_03_2024_GeorgeEShermanMemberecdIndividualAxis"
+      decimals="0"
+      id="ixv-10245"
+      unitRef="Unit_USD">0</ecd:PeoActuallyPaidCompAmt>
+    <ecd:PeoTotalCompAmt
+      contextRef="P01_30_2022To01_28_2023_RyanCohenMemberecdIndividualAxis"
+      decimals="0"
+      id="ixv-10246"
+      unitRef="Unit_USD">0</ecd:PeoTotalCompAmt>
+    <ecd:PeoTotalCompAmt
+      contextRef="P01_30_2022To01_28_2023_MarkRobinsonMemberecdIndividualAxis"
+      decimals="0"
+      id="ixv-10247"
+      unitRef="Unit_USD">0</ecd:PeoTotalCompAmt>
+    <ecd:PeoTotalCompAmt
+      contextRef="P01_30_2022To01_28_2023_MatthewFurlongMemberecdIndividualAxis"
+      decimals="0"
+      id="ixv-10248"
+      unitRef="Unit_USD">2482709</ecd:PeoTotalCompAmt>
+    <ecd:PeoTotalCompAmt
+      contextRef="P01_30_2022To01_28_2023_GeorgeEShermanMemberecdIndividualAxis"
+      decimals="0"
+      id="ixv-10249"
+      unitRef="Unit_USD">0</ecd:PeoTotalCompAmt>
+    <ecd:PeoActuallyPaidCompAmt
+      contextRef="P01_30_2022To01_28_2023_RyanCohenMemberecdIndividualAxis"
+      decimals="0"
+      id="ixv-10250"
+      unitRef="Unit_USD">0</ecd:PeoActuallyPaidCompAmt>
+    <ecd:PeoActuallyPaidCompAmt
+      contextRef="P01_30_2022To01_28_2023_MarkRobinsonMemberecdIndividualAxis"
+      decimals="0"
+      id="ixv-10251"
+      unitRef="Unit_USD">0</ecd:PeoActuallyPaidCompAmt>
+    <ecd:PeoActuallyPaidCompAmt
+      contextRef="P01_30_2022To01_28_2023_MatthewFurlongMemberecdIndividualAxis"
+      decimals="0"
+      id="ixv-10252"
+      unitRef="Unit_USD">2117619</ecd:PeoActuallyPaidCompAmt>
+    <ecd:PeoActuallyPaidCompAmt
+      contextRef="P01_30_2022To01_28_2023_GeorgeEShermanMemberecdIndividualAxis"
+      decimals="0"
+      id="ixv-10253"
+      unitRef="Unit_USD">0</ecd:PeoActuallyPaidCompAmt>
+    <ecd:PeoTotalCompAmt
+      contextRef="P01_31_2021To01_29_2022_RyanCohenMemberecdIndividualAxis"
+      decimals="0"
+      id="ixv-10254"
+      unitRef="Unit_USD">0</ecd:PeoTotalCompAmt>
+    <ecd:PeoTotalCompAmt
+      contextRef="P01_31_2021To01_29_2022_MarkRobinsonMemberecdIndividualAxis"
+      decimals="0"
+      id="ixv-10255"
+      unitRef="Unit_USD">0</ecd:PeoTotalCompAmt>
+    <ecd:PeoTotalCompAmt
+      contextRef="P01_31_2021To01_29_2022_MatthewFurlongMemberecdIndividualAxis"
+      decimals="0"
+      id="ixv-10256"
+      unitRef="Unit_USD">16812934</ecd:PeoTotalCompAmt>
+    <ecd:PeoTotalCompAmt
+      contextRef="P01_31_2021To01_29_2022_GeorgeEShermanMemberecdIndividualAxis"
+      decimals="0"
+      id="ixv-10257"
+      unitRef="Unit_USD">652306</ecd:PeoTotalCompAmt>
+    <ecd:PeoActuallyPaidCompAmt
+      contextRef="P01_31_2021To01_29_2022_RyanCohenMemberecdIndividualAxis"
+      decimals="0"
+      id="ixv-10258"
+      unitRef="Unit_USD">0</ecd:PeoActuallyPaidCompAmt>
+    <ecd:PeoActuallyPaidCompAmt
+      contextRef="P01_31_2021To01_29_2022_MarkRobinsonMemberecdIndividualAxis"
+      decimals="0"
+      id="ixv-10259"
+      unitRef="Unit_USD">0</ecd:PeoActuallyPaidCompAmt>
+    <ecd:PeoActuallyPaidCompAmt
+      contextRef="P01_31_2021To01_29_2022_MatthewFurlongMemberecdIndividualAxis"
+      decimals="0"
+      id="ixv-10260"
+      unitRef="Unit_USD">9076361</ecd:PeoActuallyPaidCompAmt>
+    <ecd:PeoActuallyPaidCompAmt
+      contextRef="P01_31_2021To01_29_2022_GeorgeEShermanMemberecdIndividualAxis"
+      decimals="0"
+      id="ixv-10261"
+      unitRef="Unit_USD">-132010993</ecd:PeoActuallyPaidCompAmt>
+    <ecd:PeoTotalCompAmt
+      contextRef="P02_02_2020To01_30_2021_RyanCohenMemberecdIndividualAxis"
+      decimals="0"
+      id="ixv-10262"
+      unitRef="Unit_USD">0</ecd:PeoTotalCompAmt>
+    <ecd:PeoTotalCompAmt
+      contextRef="P02_02_2020To01_30_2021_MarkRobinsonMemberecdIndividualAxis"
+      decimals="0"
+      id="ixv-10263"
+      unitRef="Unit_USD">0</ecd:PeoTotalCompAmt>
+    <ecd:PeoTotalCompAmt
+      contextRef="P02_02_2020To01_30_2021_MatthewFurlongMemberecdIndividualAxis"
+      decimals="0"
+      id="ixv-10264"
+      unitRef="Unit_USD">0</ecd:PeoTotalCompAmt>
+    <ecd:PeoTotalCompAmt
+      contextRef="P02_02_2020To01_30_2021_GeorgeEShermanMemberecdIndividualAxis"
+      decimals="0"
+      id="ixv-10265"
+      unitRef="Unit_USD">7174243</ecd:PeoTotalCompAmt>
+    <ecd:PeoActuallyPaidCompAmt
+      contextRef="P02_02_2020To01_30_2021_RyanCohenMemberecdIndividualAxis"
+      decimals="0"
+      id="ixv-10266"
+      unitRef="Unit_USD">0</ecd:PeoActuallyPaidCompAmt>
+    <ecd:PeoActuallyPaidCompAmt
+      contextRef="P02_02_2020To01_30_2021_MarkRobinsonMemberecdIndividualAxis"
+      decimals="0"
+      id="ixv-10267"
+      unitRef="Unit_USD">0</ecd:PeoActuallyPaidCompAmt>
+    <ecd:PeoActuallyPaidCompAmt
+      contextRef="P02_02_2020To01_30_2021_MatthewFurlongMemberecdIndividualAxis"
+      decimals="0"
+      id="ixv-10268"
+      unitRef="Unit_USD">0</ecd:PeoActuallyPaidCompAmt>
+    <ecd:PeoActuallyPaidCompAmt
+      contextRef="P02_02_2020To01_30_2021_GeorgeEShermanMemberecdIndividualAxis"
+      decimals="0"
+      id="ixv-10269"
+      unitRef="Unit_USD">427832874</ecd:PeoActuallyPaidCompAmt>
+    <ecd:NonPeoNeoAvgTotalCompAmt
+      contextRef="P02_04_2024To02_01_2025"
+      decimals="0"
+      id="ixv-10270"
+      unitRef="Unit_USD">553815</ecd:NonPeoNeoAvgTotalCompAmt>
+    <ecd:NonPeoNeoAvgCompActuallyPaidAmt
+      contextRef="P02_04_2024To02_01_2025"
+      decimals="0"
+      id="ixv-10271"
+      unitRef="Unit_USD">-3088467</ecd:NonPeoNeoAvgCompActuallyPaidAmt>
+    <ecd:TotalShareholderRtnAmt
+      contextRef="P02_04_2024To02_01_2025"
+      decimals="0"
+      id="ixv-10272"
+      unitRef="Unit_USD">2802</ecd:TotalShareholderRtnAmt>
+    <ecd:PeerGroupTotalShareholderRtnAmt
+      contextRef="P02_04_2024To02_01_2025"
+      decimals="0"
+      id="ixv-10273"
+      unitRef="Unit_USD">235</ecd:PeerGroupTotalShareholderRtnAmt>
+    <us-gaap:NetIncomeLoss
+      contextRef="P02_04_2024To02_01_2025"
+      decimals="-6"
+      id="ixv-10274"
+      unitRef="Unit_USD">131000000</us-gaap:NetIncomeLoss>
+    <ecd:CoSelectedMeasureAmt
+      contextRef="P02_04_2024To02_01_2025"
+      decimals="-6"
+      id="ixv-10275"
+      unitRef="Unit_USD">24000000</ecd:CoSelectedMeasureAmt>
+    <ecd:NonPeoNeoAvgTotalCompAmt
+      contextRef="P01_29_2023To02_03_2024"
+      decimals="0"
+      id="ixv-10276"
+      unitRef="Unit_USD">1051102</ecd:NonPeoNeoAvgTotalCompAmt>
+    <ecd:NonPeoNeoAvgCompActuallyPaidAmt
+      contextRef="P01_29_2023To02_03_2024"
+      decimals="0"
+      id="ixv-10277"
+      unitRef="Unit_USD">-1802812</ecd:NonPeoNeoAvgCompActuallyPaidAmt>
+    <ecd:TotalShareholderRtnAmt
+      contextRef="P01_29_2023To02_03_2024"
+      decimals="0"
+      id="ixv-10278"
+      unitRef="Unit_USD">1534</ecd:TotalShareholderRtnAmt>
+    <ecd:PeerGroupTotalShareholderRtnAmt
+      contextRef="P01_29_2023To02_03_2024"
+      decimals="0"
+      id="ixv-10279"
+      unitRef="Unit_USD">161</ecd:PeerGroupTotalShareholderRtnAmt>
+    <us-gaap:NetIncomeLoss
+      contextRef="P01_29_2023To02_03_2024"
+      decimals="-6"
+      id="ixv-10280"
+      unitRef="Unit_USD">7000000</us-gaap:NetIncomeLoss>
+    <ecd:CoSelectedMeasureAmt
+      contextRef="P01_29_2023To02_03_2024"
+      decimals="-6"
+      id="ixv-10281"
+      unitRef="Unit_USD">-65000000</ecd:CoSelectedMeasureAmt>
+    <ecd:NonPeoNeoAvgTotalCompAmt
+      contextRef="P01_30_2022To01_28_2023"
+      decimals="0"
+      id="ixv-10282"
+      unitRef="Unit_USD">13692562</ecd:NonPeoNeoAvgTotalCompAmt>
+    <ecd:NonPeoNeoAvgCompActuallyPaidAmt
+      contextRef="P01_30_2022To01_28_2023"
+      decimals="0"
+      id="ixv-10283"
+      unitRef="Unit_USD">8874616</ecd:NonPeoNeoAvgCompActuallyPaidAmt>
+    <ecd:TotalShareholderRtnAmt
+      contextRef="P01_30_2022To01_28_2023"
+      decimals="0"
+      id="ixv-10284"
+      unitRef="Unit_USD">2377</ecd:TotalShareholderRtnAmt>
+    <ecd:PeerGroupTotalShareholderRtnAmt
+      contextRef="P01_30_2022To01_28_2023"
+      decimals="0"
+      id="ixv-10285"
+      unitRef="Unit_USD">135</ecd:PeerGroupTotalShareholderRtnAmt>
+    <us-gaap:NetIncomeLoss
+      contextRef="P01_30_2022To01_28_2023"
+      decimals="-6"
+      id="ixv-10286"
+      unitRef="Unit_USD">-313000000</us-gaap:NetIncomeLoss>
+    <ecd:CoSelectedMeasureAmt
+      contextRef="P01_30_2022To01_28_2023"
+      decimals="-6"
+      id="ixv-10287"
+      unitRef="Unit_USD">-328000000</ecd:CoSelectedMeasureAmt>
+    <ecd:NonPeoNeoAvgTotalCompAmt
+      contextRef="P01_31_2021To01_29_2022"
+      decimals="0"
+      id="ixv-10288"
+      unitRef="Unit_USD">6299738</ecd:NonPeoNeoAvgTotalCompAmt>
+    <ecd:NonPeoNeoAvgCompActuallyPaidAmt
+      contextRef="P01_31_2021To01_29_2022"
+      decimals="0"
+      id="ixv-10289"
+      unitRef="Unit_USD">-9396932</ecd:NonPeoNeoAvgCompActuallyPaidAmt>
+    <ecd:TotalShareholderRtnAmt
+      contextRef="P01_31_2021To01_29_2022"
+      decimals="0"
+      id="ixv-10290"
+      unitRef="Unit_USD">2550</ecd:TotalShareholderRtnAmt>
+    <ecd:PeerGroupTotalShareholderRtnAmt
+      contextRef="P01_31_2021To01_29_2022"
+      decimals="0"
+      id="ixv-10291"
+      unitRef="Unit_USD">135</ecd:PeerGroupTotalShareholderRtnAmt>
+    <us-gaap:NetIncomeLoss
+      contextRef="P01_31_2021To01_29_2022"
+      decimals="-6"
+      id="ixv-10292"
+      unitRef="Unit_USD">-381000000</us-gaap:NetIncomeLoss>
+    <ecd:CoSelectedMeasureAmt
+      contextRef="P01_31_2021To01_29_2022"
+      decimals="-6"
+      id="ixv-10293"
+      unitRef="Unit_USD">-358000000</ecd:CoSelectedMeasureAmt>
+    <ecd:NonPeoNeoAvgTotalCompAmt
+      contextRef="P02_02_2020To01_30_2021"
+      decimals="0"
+      id="ixv-10294"
+      unitRef="Unit_USD">2732872</ecd:NonPeoNeoAvgTotalCompAmt>
+    <ecd:NonPeoNeoAvgCompActuallyPaidAmt
+      contextRef="P02_02_2020To01_30_2021"
+      decimals="0"
+      id="ixv-10295"
+      unitRef="Unit_USD">66526448</ecd:NonPeoNeoAvgCompActuallyPaidAmt>
+    <ecd:TotalShareholderRtnAmt
+      contextRef="P02_02_2020To01_30_2021"
+      decimals="0"
+      id="ixv-10296"
+      unitRef="Unit_USD">8464</ecd:TotalShareholderRtnAmt>
+    <ecd:PeerGroupTotalShareholderRtnAmt
+      contextRef="P02_02_2020To01_30_2021"
+      decimals="0"
+      id="ixv-10297"
+      unitRef="Unit_USD">141</ecd:PeerGroupTotalShareholderRtnAmt>
+    <us-gaap:NetIncomeLoss
+      contextRef="P02_02_2020To01_30_2021"
+      decimals="-6"
+      id="ixv-10298"
+      unitRef="Unit_USD">-215000000</us-gaap:NetIncomeLoss>
+    <ecd:CoSelectedMeasureAmt
+      contextRef="P02_02_2020To01_30_2021"
+      decimals="-6"
+      id="ixv-10299"
+      unitRef="Unit_USD">-211000000</ecd:CoSelectedMeasureAmt>
+    <ecd:PeoName
+      contextRef="P01_29_2023To02_03_2024_RyanCohenMemberecdIndividualAxis"
+      id="ixv-10300">Ryan Cohen</ecd:PeoName>
+    <ecd:PeoName
+      contextRef="P02_04_2024To02_01_2025_RyanCohenMemberecdIndividualAxis"
+      id="ixv-10301">Ryan Cohen</ecd:PeoName>
+    <ecd:PeoName
+      contextRef="P01_29_2023To02_03_2024_MarkRobinsonMemberecdIndividualAxis"
+      id="ixv-10302">Mark Robinson</ecd:PeoName>
+    <ecd:PeoName
+      contextRef="P01_29_2023To02_03_2024_MatthewFurlongMemberecdIndividualAxis"
+      id="ixv-10303">Matthew Furlong</ecd:PeoName>
+    <ecd:PeoName
+      contextRef="P01_30_2022To01_28_2023_MatthewFurlongMemberecdIndividualAxis"
+      id="ixv-10304">Matthew Furlong</ecd:PeoName>
+    <ecd:PeoName
+      contextRef="P01_31_2021To01_29_2022_MatthewFurlongMemberecdIndividualAxis"
+      id="ixv-10305">Matthew Furlong</ecd:PeoName>
+    <ecd:PeoName
+      contextRef="P01_31_2021To01_29_2022_GeorgeEShermanMemberecdIndividualAxis"
+      id="ixv-10306">George E. Sherman</ecd:PeoName>
+    <ecd:PeoName
+      contextRef="P02_02_2020To01_30_2021_GeorgeEShermanMemberecdIndividualAxis"
+      id="ixv-10307">George E. Sherman</ecd:PeoName>
+    <ecd:NamedExecutiveOfficersFnTextBlock contextRef="P02_04_2024To02_01_2025" id="ixv-8691">For fiscal 2024, our &lt;div style="white-space: nowrap; letter-spacing: 0px; top: 0px;display:inline;"&gt;non-PEO&lt;/div&gt; NEOs were Mark Robinson, Nir Patel, and Daniel Moore. For fiscal 2023, our &lt;div style="white-space: nowrap; letter-spacing: 0px; top: 0px;display:inline;"&gt;non-PEO&lt;/div&gt; NEOs were Diana Saadeh-Jajeh, Nir Patel and Dan Moore. For fiscal 2022, our &lt;div style="white-space: nowrap; letter-spacing: 0px; top: 0px;display:inline;"&gt;non-PEO&lt;/div&gt; NEOs were Diana Saadeh-Jajeh, Nir Patel, and Michael Recupero. For fiscal 2021, our &lt;div style="white-space: nowrap; letter-spacing: 0px; top: 0px;display:inline;"&gt;non-PEO&lt;/div&gt; NEOs were Michael Recupero, Diana Saadeh-Jajeh, James A. Bell, Frank M. Hamlin, Chris R. Homeister, and Daniel J. Kaufman. For fiscal 2020, our &lt;div style="white-space: nowrap; letter-spacing: 0px; top: 0px;display:inline;"&gt;non-PEO&lt;/div&gt; NEOs were James A. Bell, Frank M. Hamlin, Chris R. Homeister, and Daniel J. Kaufman.</ecd:NamedExecutiveOfficersFnTextBlock>
+    <ecd:PeerGroupIssuersFnTextBlock contextRef="P02_04_2024To02_01_2025" id="ixv-8704">The Company Total Shareholder Return (&#x201c;TSR&#x201d;) and the Company&#x2019;s Peer Group TSR reflected in these columns for each applicable fiscal year is calculated based on a fixed investment of $100 at the applicable measurement point on the same cumulative basis as is used in Item 201(e) of Regulation &lt;div style="white-space: nowrap; letter-spacing: 0px; top: 0px;display:inline;"&gt;S-K,&lt;/div&gt; assuming an initial investment date of January&#160;31, 2020. The peer group used to determine the Company&#x2019;s Peer Group TSR for each applicable fiscal year is the Dow Jones Specialty Retailers Index.</ecd:PeerGroupIssuersFnTextBlock>
+    <ecd:CoSelectedMeasureName contextRef="P02_04_2024To02_01_2025" id="ixv-10308">United States Operating Profit (excluding royalties)</ecd:CoSelectedMeasureName>
+    <ecd:AdjToPeoCompFnTextBlock contextRef="P02_04_2024To02_01_2025" id="ixv-8754">&lt;div style="margin-top:12pt; margin-bottom:0pt; font-size:11pt; font-family:ARIAL"&gt;&lt;div style="color: rgb(226, 35, 26); letter-spacing: 0px; top: 0px;display:inline;"&gt;&lt;div style="display:inline;"&gt;&lt;div style="font-weight:bold;display:inline;"&gt;Reconciliation of SCT Total to CAP &lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div style="font-size:12pt;margin-top:0pt;margin-bottom:0pt"&gt;&#160;&lt;/div&gt;
+&lt;table cellpadding="0" cellspacing="0" style="text-align:start; BORDER-COLLAPSE:COLLAPSE; font-family:ARIAL; font-size:8pt;width:100%;border-spacing:0;margin:0 auto"&gt;
+&lt;tr&gt;
+&lt;td style="width:80%"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom;width:0%"&gt;&lt;/td&gt;
+&lt;td style="width:20pt;white-space:nowrap"&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td style="width:20pt;white-space:nowrap"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom;width:0%"&gt;&lt;/td&gt;
+&lt;td style="width:20pt;white-space:nowrap"&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td style="width:20pt;white-space:nowrap"&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="page-break-inside:avoid ; font-family:ARIAL; font-size:8pt;background-color:#e2231a"&gt;
+&lt;td style="vertical-align: bottom; padding-bottom: 0.375pt;"&gt;&#160;&lt;/td&gt;
+&lt;td style=" BORDER-BOTTOM:0.75pt solid #ffffff;vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td colspan="9" style="padding-bottom:2pt ;BORDER-BOTTOM:0.75pt solid #ffffff;vertical-align:bottom;text-align:center"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;&lt;div style="display:inline;"&gt;&lt;div style="font-weight:bold;display:inline;"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;FY2024&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="page-break-inside:avoid ; font-family:ARIAL; font-size:8pt;background-color:#e2231a"&gt;
+&lt;td style="padding-bottom:2pt ;vertical-align:bottom"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;&lt;div style="display:inline;"&gt;&lt;div style="font-weight:bold;display:inline;"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;&#x2002;Description of Elements Added / Subtracted to SCT Total to Calculate CAP&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td colspan="4" style="padding-bottom:2pt ;vertical-align:bottom;text-align:center"&gt;&lt;div style="margin-top: 0pt; margin-bottom: 0pt; font-size: 8pt; font-family: ARIAL; text-align: center; line-height: normal;"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;&lt;div style="display:inline;"&gt;&lt;div style="font-weight:bold;display:inline;"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;Current&#160;PEO&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div style="margin-top: 0pt; margin-bottom: 1pt; font-size: 8pt; font-family: ARIAL; text-align: center; line-height: normal;"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;&lt;div style="display:inline;"&gt;&lt;div style="font-weight:bold;display:inline;"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;Cohen&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td colspan="4" style="padding-bottom:2pt ;vertical-align:bottom;text-align:center"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;&lt;div style="display:inline;"&gt;&lt;div style="font-weight:bold;display:inline;"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;Average&lt;br/&gt; Other&#160;NEOs&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="font-size:1pt"&gt;
+&lt;td style="height:3pt;background-color:#000000"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt;background-color:#000000"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt;background-color:#000000"&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="page-break-inside:avoid ; font-family:ARIAL; font-size:8pt"&gt;
+&lt;td style="padding-bottom:3pt ;vertical-align:top;background-color:#000000"&gt;&lt;div style="margin-top: 0pt; margin-bottom: 0pt; margin-left: 1em; text-indent: -1em; font-size: 8pt; font-family: ARIAL; line-height: normal;"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;&#x2002;SCT Total&lt;/div&gt;&lt;/div&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom;background-color:#000000"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom;background-color:#000000"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;background-color:#000000"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;$&lt;/div&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;background-color:#000000;text-align:right"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;268,553&lt;/div&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;background-color:#000000"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom;background-color:#000000"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom;background-color:#000000"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;background-color:#000000"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;$&lt;/div&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;background-color:#000000;text-align:right"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;553,815&lt;/div&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;background-color:#000000"&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="font-size:1pt;background-color:#d6d6d6"&gt;
+&lt;td style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="page-break-inside:avoid ; font-family:ARIAL; font-size:8pt;background-color:#d6d6d6"&gt;
+&lt;td style="padding-bottom:3pt ;vertical-align:top"&gt;&lt;div style="margin-top: 0pt; margin-bottom: 0pt; margin-left: 1em; text-indent: -1em; font-size: 8pt; font-family: ARIAL; line-height: normal;"&gt;&#x2002;(Minus) Grant Date Fair Value of Awards Granted During the Year&lt;/div&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&#160;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;&#x2014;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;$&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;(293,958&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="font-size:1pt"&gt;
+&lt;td style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="page-break-inside:avoid ; font-family:ARIAL; font-size:8pt"&gt;
+&lt;td style="padding-bottom:3pt ;vertical-align:top"&gt;&lt;div style="margin-top: 0pt; margin-bottom: 0pt; margin-left: 1em; text-indent: -1em; font-size: 8pt; font-family: ARIAL; line-height: normal;"&gt;&#x2002;Plus Fair Value as of Awards Granted During the Year and Unvested as of &lt;div style="white-space: nowrap; letter-spacing: 0px; top: 0px;display:inline;"&gt;Year-End&lt;/div&gt;&lt;/div&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&#160;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;&#x2014;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;$&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;232,712&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="font-size:1pt;background-color:#d6d6d6"&gt;
+&lt;td style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="page-break-inside:avoid ; font-family:ARIAL; font-size:8pt;background-color:#d6d6d6"&gt;
+&lt;td style="padding-bottom:3pt ;vertical-align:top"&gt;&lt;div style="margin-top: 0pt; margin-bottom: 0pt; margin-left: 1em; text-indent: -1em; font-size: 8pt; font-family: ARIAL; line-height: normal;"&gt;&#x2002;Plus (Minus) Change from Prior &lt;div style="white-space: nowrap; letter-spacing: 0px; top: 0px;display:inline;"&gt;Year-End&lt;/div&gt; in Fair Value of Awards That Vested During the Year&lt;/div&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&#160;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;&#x2014;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;$&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;(49,462&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="font-size:1pt"&gt;
+&lt;td style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="page-break-inside:avoid ; font-family:ARIAL; font-size:8pt"&gt;
+&lt;td style="padding-bottom:3pt ;vertical-align:top"&gt;&lt;div style="margin-top: 0pt; margin-bottom: 0pt; margin-left: 1em; text-indent: -1em; font-size: 8pt; font-family: ARIAL; line-height: normal;"&gt;&#x2002;Plus (Minus) Year-over-Year Change in Fair Value of Unvested Awards Granted in Prior Years&lt;/div&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&#160;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;&#x2014;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;$&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;103,112&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="font-size:1pt;background-color:#d6d6d6"&gt;
+&lt;td style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="page-break-inside:avoid ; font-family:ARIAL; font-size:8pt;background-color:#d6d6d6"&gt;
+&lt;td style="padding-bottom:3pt ;vertical-align:top"&gt;&lt;div style="margin-top: 0pt; margin-bottom: 0pt; margin-left: 1em; text-indent: -1em; font-size: 8pt; font-family: ARIAL; line-height: normal;"&gt;&#x2002;Plus (Minus) Fair Value of Awards Granted During the Year and Vested During the Year&lt;/div&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;$&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;105,262&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="font-size:1pt"&gt;
+&lt;td style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="page-break-inside:avoid ; font-family:ARIAL; font-size:8pt"&gt;
+&lt;td style="padding-bottom:3pt ;vertical-align:top"&gt;&lt;div style="margin-top: 0pt; margin-bottom: 0pt; margin-left: 1em; text-indent: -1em; font-size: 8pt; font-family: ARIAL; line-height: normal;"&gt;&#x2002;(Minus) Grant Date Fair Value of Awards Granted During the Year&lt;/div&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;$&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;(3,739,947&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="font-size:1pt"&gt;
+&lt;td style="height:3pt;background-color:#000000"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt;background-color:#000000"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt;background-color:#000000"&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="page-break-inside:avoid ; font-family:ARIAL; font-size:8pt"&gt;
+&lt;td style="padding-bottom:3pt ;vertical-align:top;background-color:#000000"&gt;&lt;div style="margin-top: 0pt; margin-bottom: 0pt; margin-left: 1em; text-indent: -1em; font-size: 8pt; font-family: ARIAL; line-height: normal;"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;&#x2002;CAP Total&lt;/div&gt;&lt;/div&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom;background-color:#000000"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom;background-color:#000000"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;background-color:#000000"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;$&lt;/div&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;background-color:#000000;text-align:right"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;268,553&lt;/div&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;background-color:#000000"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom;background-color:#000000"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom;background-color:#000000"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;background-color:#000000"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;$&lt;/div&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;background-color:#000000;text-align:right"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;(3,088,467&lt;/div&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;background-color:#000000"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;)&lt;/div&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</ecd:AdjToPeoCompFnTextBlock>
+    <ecd:AdjToNonPeoNeoCompFnTextBlock contextRef="P02_04_2024To02_01_2025" id="ixv-8755">&lt;div style="margin-top:12pt; margin-bottom:0pt; font-size:11pt; font-family:ARIAL"&gt;&lt;div style="color: rgb(226, 35, 26); letter-spacing: 0px; top: 0px;display:inline;"&gt;&lt;div style="display:inline;"&gt;&lt;div style="font-weight:bold;display:inline;"&gt;Reconciliation of SCT Total to CAP &lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div style="font-size:12pt;margin-top:0pt;margin-bottom:0pt"&gt;&#160;&lt;/div&gt;
+&lt;table cellpadding="0" cellspacing="0" style="text-align:start; BORDER-COLLAPSE:COLLAPSE; font-family:ARIAL; font-size:8pt;width:100%;border-spacing:0;margin:0 auto"&gt;
+&lt;tr&gt;
+&lt;td style="width:80%"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom;width:0%"&gt;&lt;/td&gt;
+&lt;td style="width:20pt;white-space:nowrap"&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td style="width:20pt;white-space:nowrap"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom;width:0%"&gt;&lt;/td&gt;
+&lt;td style="width:20pt;white-space:nowrap"&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td style="width:20pt;white-space:nowrap"&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="page-break-inside:avoid ; font-family:ARIAL; font-size:8pt;background-color:#e2231a"&gt;
+&lt;td style="vertical-align: bottom; padding-bottom: 0.375pt;"&gt;&#160;&lt;/td&gt;
+&lt;td style=" BORDER-BOTTOM:0.75pt solid #ffffff;vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td colspan="9" style="padding-bottom:2pt ;BORDER-BOTTOM:0.75pt solid #ffffff;vertical-align:bottom;text-align:center"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;&lt;div style="display:inline;"&gt;&lt;div style="font-weight:bold;display:inline;"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;FY2024&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="page-break-inside:avoid ; font-family:ARIAL; font-size:8pt;background-color:#e2231a"&gt;
+&lt;td style="padding-bottom:2pt ;vertical-align:bottom"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;&lt;div style="display:inline;"&gt;&lt;div style="font-weight:bold;display:inline;"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;&#x2002;Description of Elements Added / Subtracted to SCT Total to Calculate CAP&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td colspan="4" style="padding-bottom:2pt ;vertical-align:bottom;text-align:center"&gt;&lt;div style="margin-top: 0pt; margin-bottom: 0pt; font-size: 8pt; font-family: ARIAL; text-align: center; line-height: normal;"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;&lt;div style="display:inline;"&gt;&lt;div style="font-weight:bold;display:inline;"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;Current&#160;PEO&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div style="margin-top: 0pt; margin-bottom: 1pt; font-size: 8pt; font-family: ARIAL; text-align: center; line-height: normal;"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;&lt;div style="display:inline;"&gt;&lt;div style="font-weight:bold;display:inline;"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;Cohen&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td colspan="4" style="padding-bottom:2pt ;vertical-align:bottom;text-align:center"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;&lt;div style="display:inline;"&gt;&lt;div style="font-weight:bold;display:inline;"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;Average&lt;br/&gt; Other&#160;NEOs&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="font-size:1pt"&gt;
+&lt;td style="height:3pt;background-color:#000000"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt;background-color:#000000"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt;background-color:#000000"&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="page-break-inside:avoid ; font-family:ARIAL; font-size:8pt"&gt;
+&lt;td style="padding-bottom:3pt ;vertical-align:top;background-color:#000000"&gt;&lt;div style="margin-top: 0pt; margin-bottom: 0pt; margin-left: 1em; text-indent: -1em; font-size: 8pt; font-family: ARIAL; line-height: normal;"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;&#x2002;SCT Total&lt;/div&gt;&lt;/div&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom;background-color:#000000"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom;background-color:#000000"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;background-color:#000000"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;$&lt;/div&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;background-color:#000000;text-align:right"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;268,553&lt;/div&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;background-color:#000000"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom;background-color:#000000"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom;background-color:#000000"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;background-color:#000000"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;$&lt;/div&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;background-color:#000000;text-align:right"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;553,815&lt;/div&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;background-color:#000000"&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="font-size:1pt;background-color:#d6d6d6"&gt;
+&lt;td style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="page-break-inside:avoid ; font-family:ARIAL; font-size:8pt;background-color:#d6d6d6"&gt;
+&lt;td style="padding-bottom:3pt ;vertical-align:top"&gt;&lt;div style="margin-top: 0pt; margin-bottom: 0pt; margin-left: 1em; text-indent: -1em; font-size: 8pt; font-family: ARIAL; line-height: normal;"&gt;&#x2002;(Minus) Grant Date Fair Value of Awards Granted During the Year&lt;/div&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&#160;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;&#x2014;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;$&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;(293,958&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="font-size:1pt"&gt;
+&lt;td style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="page-break-inside:avoid ; font-family:ARIAL; font-size:8pt"&gt;
+&lt;td style="padding-bottom:3pt ;vertical-align:top"&gt;&lt;div style="margin-top: 0pt; margin-bottom: 0pt; margin-left: 1em; text-indent: -1em; font-size: 8pt; font-family: ARIAL; line-height: normal;"&gt;&#x2002;Plus Fair Value as of Awards Granted During the Year and Unvested as of &lt;div style="white-space: nowrap; letter-spacing: 0px; top: 0px;display:inline;"&gt;Year-End&lt;/div&gt;&lt;/div&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&#160;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;&#x2014;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;$&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;232,712&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="font-size:1pt;background-color:#d6d6d6"&gt;
+&lt;td style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="page-break-inside:avoid ; font-family:ARIAL; font-size:8pt;background-color:#d6d6d6"&gt;
+&lt;td style="padding-bottom:3pt ;vertical-align:top"&gt;&lt;div style="margin-top: 0pt; margin-bottom: 0pt; margin-left: 1em; text-indent: -1em; font-size: 8pt; font-family: ARIAL; line-height: normal;"&gt;&#x2002;Plus (Minus) Change from Prior &lt;div style="white-space: nowrap; letter-spacing: 0px; top: 0px;display:inline;"&gt;Year-End&lt;/div&gt; in Fair Value of Awards That Vested During the Year&lt;/div&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&#160;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;&#x2014;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;$&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;(49,462&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="font-size:1pt"&gt;
+&lt;td style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="page-break-inside:avoid ; font-family:ARIAL; font-size:8pt"&gt;
+&lt;td style="padding-bottom:3pt ;vertical-align:top"&gt;&lt;div style="margin-top: 0pt; margin-bottom: 0pt; margin-left: 1em; text-indent: -1em; font-size: 8pt; font-family: ARIAL; line-height: normal;"&gt;&#x2002;Plus (Minus) Year-over-Year Change in Fair Value of Unvested Awards Granted in Prior Years&lt;/div&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&#160;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;&#x2014;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;$&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;103,112&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="font-size:1pt;background-color:#d6d6d6"&gt;
+&lt;td style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="page-break-inside:avoid ; font-family:ARIAL; font-size:8pt;background-color:#d6d6d6"&gt;
+&lt;td style="padding-bottom:3pt ;vertical-align:top"&gt;&lt;div style="margin-top: 0pt; margin-bottom: 0pt; margin-left: 1em; text-indent: -1em; font-size: 8pt; font-family: ARIAL; line-height: normal;"&gt;&#x2002;Plus (Minus) Fair Value of Awards Granted During the Year and Vested During the Year&lt;/div&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;$&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;105,262&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="font-size:1pt"&gt;
+&lt;td style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt"&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="page-break-inside:avoid ; font-family:ARIAL; font-size:8pt"&gt;
+&lt;td style="padding-bottom:3pt ;vertical-align:top"&gt;&lt;div style="margin-top: 0pt; margin-bottom: 0pt; margin-left: 1em; text-indent: -1em; font-size: 8pt; font-family: ARIAL; line-height: normal;"&gt;&#x2002;(Minus) Grant Date Fair Value of Awards Granted During the Year&lt;/div&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;$&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;text-align:right"&gt;(3,739,947&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom"&gt;)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="font-size:1pt"&gt;
+&lt;td style="height:3pt;background-color:#000000"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt;background-color:#000000"&gt;&lt;/td&gt;
+&lt;td colspan="5" style="height:3pt;background-color:#000000"&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style="page-break-inside:avoid ; font-family:ARIAL; font-size:8pt"&gt;
+&lt;td style="padding-bottom:3pt ;vertical-align:top;background-color:#000000"&gt;&lt;div style="margin-top: 0pt; margin-bottom: 0pt; margin-left: 1em; text-indent: -1em; font-size: 8pt; font-family: ARIAL; line-height: normal;"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;&#x2002;CAP Total&lt;/div&gt;&lt;/div&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom;background-color:#000000"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom;background-color:#000000"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;background-color:#000000"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;$&lt;/div&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;background-color:#000000;text-align:right"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;268,553&lt;/div&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;background-color:#000000"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom;background-color:#000000"&gt;&lt;/td&gt;
+&lt;td style="vertical-align:bottom;background-color:#000000"&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;background-color:#000000"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;$&lt;/div&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;background-color:#000000;text-align:right"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;(3,088,467&lt;/div&gt;&lt;/td&gt;
+&lt;td style="padding-bottom:3pt ;white-space:nowrap;vertical-align:bottom;background-color:#000000"&gt;&lt;div style="color: rgb(255, 255, 255); letter-spacing: 0px; top: 0px;display:inline;"&gt;)&lt;/div&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</ecd:AdjToNonPeoNeoCompFnTextBlock>
+    <ecd:PeoTotalCompAmt
+      contextRef="P02_04_2024To02_01_2025"
+      decimals="0"
+      id="ixv-10309"
+      unitRef="Unit_USD">268553</ecd:PeoTotalCompAmt>
+    <ecd:NonPeoNeoAvgTotalCompAmt
+      contextRef="P02_04_2024To02_01_2025"
+      decimals="0"
+      id="ixv-10310"
+      unitRef="Unit_USD">553815</ecd:NonPeoNeoAvgTotalCompAmt>
+    <ecd:AdjToCompAmt
+      contextRef="P02_04_2024To02_01_2025_EqtyAwrdsInSummryCompstnTblForAplblYrMemberecdAdjToCompAxis_PeoMemberecdExecutiveCategoryAxis"
+      decimals="0"
+      id="ixv-10311"
+      unitRef="Unit_USD">0</ecd:AdjToCompAmt>
+    <ecd:AdjToCompAmt
+      contextRef="P02_04_2024To02_01_2025_EqtyAwrdsInSummryCompstnTblForAplblYrMemberecdAdjToCompAxis_NonPeoNeoMemberecdExecutiveCategoryAxis"
+      decimals="0"
+      id="ixv-10312"
+      unitRef="Unit_USD">-293958</ecd:AdjToCompAmt>
+    <ecd:AdjToCompAmt
+      contextRef="P02_04_2024To02_01_2025_PeoMemberecdExecutiveCategoryAxis_YrEndFrValOfEqtyAwrdsGrntdInCvrdYrOutsdngAndUnvstdMemberecdAdjToCompAxis"
+      decimals="0"
+      id="ixv-10313"
+      unitRef="Unit_USD">0</ecd:AdjToCompAmt>
+    <ecd:AdjToCompAmt
+      contextRef="P02_04_2024To02_01_2025_NonPeoNeoMemberecdExecutiveCategoryAxis_YrEndFrValOfEqtyAwrdsGrntdInCvrdYrOutsdngAndUnvstdMemberecdAdjToCompAxis"
+      decimals="0"
+      id="ixv-10314"
+      unitRef="Unit_USD">232712</ecd:AdjToCompAmt>
+    <ecd:AdjToCompAmt
+      contextRef="P02_04_2024To02_01_2025_ChngInFrValAsOfVstngDtOfPrrYrEqtyAwrdsVstdInCvrdYrMemberecdAdjToCompAxis_PeoMemberecdExecutiveCategoryAxis"
+      decimals="0"
+      id="ixv-10315"
+      unitRef="Unit_USD">0</ecd:AdjToCompAmt>
+    <ecd:AdjToCompAmt
+      contextRef="P02_04_2024To02_01_2025_ChngInFrValAsOfVstngDtOfPrrYrEqtyAwrdsVstdInCvrdYrMemberecdAdjToCompAxis_NonPeoNeoMemberecdExecutiveCategoryAxis"
+      decimals="0"
+      id="ixv-10316"
+      unitRef="Unit_USD">-49462</ecd:AdjToCompAmt>
+    <ecd:AdjToCompAmt
+      contextRef="P02_04_2024To02_01_2025_ChngInFrValOfOutsdngAndUnvstdEqtyAwrdsGrntdInPrrYrsMemberecdAdjToCompAxis_PeoMemberecdExecutiveCategoryAxis"
+      decimals="0"
+      id="ixv-10317"
+      unitRef="Unit_USD">0</ecd:AdjToCompAmt>
+    <ecd:AdjToCompAmt
+      contextRef="P02_04_2024To02_01_2025_ChngInFrValOfOutsdngAndUnvstdEqtyAwrdsGrntdInPrrYrsMemberecdAdjToCompAxis_NonPeoNeoMemberecdExecutiveCategoryAxis"
+      decimals="0"
+      id="ixv-10318"
+      unitRef="Unit_USD">103112</ecd:AdjToCompAmt>
+    <ecd:AdjToCompAmt
+      contextRef="P02_04_2024To02_01_2025_NonPeoNeoMemberecdExecutiveCategoryAxis_VstngDtFrValOfEqtyAwrdsGrntdAndVstdInCvrdYrMemberecdAdjToCompAxis"
+      decimals="0"
+      id="ixv-10319"
+      unitRef="Unit_USD">105262</ecd:AdjToCompAmt>
+    <ecd:AdjToCompAmt
+      contextRef="P02_04_2024To02_01_2025_EqtyAwrdsAdjsMemberecdAdjToCompAxis_NonPeoNeoMemberecdExecutiveCategoryAxis"
+      decimals="0"
+      id="ixv-10320"
+      unitRef="Unit_USD">-3739947</ecd:AdjToCompAmt>
+    <ecd:PeoActuallyPaidCompAmt
+      contextRef="P02_04_2024To02_01_2025_RyanCohenMemberecdIndividualAxis"
+      decimals="0"
+      id="ixv-10321"
+      unitRef="Unit_USD">268553</ecd:PeoActuallyPaidCompAmt>
+    <ecd:NonPeoNeoAvgCompActuallyPaidAmt
+      contextRef="P02_04_2024To02_01_2025"
+      decimals="0"
+      id="ixv-10322"
+      unitRef="Unit_USD">-3088467</ecd:NonPeoNeoAvgCompActuallyPaidAmt>
+    <ecd:TabularListTableTextBlock contextRef="P02_04_2024To02_01_2025" id="ixv-8957">&lt;div style="margin-top:12pt; margin-bottom:0pt; font-size:11pt; font-family:ARIAL"&gt;&lt;div style="color: rgb(226, 35, 26); letter-spacing: 0px; top: 0px;display:inline;"&gt;&lt;div style="display:inline;"&gt;&lt;div style="font-weight:bold;display:inline;"&gt;Tabular List of Most Important Financial Performance Measures &lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div style="margin-top:12pt; margin-bottom:0pt; font-size:9pt; font-family:ARIAL;text-align:justify"&gt;For fiscal 2024, United States Operating Profit (excluding royalties) and the Company stock price were the only financial performance measures that the Company used to tie CAP to our &lt;div style="white-space: nowrap; letter-spacing: 0px; top: 0px;display:inline;"&gt;non-PEO&lt;/div&gt; NEOs to Company Performance. &lt;/div&gt;</ecd:TabularListTableTextBlock>
+    <ecd:MeasureName
+      contextRef="P02_04_2024To02_01_2025_1TypedMemberecdMeasureAxis"
+      id="ixv-10323">United States Operating Profit (excluding royalties)</ecd:MeasureName>
+    <ecd:TotalShareholderRtnVsPeerGroupTextBlock contextRef="P02_04_2024To02_01_2025" id="ixv-8975">&lt;div style="margin-top:12pt; margin-bottom:0pt; font-size:9pt; font-family:ARIAL;text-align:justify"&gt;The increase in our stock &lt;div style="display:inline;"&gt;price &lt;/div&gt;that contributed significantly to the CAP in fiscal 2020 also drove our Total Shareholder Return (&#x201c;TSR&#x201d;) through the end of fiscal 2024. Our TSR has significantly outperformed our Peer Group TSR during this period, as shown in the table above. Specifically, our TSR performed significantly better than our Peer Group TSR through the end of fiscal 2020. After a meaningful increase in fiscal 2020, our TSR performance was negative in fiscal 2021, 2022, and 2023, before increasing again in fiscal 2024. Over the full five-year period, both our TSR and Peer Group TSR was positive, and our TSR performance meaningfully outperformed our Peer Group in total. &lt;/div&gt;</ecd:TotalShareholderRtnVsPeerGroupTextBlock>
+    <ecd:CompActuallyPaidVsTotalShareholderRtnTextBlock contextRef="P02_04_2024To02_01_2025" id="ixv-8978">&lt;div style="margin-top:12pt; margin-bottom:0pt; font-size:9pt; font-family:ARIAL;text-align:justify"&gt;The close relationship between TSR and CAP was evident across the fiscal years in the table above. Our CAP at the end of fiscal 2020 significantly increased as a direct result of our strong TSR through the end of fiscal 2020. Through fiscal 2021, our TSR decreased (although still greater than the initial fixed $100 investment), and the CAP to our NEOs significantly declined year-over-year (except for Matthew Furlong, who joined the Company in fiscal 2021), and declined relative to fiscal 2021 SCT totals. In fiscal 2022, our TSR decreased slightly, which led to our CAP values declining relative to fiscal 2022 SCT totals (although CAP remained positive given the year-over-year TSR decline through fiscal 2022 was not significant). Through fiscal 2023 our TSR decreased, and as a result, CAP values to Matthew Furlong and &lt;div style="white-space: nowrap; letter-spacing: 0px; top: 0px;display:inline;"&gt;non-PEO&lt;/div&gt; NEO CAP declined relative to fiscal 2023 SCT totals. As of the end of fiscal 2024 our CAP for &lt;div style="white-space: nowrap; letter-spacing: 0px; top: 0px;display:inline;"&gt;non-PEO&lt;/div&gt; NEOs was once again lower than fiscal 2024 SCT totals, despite TSR increasing, mainly due to one &lt;div style="white-space: nowrap; letter-spacing: 0px; top: 0px;display:inline;"&gt;non-PEO&lt;/div&gt; NEO forfeiting equity upon leaving the Company. &lt;/div&gt;</ecd:CompActuallyPaidVsTotalShareholderRtnTextBlock>
+    <ecd:CompActuallyPaidVsNetIncomeTextBlock contextRef="P02_04_2024To02_01_2025" id="ixv-8983">&lt;div style="margin-top:12pt; margin-bottom:0pt; font-size:9pt; font-family:ARIAL;text-align:justify"&gt;Our net income (loss) was not strongly correlated with CAP given a large portion of our executive compensation program is granted in equity, thereby directly tied to our stock price performance. In fiscal 2020, our net income was ($215 million) and the CAP &lt;div style="display:inline;"&gt;values&lt;/div&gt; &lt;/div&gt;&lt;div style="margin-top:0pt;margin-bottom:0pt ; font-size:8pt"&gt;&#160;&lt;/div&gt;&lt;div style="margin-top:0pt; margin-bottom:0pt; font-size:9pt; font-family:ARIAL;text-align:justify"&gt;to our &lt;div style="display:inline;"&gt;NEOs &lt;/div&gt;were the highest over the full five-year period. In fiscal 2021, our net income decreased to ($381 million) which was also aligned with a decrease in CAP over this period. In fiscal 2022, our net income increased to ($313 million) aligning with the increase in CAP over this period. In fiscal 2023 and 2024, our significant growth in net &lt;div style="letter-spacing: 0px; top: 0px;display:inline;"&gt;income&lt;/div&gt; to $7 million and $131 million, respectively, was not correlated with CAP to our NEOs given CAP values decreased over the period. &lt;/div&gt;</ecd:CompActuallyPaidVsNetIncomeTextBlock>
+    <us-gaap:NetIncomeLoss
+      contextRef="P01_31_2021To01_29_2022"
+      decimals="-6"
+      id="ixv-10324"
+      unitRef="Unit_USD">-381000000</us-gaap:NetIncomeLoss>
+    <us-gaap:NetIncomeLoss
+      contextRef="P01_30_2022To01_28_2023"
+      decimals="-6"
+      id="ixv-10325"
+      unitRef="Unit_USD">-313000000</us-gaap:NetIncomeLoss>
+    <us-gaap:NetIncomeLoss
+      contextRef="P01_29_2023To02_03_2024"
+      decimals="-6"
+      id="ixv-10326"
+      unitRef="Unit_USD">7000000</us-gaap:NetIncomeLoss>
+    <us-gaap:NetIncomeLoss
+      contextRef="P02_04_2024To02_01_2025"
+      decimals="-6"
+      id="ixv-10327"
+      unitRef="Unit_USD">131000000</us-gaap:NetIncomeLoss>
+    <ecd:CompActuallyPaidVsCoSelectedMeasureTextBlock contextRef="P02_04_2024To02_01_2025" id="ixv-9011">&lt;div style="margin-top:12pt; margin-bottom:0pt; font-size:9pt; font-family:ARIAL;text-align:justify"&gt;For fiscal years 2020 through 2023, we did not have a company selected measure &lt;div style="display:inline;"&gt;because &lt;/div&gt;the Company did not use any financial performance measures to link fiscal years 2020 through 2023 executive compensation to company performance. In fiscal 2024, given we used United States Operating Profit (excluding royalties) as performance criteria in our Short-Term Equity Incentive program, we&#x2019;ve included this measure as our company selected measure. Similar to net income (loss), our US Operating Profit (excluding royalties) was not strongly correlated with CAP. In fiscal 2024 our United States Operating Profit (excluding royalties) was $24 million, an increase from ($65 million) in fiscal 2023. This significant growth &lt;div style="letter-spacing: 0px; top: 0px;display:inline;"&gt;was&lt;/div&gt; not correlated with CAP to our NEO&#x2019;s given CAP values decreased over the period. &lt;/div&gt;</ecd:CompActuallyPaidVsCoSelectedMeasureTextBlock>
+    <ecd:CoSelectedMeasureAmt
+      contextRef="P02_04_2024To02_01_2025"
+      decimals="-6"
+      id="ixv-10328"
+      unitRef="Unit_USD">24000000</ecd:CoSelectedMeasureAmt>
+    <ecd:CoSelectedMeasureAmt
+      contextRef="P01_29_2023To02_03_2024"
+      decimals="-6"
+      id="ixv-10329"
+      unitRef="Unit_USD">-65000000</ecd:CoSelectedMeasureAmt>
+    <ecd:AwardTmgMnpiDiscTextBlock contextRef="P02_04_2024To02_01_2025" id="ixv-9015">&lt;div id="toc894376_31" style="margin-top: 12pt; margin-bottom: 0pt; font-size: 12pt; font-family: ARIAL;"&gt;&lt;div style="font-weight:bold;display:inline;"&gt;Equity Grant Practices &lt;/div&gt;&lt;/div&gt;&lt;div style="line-height:4.0pt;margin-top:0pt;margin-bottom:2pt;border-bottom:1px solid #e2231a"&gt;&#160;&lt;/div&gt;&lt;div style="margin-top:6pt; margin-bottom:0pt; font-size:9pt; font-family:ARIAL;text-align:justify"&gt;&lt;div style="letter-spacing: 0px; top: 0px;display:inline;"&gt;The Company does not currently grant stock option awards or stock appreciation right &lt;div style="display:inline;"&gt;awards&lt;/div&gt;&lt;/div&gt;. &lt;/div&gt;&lt;div style="margin-top:12pt; margin-bottom:0pt; font-size:9pt; font-family:ARIAL;text-align:justify"&gt;During the last completed fiscal year, the Company did not make any stock option awards to our executive &lt;div style="display:inline;"&gt;officers &lt;/div&gt;within the &lt;div style="white-space: nowrap; letter-spacing: 0px; top: 0px;display:inline;"&gt;four-business-day&lt;/div&gt; period before or the &lt;div style="white-space: nowrap; letter-spacing: 0px; top: 0px;display:inline;"&gt;&lt;div style="white-space:nowrap;display:inline;"&gt;one-business-day&lt;/div&gt;&lt;/div&gt; period after the filing of any Form &lt;div style="white-space: nowrap; letter-spacing: 0px; top: 0px;display:inline;"&gt;10-K,&lt;/div&gt; &lt;div style="white-space: nowrap; letter-spacing: 0px; top: 0px;display:inline;"&gt;10-Q,&lt;/div&gt; or &lt;div style="white-space: nowrap; letter-spacing: 0px; top: 0px;display:inline;"&gt;8-K&lt;/div&gt; containing material nonpublic information (as defined in Item 402(x)). Accordingly, no tabular disclosure under Item 402(x)(2)(ii) is required. &lt;/div&gt;&lt;div style="margin-top:12pt; margin-bottom:0pt; font-size:9pt; font-family:ARIAL;text-align:justify"&gt;The Compensation Committee does not coordinate the timing of option grants with the release of material nonpublic information. Equity awards are typically granted on &lt;div style="white-space: nowrap; letter-spacing: 0px; top: 0px;display:inline;"&gt;pre-determined&lt;/div&gt; meeting dates of the Compensation Committee, and are subject to the Company&#x2019;s Insider Trading Policy, which prohibits trading (and awards) when material nonpublic information is known to the participant or the Company. All awards are granted with an exercise price equal to the average closing market price for the previous 30 trading days prior to the date of grant. The Company does not time the public disclosure of material nonpublic information to affect executive compensation outcomes. &lt;/div&gt;&lt;div style="margin-top:0pt;margin-bottom:0pt ; font-size:8pt"&gt;&#160;&lt;/div&gt;</ecd:AwardTmgMnpiDiscTextBlock>
+    <ecd:AwardTmgPredtrmndFlag contextRef="P02_04_2024To02_01_2025" id="ixv-9031">true</ecd:AwardTmgPredtrmndFlag>
+    <ecd:AwardTmgMethodTextBlock contextRef="P02_04_2024To02_01_2025" id="ixv-10330">All awards are granted with an exercise price equal to the average closing market price for the previous 30 trading days prior to the date of grant. The Company does not time the public disclosure of material nonpublic information to affect executive compensation outcomes.</ecd:AwardTmgMethodTextBlock>
+    <ecd:AwardTmgHowMnpiCnsdrdTextBlock contextRef="P02_04_2024To02_01_2025" id="ixv-10331">All awards are granted with an exercise price equal to the average closing market price for the previous 30 trading days prior to the date of grant. The Company does not time the public disclosure of material nonpublic information to affect executive compensation outcomes.</ecd:AwardTmgHowMnpiCnsdrdTextBlock>
+    <ecd:MnpiDiscTimedForCompValFlag contextRef="P02_04_2024To02_01_2025" id="ixv-10332">false</ecd:MnpiDiscTimedForCompValFlag>
+</xbrl>

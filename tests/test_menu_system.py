@@ -133,6 +133,81 @@ def test_search_company_and_download(mock_input, mock_ask, menu_system):
     menu_system._download_filings_for_company.assert_called_once_with(mock_company_info)
 
 
+@patch('gamecock.menu_system.Prompt.ask')
+@patch('gamecock.menu_system.input')
+@patch('gamecock.menu_system.Console.print')
+def test_search_company_menu_save_fails(mock_print, mock_input, mock_ask, menu_system):
+    """Test the search company menu when saving the company fails."""
+    # Arrange
+    company_name = 'Apple Inc.'
+    mock_company_info = MagicMock()
+    menu_system.sec.get_company_info.return_value = mock_company_info
+    menu_system.db.save_company.return_value = False  # Simulate save failure
+    mock_ask.side_effect = [company_name, 'y', 'n']
+
+    # Act
+    menu_system.search_company_menu()
+
+    # Assert
+    menu_system.db.save_company.assert_called_once_with(mock_company_info)
+    mock_print.assert_any_call('[red]Failed to save company.[/red]')
+
+
+@patch('gamecock.menu_system.Console.print')
+def test_display_company_info_with_dict_ticker(mock_print, menu_system):
+    """Test displaying company info with a ticker stored as a dictionary."""
+    # Arrange
+    mock_company_info = MagicMock()
+    mock_company_info.name = 'Dict Ticker Co'
+    mock_company_info.primary_identifiers.cik = '54321'
+    mock_company_info.primary_identifiers.tickers = [{'symbol': 'DTC', 'exchange': 'NYSE'}]
+    mock_company_info.related_entities = []
+
+    # Act
+    menu_system.display_company_info(mock_company_info)
+
+    # Assert
+    mock_print.assert_any_call('Ticker: DTC (NYSE)')
+
+
+@patch('gamecock.menu_system.Console.print')
+def test_display_company_info_with_string_ticker(mock_print, menu_system):
+    """Test displaying company info with a ticker stored as a string."""
+    # Arrange
+    mock_company_info = MagicMock()
+    mock_company_info.name = 'String Ticker Co'
+    mock_company_info.primary_identifiers.cik = '98765'
+    mock_company_info.primary_identifiers.tickers = ['STC']
+    mock_company_info.related_entities = []
+
+    # Act
+    menu_system.display_company_info(mock_company_info)
+
+    # Assert
+    mock_print.assert_any_call('Ticker: STC')
+
+
+@patch('gamecock.menu_system.Console.print')
+def test_display_company_info_with_related_entities(mock_print, menu_system):
+    """Test displaying company info with related entities."""
+    # Arrange
+    mock_related_entity = MagicMock()
+    mock_related_entity.name = 'Related Inc.'
+    mock_related_entity.cik = '11223'
+
+    mock_company_info = MagicMock()
+    mock_company_info.name = 'Parent Co'
+    mock_company_info.primary_identifiers.cik = '44556'
+    mock_company_info.primary_identifiers.tickers = []
+    mock_company_info.related_entities = [mock_related_entity]
+
+    # Act
+    menu_system.display_company_info(mock_company_info)
+
+    # Assert
+    mock_print.assert_any_call('- Related Inc. (CIK: 11223)')
+
+
 @patch('gamecock.menu_system.input')
 def test_view_companies_menu_with_companies(mock_input, menu_system):
     """Test the view companies menu when there are saved companies."""
@@ -162,6 +237,38 @@ def test_view_companies_menu_no_companies(mock_input, menu_system):
 
     # Assert
     menu_system.db.get_all_companies.assert_called_once()
+
+
+@patch('gamecock.menu_system.input')
+def test_view_data_menu_success(mock_input, menu_system):
+    """Test the view data menu successfully displays statistics."""
+    # Arrange
+    mock_cursor = MagicMock()
+    mock_cursor.fetchone.side_effect = [(10,), (5,), ('2023-01-01',)]
+    mock_cursor.fetchall.return_value = [('10-K', 8), ('10-Q', 2)]
+    menu_system.db.cursor = mock_cursor
+
+    # Act
+    menu_system.view_data_menu()
+
+    # Assert
+    assert mock_cursor.execute.call_count == 4
+    mock_input.assert_called_once()
+
+
+@patch('gamecock.menu_system.input')
+@patch('gamecock.menu_system.Console.print')
+def test_view_data_menu_exception(mock_print, mock_input, menu_system):
+    """Test the view data menu when a database exception occurs."""
+    # Arrange
+    menu_system.db.cursor.execute.side_effect = Exception("DB Error")
+
+    # Act
+    menu_system.view_data_menu()
+
+    # Assert
+    mock_print.assert_any_call('[red]Error getting statistics: DB Error[/red]')
+    mock_input.assert_called_once()
 
 
 @patch('gamecock.menu_system.Prompt.ask')
@@ -414,15 +521,520 @@ def test_file_browser_invalid_selection(mock_print, mock_input, mock_ask, menu_s
     mock_print.assert_any_call("[red]Invalid input: invalid[/red]")
 
 
+@patch('gamecock.menu_system.input')
 @patch('gamecock.menu_system.Prompt.ask')
-def test_search_company_menu_empty_input(mock_ask, menu_system):
-    """Test the search company menu with empty input."""
+def test_generate_risk_report_empty_input(mock_ask, mock_input, menu_system):
+    """Test generating a risk report with empty user input."""
     # Arrange
     mock_ask.return_value = ''
-    menu_system.sec.get_company_info = MagicMock()
+    menu_system.swaps_analyzer.generate_risk_report = MagicMock()
+    mock_input.return_value = ''  # prevent stdin read at end
 
     # Act
-    menu_system.search_company_menu()
+    menu_system._generate_risk_report()
 
     # Assert
-    menu_system.sec.get_company_info.assert_not_called()
+    menu_system.swaps_analyzer.generate_risk_report.assert_not_called()
+
+
+@patch('gamecock.menu_system.Prompt.ask')
+@patch('gamecock.menu_system.input')
+@patch('gamecock.menu_system.Console.print')
+def test_generate_risk_report_exception(mock_print, mock_input, mock_ask, menu_system):
+    """Test exception handling during risk report generation."""
+    # Arrange
+    mock_ask.return_value = 'Test Entity'
+    menu_system.swaps_analyzer.generate_risk_report.side_effect = Exception('Report Error')
+
+    # Act
+    menu_system._generate_risk_report()
+
+    # Assert
+    mock_print.assert_any_call('[red]Error generating risk report: Report Error[/red]')
+
+
+@patch('gamecock.menu_system.Prompt.ask')
+@patch('gamecock.menu_system.input')
+def test_export_swaps_data_success(mock_input, mock_ask, menu_system):
+    """Test exporting swaps data successfully."""
+    # Arrange
+    menu_system.swaps_analyzer.swaps = [MagicMock()]
+    mock_ask.return_value = 'export.csv'
+    menu_system.swaps_analyzer.export_to_csv.return_value = True
+
+    # Act
+    menu_system._export_swaps_data()
+
+    # Assert
+    menu_system.swaps_analyzer.export_to_csv.assert_called_once_with('export.csv')
+
+
+@patch('gamecock.menu_system.Prompt.ask')
+def test_export_swaps_data_no_path(mock_ask, menu_system):
+    """Test exporting swaps data when the user provides no path."""
+    # Arrange
+    menu_system.swaps_analyzer.swaps = [MagicMock()]
+    mock_ask.return_value = ''
+    menu_system.swaps_analyzer.export_to_csv = MagicMock()
+
+    # Act
+    menu_system._export_swaps_data()
+
+    # Assert
+    menu_system.swaps_analyzer.export_to_csv.assert_not_called()
+
+
+@patch('gamecock.menu_system.input')
+@patch('gamecock.menu_system.Console.print')
+def test_export_swaps_data_no_swaps(mock_print, mock_input, menu_system):
+    """Test exporting swaps data when no swaps are loaded."""
+    # Arrange
+    menu_system.swaps_analyzer.swaps = []
+
+    # Act
+    menu_system._export_swaps_data()
+
+    # Assert
+    mock_print.assert_any_call('[yellow]No swaps loaded to export.[/yellow]')
+
+
+@patch('gamecock.menu_system.Prompt.ask')
+@patch('gamecock.menu_system.input')
+@patch('gamecock.menu_system.Console.print')
+def test_export_swaps_data_failure(mock_print, mock_input, mock_ask, menu_system):
+    """Test exporting swaps data when the export fails."""
+    # Arrange
+    menu_system.swaps_analyzer.swaps = [MagicMock()]
+    mock_ask.return_value = 'export.csv'
+    menu_system.swaps_analyzer.export_to_csv.return_value = False
+
+    # Act
+    menu_system._export_swaps_data()
+
+    # Assert
+    mock_print.assert_any_call('[red]Failed to export swaps data.[/red]')
+
+
+@patch('gamecock.menu_system.Prompt.ask')
+@patch('gamecock.menu_system.input')
+@patch('gamecock.menu_system.Console.print')
+def test_export_swaps_data_exception(mock_print, mock_input, mock_ask, menu_system):
+    """Test exception handling during swaps export."""
+    # Arrange
+    menu_system.swaps_analyzer.swaps = [MagicMock()]
+    mock_ask.return_value = 'export.csv'
+    menu_system.swaps_analyzer.export_to_csv.side_effect = Exception('Export Error')
+
+    # Act
+    menu_system._export_swaps_data()
+
+    # Assert
+    mock_print.assert_any_call('[red]Error exporting swaps: Export Error[/red]')
+
+
+@patch('gamecock.menu_system.Prompt.ask')
+def test_data_explorer_menu_navigation(mock_ask, menu_system):
+    """Test navigation in the data explorer menu."""
+    # Arrange
+    menu_system._list_all_counterparties = MagicMock()
+    menu_system._list_all_reference_securities = MagicMock()
+    mock_ask.side_effect = ['1', '2', '0']
+
+    # Act
+    menu_system.data_explorer_menu()
+
+    # Assert
+    menu_system._list_all_counterparties.assert_called_once()
+    menu_system._list_all_reference_securities.assert_called_once()
+
+
+@patch('gamecock.menu_system.input')
+@patch('gamecock.menu_system.Console.print')
+def test_list_all_counterparties_no_data(mock_print, mock_input, menu_system):
+    """Test listing counterparties when none are in the database."""
+    # Arrange
+    menu_system.db.get_all_counterparties.return_value = []
+
+    # Act
+    menu_system._list_all_counterparties()
+
+    # Assert
+    mock_print.assert_any_call('[yellow]No counterparties found in the database.[/yellow]')
+
+
+@patch('gamecock.menu_system.Prompt.ask')
+def test_list_all_counterparties_with_data(mock_ask, menu_system):
+    """Test listing counterparties and selecting one to view swaps."""
+    # Arrange
+    counterparties = [{'id': 1, 'name': 'CP1', 'lei': 'LEI1'}]
+    menu_system.db.get_all_counterparties.return_value = counterparties
+    mock_ask.return_value = '1'
+    menu_system._view_swaps_for_counterparty = MagicMock()
+
+    # Act
+    menu_system._list_all_counterparties()
+
+    # Assert
+    menu_system._view_swaps_for_counterparty.assert_called_once_with(1)
+
+
+@patch('gamecock.menu_system.input')
+@patch('gamecock.menu_system.Console.print')
+def test_view_swaps_for_counterparty_no_swaps(mock_print, mock_input, menu_system):
+    """Test viewing swaps for a counterparty that has no swaps."""
+    # Arrange
+    menu_system.db.get_swaps_by_counterparty_id.return_value = []
+
+    # Act
+    menu_system._view_swaps_for_counterparty(1)
+
+    # Assert
+    mock_print.assert_any_call('[yellow]No swaps found for counterparty ID 1.[/yellow]')
+
+
+@patch('gamecock.menu_system.Prompt.ask')
+@patch('gamecock.menu_system.input')
+def test_view_swaps_for_counterparty_with_swaps(mock_input, mock_ask, menu_system):
+    """Test viewing swaps for a counterparty and explaining one."""
+    # Arrange
+    swaps = [{'contract_id': 'c1', 'reference_entity': 'RE1', 'currency': 'USD', 'notional_amount': 100, 'maturity_date': '2023-01-01'}]
+    menu_system.db.get_swaps_by_counterparty_id.return_value = swaps
+    mock_ask.return_value = 'c1'
+    menu_system._explain_swap = MagicMock()
+
+    # Act
+    menu_system._view_swaps_for_counterparty(1)
+
+    # Assert
+    menu_system._explain_swap.assert_called_once_with('c1')
+
+
+@patch('gamecock.menu_system.Console.print')
+def test_explain_swap_success(mock_print, menu_system):
+    """Test successfully explaining a swap."""
+    # Arrange
+    menu_system.swaps_analyzer.explain_swap.return_value = 'Swap explanation.'
+
+    # Act
+    menu_system._explain_swap('c1')
+
+    # Assert
+    mock_print.assert_any_call('Swap explanation.')
+
+
+@patch('gamecock.menu_system.Prompt.ask')
+@patch('gamecock.menu_system.input')
+@patch('gamecock.menu_system.Console.print')
+def test_generate_risk_report_with_detailed_analysis(mock_print, mock_input, mock_ask, menu_system):
+    """Test printing of detailed analysis tables in risk report."""
+    # Arrange
+    menu_system.swaps_analyzer.generate_risk_report.return_value = {
+        'risk_level': 'High',
+        'risk_score': 80,
+        'total_notional': 1000.0,
+        'num_swaps': 2,
+        'avg_time_to_maturity': 1.5,
+        'detailed_analysis': {
+            'counterparty_concentration': {'breakdown': {'CP1': 700.0, 'CP2': 300.0}},
+            'currency_concentration': {'breakdown': {'USD': 1000.0}},
+        },
+        'ai_summary': 'summary',
+    }
+
+    # Provide entity name and avoid stdin read
+    mock_ask.return_value = 'ENTITY'
+    mock_input.return_value = ''
+    # Act
+    menu_system._generate_risk_report()
+
+    # Assert: ensure Table objects were printed (summary + 2 breakdown tables)
+    from rich.table import Table
+    printed_tables = []
+    for ca in mock_print.call_args_list:
+        if ca and ca.args:
+            first = ca.args[0]
+            if isinstance(first, Table):
+                printed_tables.append(first)
+    # At least 3 tables: summary and two breakdown tables
+    assert len(printed_tables) >= 3
+
+
+@patch('gamecock.menu_system.input')
+@patch('gamecock.menu_system.Prompt.ask')
+def test_ai_analyst_menu_prompt_download_yes_then_analysis(mock_ask, mock_input, menu_system):
+    """Covers prompt_download branch then continue to analysis on success."""
+    menu_system.ai_analyst.ollama.is_running.return_value = True
+    # First ask is for question, second is y/n to download
+    mock_ask.side_effect = ['What about ABC', 'y']
+
+    # First answer asks to download, second yields analysis
+    menu_system.ai_analyst.answer.side_effect = [
+        {'type': 'prompt_download', 'entity_name': 'ABC', 'message': 'Download?'},
+        {'type': 'analysis', 'message': 'All good'},
+    ]
+    menu_system._download_data_for_entity = MagicMock(return_value=True)
+
+    menu_system._ai_analyst_menu()
+
+    menu_system._download_data_for_entity.assert_called_once_with('ABC')
+
+
+@patch('gamecock.menu_system.input')
+@patch('gamecock.menu_system.Prompt.ask')
+def test_ai_analyst_menu_prompt_download_no(mock_ask, mock_input, menu_system):
+    menu_system.ai_analyst.ollama.is_running.return_value = True
+    mock_ask.side_effect = ['What about XYZ', 'n']
+    menu_system.ai_analyst.answer.return_value = {'type': 'prompt_download', 'entity_name': 'XYZ', 'message': 'Download?'}
+
+    menu_system._ai_analyst_menu()
+
+
+@patch('gamecock.menu_system.input')
+@patch('gamecock.menu_system.Prompt.ask')
+def test_ai_analyst_menu_prompt_confirm_entity_yes(mock_ask, mock_input, menu_system):
+    menu_system.ai_analyst.ollama.is_running.return_value = True
+    mock_ask.side_effect = ['Analyze CP1', 'y']
+    suggestion = {'type': 'counterparty', 'name': 'CP1', 'id': 1}
+    menu_system.ai_analyst.answer.return_value = {'type': 'prompt_confirm_entity', 'suggestion': suggestion, 'message': 'Use CP1?'}
+    menu_system._run_analysis_for_entity = MagicMock()
+
+    menu_system._ai_analyst_menu()
+
+    menu_system._run_analysis_for_entity.assert_called_once_with('Analyze CP1', suggestion)
+
+
+@patch('gamecock.menu_system.input')
+@patch('gamecock.menu_system.Console.print')
+def test_view_loaded_swaps_truncation_note(mock_print, mock_input, menu_system):
+    """When >50 swaps are loaded, show truncation note."""
+    # Build 55 mock swaps with required attributes
+    swaps = []
+    for i in range(55):
+        s = MagicMock()
+        s.contract_id = f"C{i}"
+        s.reference_entity = "ENT"
+        s.notional_amount = 1_000.0
+        s.swap_type.value = 'CDS'
+        s.maturity_date.isoformat.return_value = '2025-01-01'
+        swaps.append(s)
+    menu_system.swaps_analyzer.swaps = swaps
+
+    menu_system._view_loaded_swaps()
+
+    # Look for the truncation note
+    printed = [args[0] for args, _ in [ (c[0], c[1]) if len(c) == 2 else (c, {}) for c in [call.args for call in mock_print.mock_calls] ] if args]
+    assert any('(Showing 50 of 55 swaps)' in str(p) for p in printed)
+
+
+@patch('gamecock.menu_system.Prompt.ask')
+@patch('gamecock.menu_system.input')
+def test_file_browser_handles_file_not_found_then_quit(mock_input, mock_ask, menu_system):
+    """Ensure _file_browser recovers from FileNotFoundError and allows quitting."""
+    # Mock a path-like object
+    start_path = MagicMock()
+    start_path.resolve.return_value = start_path
+    start_path.parent = start_path  # just loop to itself for parent
+
+    # First iterdir raises, then returns empty list
+    seq = [FileNotFoundError(), []]
+    def iterdir_side_effect():
+        v = seq.pop(0)
+        if isinstance(v, Exception):
+            raise v
+        return v
+    start_path.iterdir.side_effect = iterdir_side_effect
+
+    mock_ask.side_effect = ['q']  # after recovery, quit
+
+    res = menu_system._file_browser(start_path)
+    assert res is None
+@patch('gamecock.menu_system.Console.print')
+@patch('gamecock.menu_system.Prompt.ask')
+def test_download_filings_for_company_no_files_found(mock_ask, mock_print, menu_system):
+    """Test downloading filings when no files are found for the parent company."""
+    # Arrange
+    mock_company_info = MagicMock()
+    mock_company_info.primary_identifiers.cik = '12345'
+    mock_company_info.name = 'TestCo'
+    mock_company_info.related_entities = []
+    mock_ask.side_effect = ['2']
+    menu_system.downloader.download_company_filings.return_value = []  # No files downloaded
+
+    # Act
+    menu_system._download_filings_for_company(mock_company_info)
+
+    # Assert
+    mock_print.assert_any_call('No filings were downloaded. Please try again or check the company information.')
+
+
+@patch('gamecock.menu_system.Console.print')
+@patch('gamecock.menu_system.Prompt.ask')
+def test_download_filings_for_company_no_related_files(mock_ask, mock_print, menu_system):
+    """Test downloading filings when no files are found for a related entity."""
+    # Arrange
+    mock_parent_company = MagicMock()
+    mock_parent_company.primary_identifiers.cik = '12345'
+    mock_parent_company.name = 'ParentCo'
+    mock_related_entity = MagicMock()
+    mock_related_entity.cik = '67890'
+    mock_related_entity.name = 'ChildCo'
+    mock_parent_company.related_entities = [mock_related_entity]
+    mock_ask.side_effect = ['1']  # Download all
+    menu_system.downloader.download_company_filings.side_effect = [
+        ['parent_file.txt'],  # Parent has files
+        []                    # Related entity has no files
+    ]
+
+    # Act
+    menu_system._download_filings_for_company(mock_parent_company)
+
+    # Assert
+    mock_print.assert_any_call('No filings found for ChildCo')
+
+
+@patch('gamecock.menu_system.input')
+@patch('gamecock.menu_system.Console.print')
+def test_view_companies_menu_with_related_entities(mock_print, mock_input, menu_system):
+    """Test viewing companies when a company has related entities."""
+    # Arrange
+    mock_related = MagicMock()
+    mock_related.name = 'Related Co'
+    mock_related.cik = '54321'
+    mock_company = MagicMock()
+    mock_company.name = 'Test Company'
+    mock_company.primary_identifiers.cik = '12345'
+    mock_company.primary_identifiers.description = 'A test company.'
+    mock_company.related_entities = [mock_related]
+    menu_system.db.get_all_companies.return_value = [mock_company]
+
+    # Act
+    menu_system.view_companies_menu()
+
+    # Assert
+    mock_print.assert_any_call('- Related Co (CIK: 54321)')
+
+
+@patch('gamecock.menu_system.input')
+@patch('gamecock.menu_system.Console.print')
+def test_list_all_reference_securities_no_data(mock_print, mock_input, menu_system):
+    """Test listing reference securities when none are in the database."""
+    # Arrange
+    menu_system.db.get_all_reference_securities.return_value = []
+
+    # Act
+    menu_system._list_all_reference_securities()
+
+    # Assert
+    mock_print.assert_any_call('[yellow]No reference securities found in the database.[/yellow]')
+
+
+@patch('gamecock.menu_system.Prompt.ask')
+def test_list_all_reference_securities_with_data(mock_ask, menu_system):
+    """Test listing reference securities and selecting one."""
+    # Arrange
+    securities = [{'id': 1, 'identifier': 'SEC1', 'security_type': 'Equity', 'description': 'Test Sec'}]
+    menu_system.db.get_all_reference_securities.return_value = securities
+    mock_ask.return_value = '1'
+    menu_system._view_swaps_for_security = MagicMock()
+
+    # Act
+    menu_system._list_all_reference_securities()
+
+    # Assert
+    menu_system._view_swaps_for_security.assert_called_once_with(1)
+
+
+@patch('gamecock.menu_system.input')
+@patch('gamecock.menu_system.Console.print')
+def test_view_swaps_for_security_no_swaps(mock_print, mock_input, menu_system):
+    """Test viewing swaps for a security that has no swaps."""
+    # Arrange
+    menu_system.db.get_swaps_by_security_id.return_value = []
+
+    # Act
+    menu_system._view_swaps_for_security(1)
+
+    # Assert
+    mock_print.assert_any_call('[yellow]No swaps found for security ID 1.[/yellow]')
+
+
+@patch('gamecock.menu_system.Prompt.ask')
+@patch('gamecock.menu_system.input')
+def test_view_swaps_for_security_with_swaps(mock_input, mock_ask, menu_system):
+    """Test viewing swaps for a security and explaining one."""
+    # Arrange
+    swaps = [{'contract_id': 'c1', 'counterparty': 'CP1', 'currency': 'USD', 'notional_amount': 100, 'maturity_date': '2023-01-01'}]
+    menu_system.db.get_swaps_by_security_id.return_value = swaps
+    mock_ask.return_value = 'c1'
+    menu_system._explain_swap = MagicMock()
+
+    # Act
+    menu_system._view_swaps_for_security(1)
+
+    # Assert
+    menu_system._explain_swap.assert_called_once_with('c1')
+
+
+@patch('gamecock.menu_system.Prompt.ask')
+@patch('gamecock.menu_system.input')
+def test_reimport_data_menu_success(mock_input, mock_ask, menu_system):
+    """Test the re-import menu with user confirmation."""
+    # Arrange
+    mock_data_dir = MagicMock()
+    mock_data_dir.exists.return_value = True
+    mock_data_dir.iterdir.return_value = [MagicMock()]  # Non-empty
+    mock_ask.return_value = 'y'
+    menu_system.swaps_processor.process_directory = MagicMock()
+
+    # Act
+    menu_system._reimport_data_menu(data_dir=mock_data_dir)
+
+    # Assert
+    menu_system.swaps_processor.process_directory.assert_called_once_with(mock_data_dir, save_to_db=True)
+
+
+@patch('gamecock.menu_system.input')
+def test_ai_analyst_menu_exit(mock_input, menu_system):
+    """Test AI analyst menu exits early when Ollama is not running (no prompt)."""
+    # Arrange
+    menu_system.ai_analyst.ollama.is_running.return_value = False
+    menu_system.ai_analyst.search_for_entity = MagicMock()
+
+    # Act
+    menu_system._ai_analyst_menu()
+
+    # Assert
+    menu_system.ai_analyst.search_for_entity.assert_not_called()
+
+
+@patch('gamecock.menu_system.input')
+def test_ai_analyst_menu_ollama_not_running(mock_input, menu_system):
+    """Test AI analyst menu exits early when Ollama is not running."""
+    # Arrange
+    menu_system.ai_analyst.ollama.is_running.return_value = False
+
+    # Act
+    menu_system._ai_analyst_menu()
+
+    # Assert
+    menu_system.ai_analyst.answer.assert_not_called()
+
+
+@patch('gamecock.menu_system.input')
+@patch('gamecock.menu_system.Prompt.ask')
+def test_ai_analyst_menu_user_backs_out_immediately(mock_ask, mock_input, menu_system):
+    """Test AI analyst menu when user provides empty question (back)."""
+    # Arrange
+    menu_system.ai_analyst.ollama.is_running.return_value = True
+    mock_ask.return_value = ''  # User presses Enter to go back
+
+    # Act
+    menu_system._ai_analyst_menu()
+
+    # Assert
+    menu_system.ai_analyst.answer.assert_not_called()
+
+
+
+
+

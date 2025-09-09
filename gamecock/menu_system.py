@@ -10,9 +10,7 @@ import sys
 from pathlib import Path
 import json
 
-# Configure logger to show debug messages
-logger.remove()
-logger.add(sys.stderr, level="DEBUG")
+# Logging is configured centrally in gamecock.py
 
 from .data_structures import CompanyInfo, EntityIdentifiers
 from .db_handler import DatabaseHandler
@@ -60,7 +58,13 @@ class MenuSystem:
         self.ollama = ollama_handler or OllamaHandler()
         self.swaps_analyzer = swaps_analyzer or SwapsAnalyzer(db_handler=self.db, ollama_handler=self.ollama)
         self.swaps_processor = swaps_processor or SwapsProcessor(db_handler=self.db)
-        self.downloader = downloader or SECDownloader(db_handler=self.db, swaps_analyzer=self.swaps_analyzer)
+        # Enable background ingestion while downloading for faster UX
+        self.downloader = downloader or SECDownloader(
+            db_handler=self.db,
+            swaps_analyzer=self.swaps_analyzer,
+            process_async=True,
+            max_workers=8,
+        )
         self.ai_analyst = ai_analyst or AIAnalyst(
             db_handler=self.db,
             ollama_handler=self.ollama,
@@ -265,29 +269,12 @@ class MenuSystem:
         self.console.print("\n[bold blue]View Downloaded Data[/bold blue]\n")
         
         try:
-            # Get database statistics
-            cursor = self.db.cursor
-            
-            # Total number of filings
-            cursor.execute("SELECT COUNT(*) FROM filings")
-            total_filings = cursor.fetchone()[0]
-            
-            # Number of companies
-            cursor.execute("SELECT COUNT(DISTINCT company_cik) FROM filings")
-            total_companies = cursor.fetchone()[0]
-            
-            # Filing types breakdown
-            cursor.execute("""
-                SELECT form_type, COUNT(*) as count 
-                FROM filings 
-                GROUP BY form_type 
-                ORDER BY count DESC
-            """)
-            filing_types = cursor.fetchall()
-            
-            # Latest filing date
-            cursor.execute("SELECT MAX(filing_date) FROM filings")
-            latest_filing = cursor.fetchone()[0]
+            # Get statistics via ORM helper
+            stats = self.db.get_filings_stats()
+            total_filings = stats.get("total_filings", 0)
+            total_companies = stats.get("total_companies", 0)
+            latest_filing = stats.get("latest_filing")
+            filing_types = stats.get("types", [])
             
             # Create statistics table
             table = Table(title="Filing Statistics")

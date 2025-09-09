@@ -1,0 +1,607 @@
+<?xml version='1.0' encoding='utf-8'?>
+<FilingSummary>
+  <Version>3.25.2</Version>
+  <ProcessingTime/>
+  <ReportFormat>html</ReportFormat>
+  <ContextCount>206</ContextCount>
+  <ElementCount>292</ElementCount>
+  <EntityCount>1</EntityCount>
+  <FootnotesReported>false</FootnotesReported>
+  <SegmentCount>66</SegmentCount>
+  <ScenarioCount>0</ScenarioCount>
+  <TuplesReported>false</TuplesReported>
+  <UnitCount>7</UnitCount>
+  <MyReports>
+    <Report instance="form10-q.htm">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R1.htm</HtmlFileName>
+      <LongName>00000001 - Document - Cover</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://ir.digitalbrandsgroup.co/role/Cover</Role>
+      <ShortName>Cover</ShortName>
+      <MenuCategory>Cover</MenuCategory>
+      <Position>1</Position>
+    </Report>
+    <Report instance="form10-q.htm">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R2.htm</HtmlFileName>
+      <LongName>00000002 - Statement - Condensed Consolidated Balance Sheets (Unaudited)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://ir.digitalbrandsgroup.co/role/BalanceSheets</Role>
+      <ShortName>Condensed Consolidated Balance Sheets (Unaudited)</ShortName>
+      <MenuCategory>Statements</MenuCategory>
+      <Position>2</Position>
+    </Report>
+    <Report instance="form10-q.htm">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R3.htm</HtmlFileName>
+      <LongName>00000003 - Statement - Condensed Consolidated Balance Sheets (Unaudited) (Parenthetical)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://ir.digitalbrandsgroup.co/role/BalanceSheetsParenthetical</Role>
+      <ShortName>Condensed Consolidated Balance Sheets (Unaudited) (Parenthetical)</ShortName>
+      <MenuCategory>Statements</MenuCategory>
+      <Position>3</Position>
+    </Report>
+    <Report instance="form10-q.htm">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R4.htm</HtmlFileName>
+      <LongName>00000004 - Statement - Condensed Consolidated Statements of Operations (Unaudited)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://ir.digitalbrandsgroup.co/role/StatementsOfOperations</Role>
+      <ShortName>Condensed Consolidated Statements of Operations (Unaudited)</ShortName>
+      <MenuCategory>Statements</MenuCategory>
+      <Position>4</Position>
+    </Report>
+    <Report instance="form10-q.htm">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R5.htm</HtmlFileName>
+      <LongName>00000005 - Statement - Condensed Consolidated Statements of Stockholders' Equity (Deficit) (Unaudited)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://ir.digitalbrandsgroup.co/role/StatementsOfStockholdersEquityDeficit</Role>
+      <ShortName>Condensed Consolidated Statements of Stockholders' Equity (Deficit) (Unaudited)</ShortName>
+      <MenuCategory>Statements</MenuCategory>
+      <Position>5</Position>
+    </Report>
+    <Report instance="form10-q.htm">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R6.htm</HtmlFileName>
+      <LongName>00000006 - Statement - Condensed Consolidated Statements of Cash Flows (Unaudited)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://ir.digitalbrandsgroup.co/role/StatementsOfCashFlows</Role>
+      <ShortName>Condensed Consolidated Statements of Cash Flows (Unaudited)</ShortName>
+      <MenuCategory>Statements</MenuCategory>
+      <Position>6</Position>
+    </Report>
+    <Report instance="form10-q.htm">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R7.htm</HtmlFileName>
+      <LongName>995410 - Disclosure - Pay vs Performance Disclosure</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://xbrl.sec.gov/ecd/role/PvpDisclosure</Role>
+      <ShortName>Pay vs Performance Disclosure</ShortName>
+      <MenuCategory>Notes</MenuCategory>
+      <Position>7</Position>
+    </Report>
+    <Report instance="form10-q.htm">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R8.htm</HtmlFileName>
+      <LongName>995445 - Disclosure - Insider Trading Arrangements</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://xbrl.sec.gov/ecd/role/InsiderTradingArrangements</Role>
+      <ShortName>Insider Trading Arrangements</ShortName>
+      <MenuCategory>Notes</MenuCategory>
+      <Position>8</Position>
+    </Report>
+    <Report instance="form10-q.htm">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R9.htm</HtmlFileName>
+      <LongName>999012 - Disclosure - NATURE OF OPERATIONS</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://ir.digitalbrandsgroup.co/role/NatureOfOperations</Role>
+      <ShortName>NATURE OF OPERATIONS</ShortName>
+      <MenuCategory>Notes</MenuCategory>
+      <Position>9</Position>
+    </Report>
+    <Report instance="form10-q.htm">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R10.htm</HtmlFileName>
+      <LongName>999013 - Disclosure - GOING CONCERN CONSIDERATIONS</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://ir.digitalbrandsgroup.co/role/GoingConcernConsiderations</Role>
+      <ShortName>GOING CONCERN CONSIDERATIONS</ShortName>
+      <MenuCategory>Notes</MenuCategory>
+      <Position>10</Position>
+    </Report>
+    <Report instance="form10-q.htm">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R11.htm</HtmlFileName>
+      <LongName>999014 - Disclosure - SUMMARY OF SIGNIFICANT ACCOUNTING POLICIES</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://ir.digitalbrandsgroup.co/role/SummaryOfSignificantAccountingPolicies</Role>
+      <ShortName>SUMMARY OF SIGNIFICANT ACCOUNTING POLICIES</ShortName>
+      <MenuCategory>Notes</MenuCategory>
+      <Position>11</Position>
+    </Report>
+    <Report instance="form10-q.htm">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R12.htm</HtmlFileName>
+      <LongName>999015 - Disclosure - DUE FROM FACTOR</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://ir.digitalbrandsgroup.co/role/DueFromFactor</Role>
+      <ShortName>DUE FROM FACTOR</ShortName>
+      <MenuCategory>Notes</MenuCategory>
+      <Position>12</Position>
+    </Report>
+    <Report instance="form10-q.htm">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R13.htm</HtmlFileName>
+      <LongName>999016 - Disclosure - CERTAIN ASSETS</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://ir.digitalbrandsgroup.co/role/CertainAssets</Role>
+      <ShortName>CERTAIN ASSETS</ShortName>
+      <MenuCategory>Notes</MenuCategory>
+      <Position>13</Position>
+    </Report>
+    <Report instance="form10-q.htm">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R14.htm</HtmlFileName>
+      <LongName>999017 - Disclosure - LIABILITIES AND DEBT</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://ir.digitalbrandsgroup.co/role/LiabilitiesAndDebt</Role>
+      <ShortName>LIABILITIES AND DEBT</ShortName>
+      <MenuCategory>Notes</MenuCategory>
+      <Position>14</Position>
+    </Report>
+    <Report instance="form10-q.htm">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R15.htm</HtmlFileName>
+      <LongName>999018 - Disclosure - STOCKHOLDERS??? EQUITY (DEFICIT)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://ir.digitalbrandsgroup.co/role/StockholdersEquityDeficit</Role>
+      <ShortName>STOCKHOLDERS??? EQUITY (DEFICIT)</ShortName>
+      <MenuCategory>Notes</MenuCategory>
+      <Position>15</Position>
+    </Report>
+    <Report instance="form10-q.htm">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R16.htm</HtmlFileName>
+      <LongName>999019 - Disclosure - RELATED PARTY TRANSACTIONS</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://ir.digitalbrandsgroup.co/role/RelatedPartyTransactions</Role>
+      <ShortName>RELATED PARTY TRANSACTIONS</ShortName>
+      <MenuCategory>Notes</MenuCategory>
+      <Position>16</Position>
+    </Report>
+    <Report instance="form10-q.htm">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R17.htm</HtmlFileName>
+      <LongName>999020 - Disclosure - SHARE-BASED PAYMENTS</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://ir.digitalbrandsgroup.co/role/Share-basedPayments</Role>
+      <ShortName>SHARE-BASED PAYMENTS</ShortName>
+      <MenuCategory>Notes</MenuCategory>
+      <Position>17</Position>
+    </Report>
+    <Report instance="form10-q.htm">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R18.htm</HtmlFileName>
+      <LongName>999021 - Disclosure - LEASE OBLIGATIONS</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://ir.digitalbrandsgroup.co/role/LeaseObligations</Role>
+      <ShortName>LEASE OBLIGATIONS</ShortName>
+      <MenuCategory>Notes</MenuCategory>
+      <Position>18</Position>
+    </Report>
+    <Report instance="form10-q.htm">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R19.htm</HtmlFileName>
+      <LongName>999022 - Disclosure - CONTINGENCIES</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://ir.digitalbrandsgroup.co/role/Contingencies</Role>
+      <ShortName>CONTINGENCIES</ShortName>
+      <MenuCategory>Notes</MenuCategory>
+      <Position>19</Position>
+    </Report>
+    <Report instance="form10-q.htm">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R20.htm</HtmlFileName>
+      <LongName>999023 - Disclosure - INCOME TAXES</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://ir.digitalbrandsgroup.co/role/IncomeTaxes</Role>
+      <ShortName>INCOME TAXES</ShortName>
+      <MenuCategory>Notes</MenuCategory>
+      <Position>20</Position>
+    </Report>
+    <Report instance="form10-q.htm">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R21.htm</HtmlFileName>
+      <LongName>999024 - Disclosure - SUBSEQUENT EVENTS</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://ir.digitalbrandsgroup.co/role/SubsequentEvents</Role>
+      <ShortName>SUBSEQUENT EVENTS</ShortName>
+      <MenuCategory>Notes</MenuCategory>
+      <Position>21</Position>
+    </Report>
+    <Report instance="form10-q.htm">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R22.htm</HtmlFileName>
+      <LongName>999025 - Disclosure - SUMMARY OF SIGNIFICANT ACCOUNTING POLICIES (Policies)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://ir.digitalbrandsgroup.co/role/SummaryOfSignificantAccountingPoliciesPolicies</Role>
+      <ShortName>SUMMARY OF SIGNIFICANT ACCOUNTING POLICIES (Policies)</ShortName>
+      <MenuCategory>Policies</MenuCategory>
+      <Position>22</Position>
+    </Report>
+    <Report instance="form10-q.htm">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R23.htm</HtmlFileName>
+      <LongName>999026 - Disclosure - SUMMARY OF SIGNIFICANT ACCOUNTING POLICIES (Tables)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://ir.digitalbrandsgroup.co/role/SummaryOfSignificantAccountingPoliciesTables</Role>
+      <ShortName>SUMMARY OF SIGNIFICANT ACCOUNTING POLICIES (Tables)</ShortName>
+      <MenuCategory>Tables</MenuCategory>
+      <ParentRole>http://ir.digitalbrandsgroup.co/role/SummaryOfSignificantAccountingPolicies</ParentRole>
+      <Position>23</Position>
+    </Report>
+    <Report instance="form10-q.htm">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R24.htm</HtmlFileName>
+      <LongName>999027 - Disclosure - DUE FROM FACTOR (Tables)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://ir.digitalbrandsgroup.co/role/DueFromFactorTables</Role>
+      <ShortName>DUE FROM FACTOR (Tables)</ShortName>
+      <MenuCategory>Tables</MenuCategory>
+      <ParentRole>http://ir.digitalbrandsgroup.co/role/DueFromFactor</ParentRole>
+      <Position>24</Position>
+    </Report>
+    <Report instance="form10-q.htm">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R25.htm</HtmlFileName>
+      <LongName>999028 - Disclosure - CERTAIN ASSETS (Tables)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://ir.digitalbrandsgroup.co/role/CertainAssetsTables</Role>
+      <ShortName>CERTAIN ASSETS (Tables)</ShortName>
+      <MenuCategory>Tables</MenuCategory>
+      <ParentRole>http://ir.digitalbrandsgroup.co/role/CertainAssets</ParentRole>
+      <Position>25</Position>
+    </Report>
+    <Report instance="form10-q.htm">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R26.htm</HtmlFileName>
+      <LongName>999029 - Disclosure - LIABILITIES AND DEBT (Tables)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://ir.digitalbrandsgroup.co/role/LiabilitiesAndDebtTables</Role>
+      <ShortName>LIABILITIES AND DEBT (Tables)</ShortName>
+      <MenuCategory>Tables</MenuCategory>
+      <ParentRole>http://ir.digitalbrandsgroup.co/role/LiabilitiesAndDebt</ParentRole>
+      <Position>26</Position>
+    </Report>
+    <Report instance="form10-q.htm">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R27.htm</HtmlFileName>
+      <LongName>999030 - Disclosure - SHARE-BASED PAYMENTS (Tables)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://ir.digitalbrandsgroup.co/role/Share-basedPaymentsTables</Role>
+      <ShortName>SHARE-BASED PAYMENTS (Tables)</ShortName>
+      <MenuCategory>Tables</MenuCategory>
+      <ParentRole>http://ir.digitalbrandsgroup.co/role/Share-basedPayments</ParentRole>
+      <Position>27</Position>
+    </Report>
+    <Report instance="form10-q.htm">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R28.htm</HtmlFileName>
+      <LongName>999031 - Disclosure - SUBSEQUENT EVENTS (Tables)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://ir.digitalbrandsgroup.co/role/SubsequentEventsTables</Role>
+      <ShortName>SUBSEQUENT EVENTS (Tables)</ShortName>
+      <MenuCategory>Tables</MenuCategory>
+      <ParentRole>http://ir.digitalbrandsgroup.co/role/SubsequentEvents</ParentRole>
+      <Position>28</Position>
+    </Report>
+    <Report instance="form10-q.htm">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R29.htm</HtmlFileName>
+      <LongName>999032 - Disclosure - NATURE OF OPERATIONS (Details Narrative)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://ir.digitalbrandsgroup.co/role/NatureOfOperationsDetailsNarrative</Role>
+      <ShortName>NATURE OF OPERATIONS (Details Narrative)</ShortName>
+      <MenuCategory>Details</MenuCategory>
+      <ParentRole>http://ir.digitalbrandsgroup.co/role/NatureOfOperations</ParentRole>
+      <Position>29</Position>
+    </Report>
+    <Report instance="form10-q.htm">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R30.htm</HtmlFileName>
+      <LongName>999033 - Disclosure - GOING CONCERN CONSIDERATIONS (Details Narrative)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://ir.digitalbrandsgroup.co/role/GoingConcernConsiderationsDetailsNarrative</Role>
+      <ShortName>GOING CONCERN CONSIDERATIONS (Details Narrative)</ShortName>
+      <MenuCategory>Details</MenuCategory>
+      <ParentRole>http://ir.digitalbrandsgroup.co/role/GoingConcernConsiderations</ParentRole>
+      <Position>30</Position>
+    </Report>
+    <Report instance="form10-q.htm">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R31.htm</HtmlFileName>
+      <LongName>999034 - Disclosure - SCHEDULE OF INVENTORY (Details)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://ir.digitalbrandsgroup.co/role/ScheduleOfInventoryDetails</Role>
+      <ShortName>SCHEDULE OF INVENTORY (Details)</ShortName>
+      <MenuCategory>Details</MenuCategory>
+      <Position>31</Position>
+    </Report>
+    <Report instance="form10-q.htm">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R32.htm</HtmlFileName>
+      <LongName>999035 - Disclosure - SCHEDULE OF FINITE-LIVED INTANGIBLE ASSETS ACQUIRED AS PART OF BUSINESS COMBINATION (Details)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://ir.digitalbrandsgroup.co/role/ScheduleOfFinite-livedIntangibleAssetsAcquiredAsPartOfBusinessCombinationDetails</Role>
+      <ShortName>SCHEDULE OF FINITE-LIVED INTANGIBLE ASSETS ACQUIRED AS PART OF BUSINESS COMBINATION (Details)</ShortName>
+      <MenuCategory>Details</MenuCategory>
+      <Position>32</Position>
+    </Report>
+    <Report instance="form10-q.htm">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R33.htm</HtmlFileName>
+      <LongName>999036 - Disclosure - SCHEDULE OF POTENTIALLY DILUTIVE ITEMS OUTSTANDING (Details)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://ir.digitalbrandsgroup.co/role/ScheduleOfPotentiallyDilutiveItemsOutstandingDetails</Role>
+      <ShortName>SCHEDULE OF POTENTIALLY DILUTIVE ITEMS OUTSTANDING (Details)</ShortName>
+      <MenuCategory>Details</MenuCategory>
+      <Position>33</Position>
+    </Report>
+    <Report instance="form10-q.htm">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R34.htm</HtmlFileName>
+      <LongName>999037 - Disclosure - SUMMARY OF SIGNIFICANT ACCOUNTING POLICIES (Details Narrative)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://ir.digitalbrandsgroup.co/role/SummaryOfSignificantAccountingPoliciesDetailsNarrative</Role>
+      <ShortName>SUMMARY OF SIGNIFICANT ACCOUNTING POLICIES (Details Narrative)</ShortName>
+      <MenuCategory>Details</MenuCategory>
+      <ParentRole>http://ir.digitalbrandsgroup.co/role/SummaryOfSignificantAccountingPoliciesTables</ParentRole>
+      <Position>34</Position>
+    </Report>
+    <Report instance="form10-q.htm">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R35.htm</HtmlFileName>
+      <LongName>999038 - Disclosure - SCHEDULE OF DUE TO/ FROM FACTOR (Details)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://ir.digitalbrandsgroup.co/role/ScheduleOfDueToFromFactorDetails</Role>
+      <ShortName>SCHEDULE OF DUE TO/ FROM FACTOR (Details)</ShortName>
+      <MenuCategory>Details</MenuCategory>
+      <Position>35</Position>
+    </Report>
+    <Report instance="form10-q.htm">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R36.htm</HtmlFileName>
+      <LongName>999039 - Disclosure - DUE FROM FACTOR (Details Narrative)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://ir.digitalbrandsgroup.co/role/DueFromFactorDetailsNarrative</Role>
+      <ShortName>DUE FROM FACTOR (Details Narrative)</ShortName>
+      <MenuCategory>Details</MenuCategory>
+      <ParentRole>http://ir.digitalbrandsgroup.co/role/DueFromFactorTables</ParentRole>
+      <Position>36</Position>
+    </Report>
+    <Report instance="form10-q.htm">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R37.htm</HtmlFileName>
+      <LongName>999040 - Disclosure - SCHEDULE OF GOODWILL ATTRIBUTABLE TO EACH BUSINESS COMBINATION (Details)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://ir.digitalbrandsgroup.co/role/ScheduleOfGoodwillAttributableToEachBusinessCombinationDetails</Role>
+      <ShortName>SCHEDULE OF GOODWILL ATTRIBUTABLE TO EACH BUSINESS COMBINATION (Details)</ShortName>
+      <MenuCategory>Details</MenuCategory>
+      <Position>37</Position>
+    </Report>
+    <Report instance="form10-q.htm">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R38.htm</HtmlFileName>
+      <LongName>999041 - Disclosure - SCHEDULE OF INFORMATION RELATING TO THE COMPANY???S IDENTIFIABLE INTANGIBLE ASSETS (Details)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://ir.digitalbrandsgroup.co/role/ScheduleOfInformationRelatingToCompanysIdentifiableIntangibleAssetsDetails</Role>
+      <ShortName>SCHEDULE OF INFORMATION RELATING TO THE COMPANY???S IDENTIFIABLE INTANGIBLE ASSETS (Details)</ShortName>
+      <MenuCategory>Details</MenuCategory>
+      <Position>38</Position>
+    </Report>
+    <Report instance="form10-q.htm">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R39.htm</HtmlFileName>
+      <LongName>999042 - Disclosure - CERTAIN ASSETS (Details Narrative)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://ir.digitalbrandsgroup.co/role/CertainAssetsDetailsNarrative</Role>
+      <ShortName>CERTAIN ASSETS (Details Narrative)</ShortName>
+      <MenuCategory>Details</MenuCategory>
+      <ParentRole>http://ir.digitalbrandsgroup.co/role/CertainAssetsTables</ParentRole>
+      <Position>39</Position>
+    </Report>
+    <Report instance="form10-q.htm">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R40.htm</HtmlFileName>
+      <LongName>999043 - Disclosure - SCHEDULE OF ACCRUED EXPENSES AND OTHER LIABILITIES (Details)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://ir.digitalbrandsgroup.co/role/ScheduleOfAccruedExpensesAndOtherLiabilitiesDetails</Role>
+      <ShortName>SCHEDULE OF ACCRUED EXPENSES AND OTHER LIABILITIES (Details)</ShortName>
+      <MenuCategory>Details</MenuCategory>
+      <Position>40</Position>
+    </Report>
+    <Report instance="form10-q.htm">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R41.htm</HtmlFileName>
+      <LongName>999044 - Disclosure - SCHEDULE OF MERCHANT ADVANCES (Details)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://ir.digitalbrandsgroup.co/role/ScheduleOfMerchantAdvancesDetails</Role>
+      <ShortName>SCHEDULE OF MERCHANT ADVANCES (Details)</ShortName>
+      <MenuCategory>Details</MenuCategory>
+      <Position>41</Position>
+    </Report>
+    <Report instance="form10-q.htm">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R42.htm</HtmlFileName>
+      <LongName>999045 - Disclosure - LIABILITIES AND DEBT (Details Narrative)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://ir.digitalbrandsgroup.co/role/LiabilitiesAndDebtDetailsNarrative</Role>
+      <ShortName>LIABILITIES AND DEBT (Details Narrative)</ShortName>
+      <MenuCategory>Details</MenuCategory>
+      <ParentRole>http://ir.digitalbrandsgroup.co/role/LiabilitiesAndDebtTables</ParentRole>
+      <Position>42</Position>
+    </Report>
+    <Report instance="form10-q.htm">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R43.htm</HtmlFileName>
+      <LongName>999046 - Disclosure - STOCKHOLDERS??? EQUITY (DEFICIT) (Details Narrative)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://ir.digitalbrandsgroup.co/role/StockholdersEquityDeficitDetailsNarrative</Role>
+      <ShortName>STOCKHOLDERS??? EQUITY (DEFICIT) (Details Narrative)</ShortName>
+      <MenuCategory>Details</MenuCategory>
+      <ParentRole>http://ir.digitalbrandsgroup.co/role/StockholdersEquityDeficit</ParentRole>
+      <Position>43</Position>
+    </Report>
+    <Report instance="form10-q.htm">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R44.htm</HtmlFileName>
+      <LongName>999047 - Disclosure - RELATED PARTY TRANSACTIONS (Details Narrative)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://ir.digitalbrandsgroup.co/role/RelatedPartyTransactionsDetailsNarrative</Role>
+      <ShortName>RELATED PARTY TRANSACTIONS (Details Narrative)</ShortName>
+      <MenuCategory>Details</MenuCategory>
+      <ParentRole>http://ir.digitalbrandsgroup.co/role/RelatedPartyTransactions</ParentRole>
+      <Position>44</Position>
+    </Report>
+    <Report instance="form10-q.htm">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R45.htm</HtmlFileName>
+      <LongName>999048 - Disclosure - SCHEDULE OF INFORMATION RELATED TO COMMON STOCK WARRANTS (Details)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://ir.digitalbrandsgroup.co/role/ScheduleOfInformationRelatedToCommonStockWarrantsDetails</Role>
+      <ShortName>SCHEDULE OF INFORMATION RELATED TO COMMON STOCK WARRANTS (Details)</ShortName>
+      <MenuCategory>Details</MenuCategory>
+      <Position>45</Position>
+    </Report>
+    <Report instance="form10-q.htm">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R46.htm</HtmlFileName>
+      <LongName>999049 - Disclosure - SHARE-BASED PAYMENTS (Details Narrative)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://ir.digitalbrandsgroup.co/role/Share-basedPaymentsDetailsNarrative</Role>
+      <ShortName>SHARE-BASED PAYMENTS (Details Narrative)</ShortName>
+      <MenuCategory>Details</MenuCategory>
+      <ParentRole>http://ir.digitalbrandsgroup.co/role/Share-basedPaymentsTables</ParentRole>
+      <Position>46</Position>
+    </Report>
+    <Report instance="form10-q.htm">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R47.htm</HtmlFileName>
+      <LongName>999050 - Disclosure - LEASE OBLIGATIONS (Details Narrative)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://ir.digitalbrandsgroup.co/role/LeaseObligationsDetailsNarrative</Role>
+      <ShortName>LEASE OBLIGATIONS (Details Narrative)</ShortName>
+      <MenuCategory>Details</MenuCategory>
+      <ParentRole>http://ir.digitalbrandsgroup.co/role/LeaseObligations</ParentRole>
+      <Position>47</Position>
+    </Report>
+    <Report instance="form10-q.htm">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R48.htm</HtmlFileName>
+      <LongName>999051 - Disclosure - CONTINGENCIES (Details Narrative)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://ir.digitalbrandsgroup.co/role/ContingenciesDetailsNarrative</Role>
+      <ShortName>CONTINGENCIES (Details Narrative)</ShortName>
+      <MenuCategory>Details</MenuCategory>
+      <ParentRole>http://ir.digitalbrandsgroup.co/role/Contingencies</ParentRole>
+      <Position>48</Position>
+    </Report>
+    <Report instance="form10-q.htm">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R49.htm</HtmlFileName>
+      <LongName>999052 - Disclosure -  SCHEDULE OF PRO FORMA CONDENSED BALANCE SHEET (Details)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://ir.digitalbrandsgroup.co/role/ScheduleOfProFormaCondensedBalanceSheetDetails</Role>
+      <ShortName> SCHEDULE OF PRO FORMA CONDENSED BALANCE SHEET (Details)</ShortName>
+      <MenuCategory>Details</MenuCategory>
+      <Position>49</Position>
+    </Report>
+    <Report instance="form10-q.htm">
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <HtmlFileName>R50.htm</HtmlFileName>
+      <LongName>999053 - Disclosure - SUBSEQUENT EVENTS (Details Narrative)</LongName>
+      <ReportType>Sheet</ReportType>
+      <Role>http://ir.digitalbrandsgroup.co/role/SubsequentEventsDetailsNarrative</Role>
+      <ShortName>SUBSEQUENT EVENTS (Details Narrative)</ShortName>
+      <MenuCategory>Details</MenuCategory>
+      <ParentRole>http://ir.digitalbrandsgroup.co/role/SubsequentEventsTables</ParentRole>
+      <Position>50</Position>
+    </Report>
+    <Report>
+      <IsDefault>false</IsDefault>
+      <HasEmbeddedReports>false</HasEmbeddedReports>
+      <LongName>All Reports</LongName>
+      <ReportType>Book</ReportType>
+      <ShortName>All Reports</ShortName>
+    </Report>
+  </MyReports>
+  <InputFiles>
+    <File>dbgi-20250630.xsd</File>
+    <File>dbgi-20250630_cal.xml</File>
+    <File>dbgi-20250630_def.xml</File>
+    <File>dbgi-20250630_lab.xml</File>
+    <File>dbgi-20250630_pre.xml</File>
+    <File doctype="10-Q" isDefinitelyFs="true" isUsgaap="true" original="form10-q.htm">form10-q.htm</File>
+  </InputFiles>
+  <SupplementalFiles/>
+  <BaseTaxonomies>
+    <BaseTaxonomy items="702">http://fasb.org/us-gaap/2025</BaseTaxonomy>
+    <BaseTaxonomy items="28">http://xbrl.sec.gov/dei/2025</BaseTaxonomy>
+    <BaseTaxonomy items="4">http://xbrl.sec.gov/ecd/2025</BaseTaxonomy>
+  </BaseTaxonomies>
+  <HasPresentationLinkbase>true</HasPresentationLinkbase>
+  <HasCalculationLinkbase>true</HasCalculationLinkbase>
+</FilingSummary>

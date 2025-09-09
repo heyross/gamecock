@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xbrl
+  xmlns="http://www.xbrl.org/2003/instance"
+  xmlns:dei="http://xbrl.sec.gov/dei/2024"
+  xmlns:ffd="http://xbrl.sec.gov/ffd/2024q2"
+  xmlns:iso4217="http://www.xbrl.org/2003/iso4217"
+  xmlns:link="http://www.xbrl.org/2003/linkbase"
+  xmlns:xbrldi="http://xbrl.org/2006/xbrldi"
+  xmlns:xlink="http://www.w3.org/1999/xlink">
+    <link:schemaRef
+      xlink:href="https://xbrl.sec.gov/ffd/2024q2/ffd-2024q2.xsd"
+      xlink:type="simple"/>
+    <context id="P09_10_2024To09_10_2024">
+        <entity>
+            <identifier scheme="http://www.sec.gov/CIK">0001326380</identifier>
+        </entity>
+        <period>
+            <startDate>2024-09-10</startDate>
+            <endDate>2024-09-10</endDate>
+        </period>
+    </context>
+    <context id="P09_10_2024To09_10_2024_1TypedMemberffdOfferingAxis">
+        <entity>
+            <identifier scheme="http://www.sec.gov/CIK">0001326380</identifier>
+            <segment>
+                <xbrldi:typedMember dimension="ffd:OfferingAxis">
+                    <dei:lineNo>1</dei:lineNo>
+                </xbrldi:typedMember>
+            </segment>
+        </entity>
+        <period>
+            <startDate>2024-09-10</startDate>
+            <endDate>2024-09-10</endDate>
+        </period>
+    </context>
+    <unit id="Unit_USD">
+        <measure>iso4217:USD</measure>
+    </unit>
+    <unit id="Unit_pure">
+        <measure>pure</measure>
+    </unit>
+    <dei:EntityCentralIndexKey contextRef="P09_10_2024To09_10_2024" id="ixv-378">0001326380</dei:EntityCentralIndexKey>
+    <ffd:SubmissnTp contextRef="P09_10_2024To09_10_2024" id="hidden121330919">424B5</ffd:SubmissnTp>
+    <ffd:FeeExhibitTp contextRef="P09_10_2024To09_10_2024" id="ixv-380">EX-FILING FEES</ffd:FeeExhibitTp>
+    <dei:EntityRegistrantName contextRef="P09_10_2024To09_10_2024" id="ixv-403">GameStop Corp.</dei:EntityRegistrantName>
+    <ffd:PrevslyPdFlg
+      contextRef="P09_10_2024To09_10_2024_1TypedMemberffdOfferingAxis"
+      id="ixv-404">false</ffd:PrevslyPdFlg>
+    <ffd:OfferingSctyTp
+      contextRef="P09_10_2024To09_10_2024_1TypedMemberffdOfferingAxis"
+      id="ixv-405">Equity</ffd:OfferingSctyTp>
+    <ffd:OfferingSctyTitl
+      contextRef="P09_10_2024To09_10_2024_1TypedMemberffdOfferingAxis"
+      id="ixv-406">Class A common stock, par value $0.001 per share</ffd:OfferingSctyTitl>
+    <ffd:FeesOthrRuleFlg
+      contextRef="P09_10_2024To09_10_2024_1TypedMemberffdOfferingAxis"
+      id="ixv-407">true</ffd:FeesOthrRuleFlg>
+    <ffd:AmtSctiesRegd
+      contextRef="P09_10_2024To09_10_2024_1TypedMemberffdOfferingAxis"
+      decimals="0"
+      id="ixv-408"
+      unitRef="Unit_pure">20000000</ffd:AmtSctiesRegd>
+    <ffd:MaxOfferingPricPerScty
+      contextRef="P09_10_2024To09_10_2024_1TypedMemberffdOfferingAxis"
+      decimals="3"
+      id="ixv-409"
+      unitRef="Unit_pure">22.168</ffd:MaxOfferingPricPerScty>
+    <ffd:MaxAggtOfferingPric
+      contextRef="P09_10_2024To09_10_2024_1TypedMemberffdOfferingAxis"
+      decimals="2"
+      id="ixv-410"
+      unitRef="Unit_USD">443368000</ffd:MaxAggtOfferingPric>
+    <ffd:FeeRate
+      contextRef="P09_10_2024To09_10_2024_1TypedMemberffdOfferingAxis"
+      decimals="INF"
+      id="ixv-411"
+      unitRef="Unit_pure">0.0001476</ffd:FeeRate>
+    <ffd:FeeAmt
+      contextRef="P09_10_2024To09_10_2024_1TypedMemberffdOfferingAxis"
+      decimals="2"
+      id="ixv-412"
+      unitRef="Unit_USD">65441.12</ffd:FeeAmt>
+    <ffd:TtlOfferingAmt
+      contextRef="P09_10_2024To09_10_2024"
+      decimals="2"
+      id="ixv-413"
+      unitRef="Unit_USD">443368000</ffd:TtlOfferingAmt>
+    <ffd:TtlFeeAmt
+      contextRef="P09_10_2024To09_10_2024"
+      decimals="2"
+      id="ixv-414"
+      unitRef="Unit_USD">65441.12</ffd:TtlFeeAmt>
+    <ffd:TtlPrevslyPdAmt
+      contextRef="P09_10_2024To09_10_2024"
+      decimals="2"
+      id="ixv-415"
+      unitRef="Unit_USD">0</ffd:TtlPrevslyPdAmt>
+    <ffd:TtlOffsetAmt
+      contextRef="P09_10_2024To09_10_2024"
+      decimals="2"
+      id="ixv-416"
+      unitRef="Unit_USD">0</ffd:TtlOffsetAmt>
+    <ffd:NetFeeAmt
+      contextRef="P09_10_2024To09_10_2024"
+      decimals="2"
+      id="ixv-417"
+      unitRef="Unit_USD">65441.12</ffd:NetFeeAmt>
+    <ffd:OfferingNote
+      contextRef="P09_10_2024To09_10_2024_1TypedMemberffdOfferingAxis"
+      id="ixv-367">&lt;div style="font-size:12pt;margin-top:0pt;margin-bottom:0pt"&gt;&#160;&lt;/div&gt;
+&lt;table cellpadding="0" cellspacing="0" style="text-align:start; BORDER-COLLAPSE:COLLAPSE; font-family:Times New Roman; font-size:10pt;border:0;width:100%"&gt;
+&lt;tr style="page-break-inside:avoid"&gt;
+&lt;td style="width:4%;vertical-align:top;text-align:left;"&gt;1.&lt;/td&gt;
+&lt;td style="vertical-align:top;text-align:left;"&gt;&lt;div style=" margin-top:0pt ; margin-bottom:0pt; font-size:10pt; font-family:Times New Roman;text-align:left"&gt;Estimated solely for the purpose of calculating the registration fee pursuant to Rule 457(c) under the Securities Act of 1933, as amended, based on the average of the high and low prices of our common stock on The New York Stock Exchange on September&#160;5, 2024. The proposed maximum offering price per share of common stock will be determined from time to time in connection with, and at the time of, the sale of the shares of common stock registered hereunder. This registration fee table shall be deemed to update the &#x201c;Calculation of Filing Fee Tables&#x201d; in the Company&#x2019;s Registration Statement on Form &lt;div style="white-space:nowrap;display:inline;"&gt;S-3&lt;/div&gt; (File &lt;div style="white-space:nowrap;display:inline;"&gt;No.&#160;333-279472)&lt;/div&gt; in accordance with Rules 456(b) and 457(r) under the Securities Act of 1933, as amended. &lt;/div&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</ffd:OfferingNote>
+    <ffd:FormTp contextRef="P09_10_2024To09_10_2024" id="ixv-418">S-3</ffd:FormTp>
+    <ffd:RegnFileNb contextRef="P09_10_2024To09_10_2024" id="ixv-419">333-279472</ffd:RegnFileNb>
+</xbrl>

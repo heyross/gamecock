@@ -1,0 +1,71 @@
+<DOCUMENT>
+<TYPE>TEXT-EXTRACT
+<SEQUENCE>2
+<FILENAME>filename2.txt
+<TEXT>
+                                                               March 20, 2025
+
+Ryan Cohen
+Chief Executive Officer
+GameStop Corp.
+625 Westport Parkway
+Grapevine, TX 76051
+
+       Re: GameStop Corp.
+           Form 10-K for Fiscal Year Ended February 3, 2024
+           Response dated February 12, 2025
+           File No. 001-32637
+Dear Ryan Cohen:
+
+        We have reviewed your February 12, 2025 response to our comment letter
+and have
+the following comment.
+
+       Please respond to this letter within ten business days by providing the
+requested
+information or advise us as soon as possible when you will respond. If you do
+not believe
+the comment applies to your facts and circumstances, please tell us why in your
+response.
+
+       After reviewing your response to this letter, we may have additional
+comments.
+Unless we note otherwise, any references to prior comments are to comments in
+our January
+29, 2025 letter.
+
+Form 10-K for Fiscal Year Ended February 3, 2024
+Our portfolio of securities may be concentrated in one or a few holdings, which
+may result in
+a single holding..., page 11
+
+1.     We note your response to prior comment 2, including your commitment to
+       maintaining this risk factor in future filings. Please revise to
+disclose the role, if any,
+       of the Investment Committee and/or the Board of Directors in
+specifically overseeing
+       any investment risk as it relates to your Investment Policy and any
+decision to
+       concentrate holdings.
+ March 20, 2025
+Page 2
+
+       Please contact Scott Stringer at 202-551-3272 or Joel Parker at
+202-551-3651 if you
+have questions regarding comments on the financial statements and related
+matters. Please
+contact Alyssa Wall at 202-551-8106 or Cara Wirth at 202-551-7127 with any
+other
+questions.
+
+
+
+                                                          Sincerely,
+
+                                                          Division of
+Corporation Finance
+                                                          Office of Trade &
+Services
+cc:   Erica Hogan
+</TEXT>
+</DOCUMENT>
